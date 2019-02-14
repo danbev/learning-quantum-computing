@@ -64,29 +64,6 @@ the Bloch sphere:
                 |1>
 ```
 
-### Superposition
-Imagine having a coin that when in the air is in both heads or tail state, like
-if you could see it in mid air you would see both states. But as soon as it lands
-it will be either 0 or 1 as the superposition collapses. The wave function gives
-a probability of if the outcome will be 0 or 1 but that is only a probability, it
-does not tell you for certain the outcome (unless it the probability is 0 or 1 
-I guess).
-
-So a classic bit can store either a 0 or a 1.
-A qbit can store a 0 and a 1 at the same time (2¹ = 2)
-
-A 2-bit classic computer can store store:
-```
-00
-01
-10
-11
-```
-But only one of these states (0, 1, 2, 3).
-A 2-bit qbit can store 2² = 4 values simultaneously. So it can store 0, 1, 2 3
-at the same time. But this is under the asumption that we don't inspect the 
-value as it would then collapse and only be in of state would it not?
-How do the qbits get used in algorithms, I'm obviously missing something here?
 
 ### Gates
 Just like the not, and, or xor, nand etc gates in classical computers there are
@@ -230,6 +207,105 @@ Examples qbit values:
 ( -1           -1² + 0² = 1 + 0 = 1
   0  )
 
+```
+Now take the qbit value (1/2 1/√2):
+```
+(1/2)² + (√3/2)² = 0.25 + 0.8660254038² = 0.25 + 0.75 = 1
+```
+When we measure this qbit it will collapse to either 0 or 1 and the probability
+in this case is 0.25 that it will be a zero and 0.75 that it will be a one.
+
+Operations on qbit are done by matrix multiplications or transformations. These
+seem to be called gates as well but I guess a gate in a circuit is really just 
+an operation.
+
+Now, if you imagine (1 0) as being (x, y) then you could produce/draw a unit cirle:
+```
+                          (0,1)
+
+     (-1/√2,1/√2)                       (1/√2,1/√2)
+
+
+
+ (-1,0)                                           (1,0)
+
+
+
+   (-1/√2,-1/√2)                        (1/√2,-1/√2)
+
+
+                          (0,-1) 
+```
+You an visualize operations using this unit cirlce, for example the bit flip
+operation on (1,0) will take you to (0,1), (1/√2, 1/√2) does nothing.
+I think that the bitflip operation is denoted with an X.
+
+
+If complex number were used then you would have to visualize a sphere.
+
+
+Hadamard gate
+```
+       1   1
+       =   -                  1
+       √2  √2      1          -
+H|0> (        ) (  0   )  = ( √2 )
+       1   -1                
+       -   --                 1
+       √2  √2                 -
+                              √2
 
 ```
+
+```
+                         (0,1)
+                              \
+     (-1/√2,1/√2)              \        (1/√2,1/√2)------+
+              \                 \                        |
+               \                 \                       |
+                \                 \                      |
++(-1,0)          \                 \              (1,0)--+
+|                 \                 \
+|                  \                 \
+|                   \                 \
++---(-1/√2,-1/√2)    \                 (1/√2,-1/√2)
+                      \
+                       \
+                        (0,-1) 
+```
+
+We can chain operations (like bitflip, hadamard) by sending qbits through them:
+```
+X = bitflip
+H = Hadamard
+
+(1 0) ---> X -----> H --------------> X -------------> H -------> X --------> (-1, 0)
+             (0,1)    (1/√2, -1/√2)     (-1/√2,1/√2)     (0, -1)    (-1, 0
+```
+
+
+
+### Superposition
+Imagine having a coin that when in the air is in both heads or tail state, like
+if you could see it in mid air you would see both states. But as soon as it lands
+it will be either 0 or 1 as the superposition collapses. The wave function gives
+a probability of if the outcome will be 0 or 1 but that is only a probability, it
+does not tell you for certain the outcome (unless it the probability is 0 or 1 
+I guess).
+
+So a classic bit can store either a 0 or a 1.
+A qbit can store a 0 and a 1 at the same time (2¹ = 2)
+
+A 2-bit classic computer can store store:
+```
+00
+01
+10
+11
+```
+But only one of these states (0, 1, 2, 3).
+A 2-bit qbit can store 2² = 4 values simultaneously. So it can store 0, 1, 2 3
+at the same time. But this is under the asumption that we don't inspect the 
+value as it would then collapse and only be in of state would it not?
+How do the qbits get used in algorithms, I'm obviously missing something here?
 
