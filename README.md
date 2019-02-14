@@ -32,13 +32,13 @@ So when you see a vector like:
 ```
 One bit with the value zero:                                     
 |0> in Dirac notation you can think (1 0) 
+
 One bit with the value one:
 |1> in Dirac notation you can think (0 1)
 ```
 It might help to think of the Dirac notation as an array index by the label 
 inside. For example, |0> means that there will be a one at index 0, |1> means
 that there will be a one in index 1.
-
 
 
 ### Quantum bits
@@ -51,6 +51,7 @@ be represented phycically as:
 
 Qbits are sometimes visualized using a shape that looks like a sphere and called
 the Bloch sphere:
+```
                 ^ z      
                 | 
                 |0>
@@ -61,8 +62,9 @@ the Bloch sphere:
              /  |
            x/   |
                 |1>
+```
 
-Superposition
+### Superposition
 Imagine having a coin that when in the air is in both heads or tail state, like
 if you could see it in mid air you would see both states. But as soon as it lands
 it will be either 0 or 1 as the superposition collapses. The wave function gives
@@ -92,6 +94,10 @@ gates in quantum computers as well. These gates are operate on a set of inputs
 and produce a set of outputs. But they can operate on all the states of the qbit
 as the same time.
 
+Classic gates:
+Is a component that receives two incoming electric currents, compares them, and
+sends on a new outgoing electric current depending on the comparision made.
+
 #### Measurement gate
 This gates takes a qbit in superposition as input and outputs either 0 or 1.
 I think the wave function is used to get a probability of if the output will be
@@ -103,17 +109,20 @@ quantum curcuit.
 Takes 2 qbits and swaps there states.
 
 
-
-
 Representing classical bits as a vector:
 One bit with the value 0:
+```
 (1
  0)
+```
 This can also be written in Dirac vector notation as: |0>
 One bit with the value 1:
+```
 (0
  1)
+
 |1>
+```
 
 If we think of this as a vector originating from the origin (0) then the
 0 will be along the x axis, really a unit on it. And 1 will be a unit in the
@@ -122,36 +131,52 @@ y axis and x will be zero.
 Quantum computing uses these vectors (and later matrixes) just like a normal
 computer would use bits and bytes.
 
+Notice in the following where multiplying a matrix with a vector flips the
+to middle bits:
+```
 (1 0 0 0   (0      (0
  0 0 1 0    1    =  0
  0 1 0 0    0       1
  0 0 0 1)   0)      0)
+```
 
 There are 4 operations on a single bit:
+```
 1) Set it to 1
 2) Set it to 0
 3) Negate/Not~
 4) Identity (multiplied by 1)
+```
 
 Identity:
+```
 f(x) = x    0 -> 0     (1 0  (1   = (1        (1 0  (0   = (0
             1 -> 1      0 1)  0)     0)        0 1)  1)     1)
+```
 Is reversable. If we know the outcome and the operation we can reverse this.
+Notice that the transformation comes first which in this case is the identity
+matrix, and the input which is the vector.
 
 Negation:
+```
 f(x) = ¬x   0 -> 1     (0 1  (1   = (0        (0 1  (0  = (1
             1 -> 0      1 0)  0)     1)        1 0)  1)    0)
+```
 Is reversable. If we know the outcome and the operation we can reverse this.
 
 Constant-0
+```
 f(x) = 0    0 -> 0     (1 1  (1  = (1*1 + 0*1  = (1     (1 1  (0   = (0*1 + 1*1  = (1
             1 -> 1      0 0)  0)    1*0 + 0*0)    0)     0 0)  1)     0*0 + 0*1)    0)
+```
 Is not reversable. If we know the outcome and the operation we still can't know
 the input value, it would be either 0 or 1.
 
 Constant-1
+```
 f(x) = 1    0 -> 1    (0 0  (1  = (0         (0 0  (0  = (0
             1 -> 1     1 1)  0)    1)         1 1)  1)    1)
+```
 Is not reversable. If we know the outcome and the operation we still can't know
 the input value, it would be either 0 or 1.
 
@@ -159,6 +184,26 @@ Quantum computers only use reversable operations.
 Also all operations are there own inverse, so if you apply the operation twice
 you get back the input value.
 
+
+### Controlled NOT (CNOT)
+This is a gate that operators on a pair of bits, one which is the control bit
+and the other the target bit. If the control bit is 1 then the target bit is
+flipped. And if the control bit is 0 then the target bit is left unchanged.
+The control bit is never updated.
+
+```
+condition/control matrix:
+C = ( 1 0 0 0  )
+      0 1 0 0
+      0 0 0 1
+      0 0 1 0
+
+
+                            1 0 0 0     0       0
+C|10> = C((0 1) x (0 1) = ( 0 1 0 0 ) ( 0 ) = ( 0 ) = (0 1) x (0 1) = |11>
+                            0 0 0 1     1       0
+                            0 0 1 0     0       1
+```
 
 A qbit is represented by (a
                           b) where a and b are complex numbers and
