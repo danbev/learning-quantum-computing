@@ -205,6 +205,31 @@ C|10> = C((0 1) x (0 1) = ( 0 1 0 0 ) ( 0 ) = ( 0 ) = (0 1) x (0 1) = |11>
                             0 0 1 0     0       1
 ```
 
-A qbit is represented by (a
-                          b) where a and b are complex numbers and
+A qbit is represented by (a b) where a and b are complex numbers and
+```
 ||a²|| + ||b²|| = 1
+```
+Examples qbit values:
+```
+  1
+( -
+  √2
+               (1/√2)² + (1/√2)² = 0.7071067812² + 0.7071067812² = 0.5 + 0.5 = 1
+  1
+  -
+  √2 )
+
+  1
+( -
+  2
+               (1/2)² + (√3/2)² = 0.25 + 0.8660254038² = 0.25 + 0.75 = 1
+  √3
+  -
+  2  )
+
+( -1           -1² + 0² = 1 + 0 = 1
+  0  )
+
+
+```
+
