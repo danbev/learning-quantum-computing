@@ -283,6 +283,46 @@ H = Hadamard
              (0,1)    (1/√2, -1/√2)     (-1/√2,1/√2)     (0, -1)    (-1, 0
 ```
 
+In quantum computing all operations must be reversable (why is that?). But with
+a single bit setting it to zero or one is not reversible. 
+For example, say you have 0 and constant-0 it, the input could have been 1 or
+zero and we don't know which. 
+```
+                  +---+
+output |0> -------|   |-----> |0> output'
+                  |BB |
+input  |x> -------|   |-----> |x> input'
+                  +---+
+```
+
+
+### Entanglement
+If the product state of two qbits cannot be factored they are said to be entangled.
+What does that mean?  
+We want to take a vector and factor out the products of it.
+```
+x in this case is the tensor product operator. Should be an x with a circle around it.
+                 x₀y₀
+ (x₀) x (y₀) = ( x₀y₁ )
+  x₁     y₁      x₁y₀
+                 x₁y₁
+```
+
+```
+                       a * c should be 1/√2
+  1        a      c    a * d should be 0
+( -  ) = ( b ) x (d) = b * c should be 0
+  √2                   b * d should be 1/√2
+  0      
+
+  0
+  1
+  -
+  √2
+```
+Working backwards, notice that we "should" be able to factor the product state into tensor product multiplications but this is not possible, there is no solution for these values.
+
+
 
 
 ### Superposition
