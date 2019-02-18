@@ -384,6 +384,14 @@ This is why we don't see thing in superposition state in everyday life and also
 why it is so hard to create a quantum computer. They need to isolate the particle
 to avoid interference with the outside environment. 
 
+The coefficients in the wave function can be complex numbers, for example:
+```
+|Ψ> = d+ei|state1> + ...
+
+d = real number
+e = number of units in the imaginary dimension
+```
+
 #### Swap Gate
 Takes 2 qbits and swaps their state.
 ```  
@@ -450,3 +458,69 @@ This design is used by IBM’s cloud platform Q Experience which is the basis fo
 the code used in this book. It is also used by Google and a private venture called 
 Quantum Circuits, Inc. (QCI)
 
+#### Interference
+Observables are properties of an object that we can measure, for example the objects
+position, it's speed, it's spin. etc.
+In quantum mechanics an object in superposition is said to have all the possible
+measurements at the same time.
+For a normal everyday object just knowing the object position does not say anything
+about the objects speed. The position of the object is said to be independant of the
+speed.
+If we have a particle and want to know its position the best we can do is use the
+wave function to get a probability of the particles position:
+```
+|Ψx> = a|x₁> + b|x₂> + c|x₃ + ...
+
+where x is a set of all the different possitions.
+```
+Lets say we are also interested in the objects speed. Again we only have the wave
+function so it must be in the superposition just like the property x (position).
+In quantum mechanics x and y are not independant, instead you can actually get the
+probability of y using x!
+"There is only one wave function and it knows everything there is to know about the
+particle"
+We can write the wave function with whatever observable we want:
+```
+|Ψ> = 
+    = a|x₁> + b|x₂> + c|x₃ + ...
+    = a|y₁> + b|y₂> + c|y₃ + ...
+```
+
+
+#### Spin
+The observables in an electron are the up/down spin and the right left spin.
+```
+|ψ> = a₁|up> + a₁|down>
+
+|ψ> = √1/4|up> + √3/4|down>
+```
+Being up/down I think refers to how the electromagnetic field behaves around
+the particle. The concrete example above still means that the probability is either
+up or down, not that we would ever measure it as 3/4 down or 1/4 up.
+With just the up/down we can calculate the probability for left/right.
+Convert up/down to left/right:
+```
+|ψ> = a₁|up> + a₁|down>
+|ψ> = a₁|left> + a₁|right>
+The coefficients stay the same.
+
+|ψ> = √1/4|up> + √3/4|down>
+|ψ> = √1/4|up> + √3/4|down>
+```
+A particle that is either up/down should not be pointing either left or right. 
+Think of a bar magnet in this case to visualize this. So in that case left/right
+are equally probable 50/50.
+```
+|up>   = √1/2|right> + √1/2|left>
+|down> = √1/2|right> - √1/2|left>
+```
+The electrons don't actually spin but are magnetic. It was first though that the
+particle were spinning around their own axis but this turned out to be wrong.
+
+#### De Broglie Hypothesis
+"Matter is a wave as well as a particle.
+```
+     h
+λ =  -
+     P
+```
