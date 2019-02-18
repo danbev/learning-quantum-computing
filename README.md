@@ -373,7 +373,16 @@ spits either a 0 or 1.
 
 Regarding this probability, I was wondering how we can compute using it, I mean
 there is no guarantee that we find a value i a particular state even though the
-probability is high. Right, but if you can run it many times.
+probability is high. Right, but if you have many particles they you can use
+the probability. Hmm, so is a single qbit implemented using multiple particles 
+then or how does that work.
+
+Measurement.
+We have learnt that measuring the state will collapse the wave function and this
+happens all the time to particules when they get hit by light or other interaction. 
+This is why we don't see thing in superposition state in everyday life and also
+why it is so hard to create a quantum computer. They need to isolate the particle
+to avoid interference with the outside environment. 
 
 #### Swap Gate
 Takes 2 qbits and swaps their state.
