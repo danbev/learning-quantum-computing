@@ -490,7 +490,7 @@ We can write the wave function with whatever observable we want:
 #### Spin
 The observables in an electron are the up/down spin and the right left spin.
 ```
-|ψ> = a₁|up> + a₁|down>
+|ψ> = a₁|up> + a₂|down>
 
 |ψ> = √1/4|up> + √3/4|down>
 ```
@@ -500,8 +500,8 @@ up or down, not that we would ever measure it as 3/4 down or 1/4 up.
 With just the up/down we can calculate the probability for left/right.
 Convert up/down to left/right:
 ```
-|ψ> = a₁|up> + a₁|down>
-|ψ> = a₁|left> + a₁|right>
+|ψ> = a₁|up> + a₂|down>
+|ψ> = a₁|left> + a₂|right>
 The coefficients stay the same.
 
 |ψ> = √1/4|up> + √3/4|down>
@@ -518,9 +518,304 @@ The electrons don't actually spin but are magnetic. It was first though that the
 particle were spinning around their own axis but this turned out to be wrong.
 
 #### De Broglie Hypothesis
-"Matter is a wave as well as a particle.
+"Matter is a wave as well as a particle" and this forumla gives as a way to 
+find the wave lenght of the particle:
 ```
      h
 λ =  -
      P
+```
+So we have a particle which has a wave function. The wave function does not only
+tell us the posistion of the particle but also the speed/momentum of the particle.
+```
+momentum = speed * mass
+```
+|ψ> = a₁|slow> + a₂|fast> + a₃|faster> + a₄|warp-speed> + ...
+```
+What if we have a particle and it has a momentum eigenstage, how do we find it's
+position?
+
+#### Polarisation
+```
+                                          o
+                                         /
+                                     +---+
+                                     |---|
+                                     |   |
+                                     +---+
+                             o        /
+                            /        /
+                        +---+     +---+
+                        |---|     | / |
+                        |   |     |/  |
+        o               +---+     +---+
+       /                /           /
+      /                /           /
+   +---+            +---+        +---+
+   | | |            | | |        | | |
+   | | |            | | |        | | |
+   +---+            +---+        +---+
+   /                /             /
+  /                /             /
+ o                o             o
+
+```
+1) The first example shows the case where a vertical polarisation filter is used in 
+which case a photon will either pass through or be blocked.
+2) The second example shows two filters, first a vertical filter which like the first
+case will allow some photons to pass through but will those that do will be blocked
+by the second horizontal filter. 
+3) The third example we have the vertical filter, then a 45 degree filter, and then
+the horizontal filter. 
+
+Now, just looking at the examples we can see that the second and third example are
+similiar but we have just added a filter in the middle. In this case we would expect
+that nothing gets pass through but this is not the case!!
+
+Now lets say we have a source `X` that produces entangled photons, so even though 
+we don't know what spin they have they will always produce the same spin when measured.
+```
+            o <--------- X ---------> o
+   
+```
+And lets have three filters:
+```
+Vertical    120 degrees  240
++---+       +---+        +---+
+| | |       | \ |        | / |
++---+       +---+        +---+
+  1           2            3
+```
+Now we will have two sites that perform measurements `A` and `B` which will both
+have the set of filters above and will randomly choose which one to use.
+According to EPR the photon will contain information that will tell the photon
+how to behave regardless of what filter is encounters. So the photon must contain
+information if it will pass through the vertical filter, or the 120 degree filter, 
+or the 240 degree filter. 
+
+So we have three filters and 8 combinations possible:
+```
+    Vertical (1)   120 (2)    240 (3)
+1)           Yes       Yes        Yes
+2)           Yes       Yes         No
+3)           Yes        No        Yes
+4)           Yes        No         No
+5)            No       Yes        Yes
+6)            No       Yes         No
+7)            No        No        Yes
+8)            No        No         No
+```
+So we might create an entangled photon with the following hidden variables:
+```
+{Yes, No, Yes}
+```
+If measured with the vertical filter this photon would pass through, as it would 
+pass through the 240, but would be blocked by the 120 filter. And remember that
+both photons will have the same values for their hidden variables, but the filter
+at both sites are randomly choosen.
+
+So we have different combinations of the filters too. We can ignore the cases
+when both filters are the same this as it will behave the same at both sites)
+```
+                                        Filter combinations
+    Vertical (1)   120 (2)    240 (3)   1&2   2&3   1&3
+1)           Yes       Yes        Yes   Same  Same  Same   (passes through all filters)
+2)           Yes       Yes         No   Same  Diff  Diff
+3)           Yes        No        Yes   Diff  Diff  Same
+4)           Yes        No         No   Diff  Same  Diff
+5)            No       Yes        Yes   Diff  Same  Same
+6)            No       Yes         No   Diff  Diff  Same
+7)            No        No        Yes   Same  Diff  Diff
+8)            No        No         No   Same  Same  Same   (does not pass through any filters)
+```
+So notice that 1 and 8 both pass through or don't pass through, the results are the same.
+For the remaining 6 we can see that we get the same outcome, either pass or blocked, 
+`1/3` of the time.
+```
+So we expect that 1/3 or the outcomes to be the same if there are hidden variables!
+```
+So if we ran the experiment 100 times we would expect the outcomes to match at least
+33 times. So outcome is >= 1/3 of the time the experiment is performed.
+
+```
+  +--------------++------------+
+  |   A        / | \     B     |
+  |           /  |  \          |
+  |    1     |   2   |    3    |
+  |          |___|___|         |
+  |         / \  5  / \        |
+  |        / 4 \ |/  6 \       |
+  +--------------+-------------+
+          |             |
+          |             |
+          |     C       |
+          |     7       |
+          |             |
+          +-------------+
+A not B + B not C >= A not C
+A not B = 1 + 4
+B not C = 3 + 2
+A not C = 1 + 2
+(1 + 4) + (3 + 2) >= (1 + 2)
+(1 + 2) + (4 + 2) >= (1 + 2)
+```
+
+
+#### Einstein, Podolsky and Rosen (EPR)
+In 1935, Albert Einstein collaborated with Boris Podolsky and Nathan Rosen published
+a paper were they stated that quantum mechanics (QM) is incomplete because there existed 
+so called "Hidden Variables" which must explain at least some of the uncertainty 
+inherent in QM. Hidden Variables means that there are microscopic properties of 
+fundamental particles that we are unable to observe directly by means of testing, 
+perhaps due to technological limitations that might exist at some future time. I.e. 
+maybe we simply need a bigger microscope to see the details of what is going on 
+at the very smallest level. But since we can't observe them, they may be "hidden" 
+now - but perhaps if we knew more about them then that might explain the otherwise 
+mysterious behavior of particles. The Heisenberg Uncertainty Principle (HUP), 
+a key component of Quantum Mechanics, says that these variables are not just 
+unobservable; they simply don't exist outside of the context of an observation.
+
+
+#### The Heisenburg Uncertainty Principal (HUP)
+
+
+
+#### Position Eigenstate
+Just means that the particle will actually be in this location with 100% certainty.
+
+#### Bell's theorem
+Two electrons are emitted simultaneously from a single source in opposite directions:
+```
+            o <--------- X ---------> o
+   
+o = entangled electrons so measurement will always produce the same result.
+```
+For example, measuring the vertical spin of both, either both electrons are spin
+up, or both are spin down.
+When we measure the spin in vertical direction it will either be +1/2 or -1/2 (up 
+or down) and never anything in between. The same can be done to measure the horizontal
+spin but we can't measure these at the same time.
+So we can't measure the vertical/horizontal spin but we can measure two entangled
+electrons at the same time.
+```
+ Detector                                       Detector
++-----------+                                  +-----------+
+|  Setting A|      o <--------- X ---------> o |  Setting A|
+|  Settnig B|                                  |  Setting B|
+|  Settnig C|                                  |  Setting C|
++-----------+                                  +-----------+
+
+Setting A: is the spin up?
+Setting B: is the right?
+Setting C: is the spin 45% between up and right
+```
+If both detectors are set to A then the detector will give the same answer (either both
+are passed/blocked. Likewise for B and C.
+The assumption here is that the electrons have predefined answers (hidden variables)
+for these cases. So an electron can be described as a set of these variables:
+```
+{yes, yes, yes}
+{yes, yes, no}
+{yes, no, yes}
+{yes, no, no}
+{no, no, yes}
+{no, yes, no}
+{no, yes, yes}
+{no, no, no}
+```
+So we have three differrent values, either yes/no, that can be combined. So that
+is 2³.
+
+
+So if we set the first detector to A and the second to C, how often do they 
+produce different outcomes:
+```
+ Detector                                       Detector
++-----------+                                  +-----------+
+|* Setting A|      o <--------- X ---------> o |  Setting A|
+|  Setting B|                                  |  Setting B|
+|  Setting C|                                  |* Setting C|
++-----------+                                  +-----------+
+```
+
+
+
+To measure the spin we can use polarization, where filters are used at different
+angles. If the spin and the angle line up the electron will pass through the filter,
+but if the spin is different it will not pass.
+
+
+
+
+So, lets use three different filters in three combinations:
+```
+Experiment A: 0 degrees 90 degrees
+We measure one of the entangled electrons with a filter of angle 0 and
+the other electron with a filter of angle 90.
+
+                                         |
+    -----   o <--------- X ---------> o  |
+                                         |
+            
+
+Experiment B: 0 degrees 45 degrees
+We measure one of the entangled electrons with a filter of angle 0 and the
+other electron with a filter of angle 45.
+                                          /
+    ------  o <--------- X ---------> o  /
+                                        /
+
+Experiment C: 45 degrees 90 degrees
+We measure one of the entangled electrons with a filter of angle 45 and the
+other electron with a filter of angle 90.
+       /                                       |
+      /     o <--------- X ---------> o        |
+     /                                         |
+```
+We are interested in the cases where the outcome is the same, that is if the
+electrons pass (green) or are blocked (red) by the filters.
+
+Every electron is either spin-up or spin-down, and every electron is either
+spin-left or spin-right.
+In the Bell theorem we also have a 45 degree filter:
+```
+up right up-right
+up right down-left
+up left up-right
+up left down-left
+down right up-right
+down right down-left
+down left up-right
+down left down-left
+```
+
+So regardless of which filter we choose the two electrons should behave the same.
+
+Number(A, not B) + Number(B, not C) is greater than or equal to Number(A, not C)
+```
+Lets take a concrete example of this.
+```
+Let `A` be the male
+Let `B` be height over 181
+Let `C` be brown eyes
+
+Number(male, not taller than 181) + Number(taller than 181, not brown eyesC) >=  Number(male, not brown eyes)
+```
+The number of male students how are under 181, plus everyone taller than 181, but 
+that don't have brown eyes. This number should be greater than or equal to the number
+of male without brown eyes.
+
+
+```
+R R R
+R R G
+R G R
+R G G
+G R R
+G G R
+G R G
+G G G
+
+2³ = 8
+If we remove `R R R` and `G G G`.
 ```
