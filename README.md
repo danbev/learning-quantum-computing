@@ -530,6 +530,7 @@ tell us the posistion of the particle but also the speed/momentum of the particl
 ```
 momentum = speed * mass
 ```
+```
 |ψ> = a₁|slow> + a₂|fast> + a₃|faster> + a₄|warp-speed> + ...
 ```
 What if we have a particle and it has a momentum eigenstage, how do we find it's
