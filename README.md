@@ -399,7 +399,7 @@ Takes 2 qbits and swaps their state.
 S = (0 0 1 0)
      0 1 0 0
      0 0 0 1
-
+```
 
 #### Pauli or X Gate
 Similar to a NOT gate in classical computing. This will rotate the qbit 180 degrees
