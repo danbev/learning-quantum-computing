@@ -35,7 +35,6 @@ So we take that and use plank constant to calculate the energy:
 E = (6.626x10^-34)(2.998x10^8)
 ```
 
-
 Photons have no mass which means they travel at the speed of light (only at the
 speed of light). This is true for anything that has mass=0.
 White light can be produced by combining red/green/blue together.
@@ -46,6 +45,12 @@ E = hf                h = 6.626x10^-34 Joule/sec f=frequency, the number of osci
 c = fλ                λ = the wavelength in meters
 f = c/λ
 E = h * c/λ
+```
+
+Momentum is a measurement of mass in motion, so it is how much mass is in how
+much motion. The symbol `p` is used for momentum.
+```
+p = m * v                 m=mass, v=velocity
 ```
 
 When something is traveling near the speed of light then the classical forumla
@@ -68,6 +73,7 @@ The speed of light/frequency is lamda (wavelenght);
 λ = h/p
 p = h/λ
 ```
+
 
 Wavelength is the distance between two top/bottom oscillations.
 Amplitude is the distance from 0 of the oscillation. The wave rises equally
@@ -95,6 +101,12 @@ resulting wave was greatest (the locations of constructive interference).
 If we take the particle view the bright line corresponds to areas where the photons
 are most likely to land during any period of time.
 
+And remember that we can't predict exactly where any individual photon or electron
+will land after traversing the doulbe slits but we can see the pattern we can say
+that the probability is higher for certain positions.
+The probability is high where the amplitude is high due to constructive interference.
+
+The square of a particle’s wave function at a point in space and time is equal to the probability of finding the particle at that point in space and time—is attributed to the German physicist Max Born. 
 
 #### Atom trap
 
