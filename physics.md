@@ -77,6 +77,19 @@ Photons do not oscillate in position or time; rather the oscillations come from
 the corresponding electromagnetic field. That electromagnetic field, in turn, 
 can be measured directly by its effect on charged particles.
 
+Einstein’s theory of relativity showed us that mass is a form of energy. So in 
+analogy with light, massive particles (like electrons) can be considered to be 
+chunks of energy associated with matter waves. The particles themselves are 
+not waves. They don’t oscillate up and down as they travel.
+
+With all about a photon being considered a wave and a particle we have to separate
+this when thinking about the photon. When considering the photon as a particle
+imaging it traveling in a straight path until it bounces off something or gets
+absorbed. And something would be an atom I think. The waves are periodic changes
+in the strenght of the electromagnetic field. So there is no actual motion in the
+perpendicular direction in the direction that the wave is traveling.
+
+#### Atom trap
 
 #### Energy
 ```
