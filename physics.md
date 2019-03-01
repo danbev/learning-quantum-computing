@@ -89,6 +89,13 @@ absorbed. And something would be an atom I think. The waves are periodic changes
 in the strenght of the electromagnetic field. So there is no actual motion in the
 perpendicular direction in the direction that the wave is traveling.
 
+Recall the two slit experiment, if we take the view point of photons as waves
+the brightest parts of the pattern that appear is where the amplitude of the 
+resulting wave was greatest (the locations of constructive interference).
+If we take the particle view the bright line corresponds to areas where the photons
+are most likely to land during any period of time.
+
+
 #### Atom trap
 
 #### Energy
