@@ -105,6 +105,9 @@ And remember that we can't predict exactly where any individual photon or electr
 will land after traversing the doulbe slits but we can see the pattern we can say
 that the probability is higher for certain positions.
 The probability is high where the amplitude is high due to constructive interference.
+Remember that amplitude is the distance from 0 of the oscillation. The wave rises equally
+above and below zero. So from zero to where the wave turns direction up or 
+down.
 
 The square of a particle’s wave function at a point in space and time is equal to the probability of finding the particle at that point in space and time—is attributed to the German physicist Max Born. 
 
@@ -119,6 +122,8 @@ Energy = Planks constant * wave frequency
 So a photon is something that has energy but no mass. There is a limit to the
 amount of energy that a photon can disposit, and it cannot disposit any less
 that a certain amount (quantum).
+Photons are associated with electromagnetic waves and it is these electromagnetic
+waves that oscialate and not the photon itself.
 
 Light and all electromagnetic radiation displays both wave-like and particle-like
 behaviour.
@@ -168,3 +173,6 @@ surface it is on.
 
 ```
 
+#### Wave packet
+This describes a wave that is localized to place in time and space. So it would
+zero amplitude everywhere except around a specific location.
