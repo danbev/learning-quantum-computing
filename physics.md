@@ -139,6 +139,7 @@ frequencies.
 The atom is a structure with a nucleus which is the center of the atom and it contains
 protons (positive) and neutrons (negative). The outer regions of the atom hold electrons which orbit the
 nucleus.
+
 Protons and neutrons have approximately the same mass, about 1.67 × 10^-24 grams.
 Electrons are much smaller in mass than protons, weighing only 9.11 × 10^-28 grams, 
 or about 1/1800 of an atomic mass unit. 
@@ -147,6 +148,29 @@ or about 1/1800 of an atomic mass unit.
 A electron can move along the states/rings around the atom but absorbing the 
 energy from an photon in which case it moves to an outer more ring, or it can emit
 energy in form of a proton (perhaps more I'm not sure) to move inwards.
+
+The number of protons and neutrons comprising an atoms nuclues determines that
+atom's mass number (nucleon number).
+
+### Quarks
+Atoms are constructed of two types of elementary particles: electrons and quarks.
+Quarks are what the proton and neutron are made of. Each proton and neutron are
+made up of three quarks of two types, up quarks and down quarks.
+```
+Up quark charge:   +2/3
+Down quark charge: -1/3
+```
+Protons:
+```
++2/3 + 2/3 - 1/3 = 1 (electrical charge)
+```
+Neutrons:
+```
++2/3 - 1/3 - 1/3 = 0 (electrical charge)
+```
+The necleus is held together by the "stong nuclear force".
+
+A quark is a fast moving point of energy
 
 #### Newton (N)
 ```
@@ -170,6 +194,10 @@ get a sence of how much 1 N is. This is the force that the bar pushes down on th
 surface it is on.
 
 #### Schrödinger's Equation
+Is a tool to understand how a particles wave function changes at different points
+in space and how it evolves over time. One would solve the equation for a specific
+particle interacting with a physical system and the result is a wave function for
+that particle.
 ```
 -h ∂²Ψ           ∂ψ
 -- --- + Vψ = ih --
