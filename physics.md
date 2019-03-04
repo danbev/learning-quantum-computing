@@ -41,13 +41,13 @@ White light can be produced by combining red/green/blue together.
 
 The amount of energy in one photon:
 ```
-E = hf                h = 6.626x10^-34 Joule/sec f=frequency, the number of oscilaations per second (Hz)
+E = hf                h = 6.626x10^-34 Joule/sec, f=frequency, the number of oscilaations per second (Hz)
 c = fλ                λ = the wavelength in meters
 f = c/λ
 E = h * c/λ
 ```
 
-Momentum is a measurement of mass in motion, so it is how much mass is in how
+Momentum is a `measurement of mass in motion`, so it is how much mass is in how
 much motion. The symbol `p` is used for momentum.
 ```
 p = m * v                 m=mass, v=velocity
@@ -56,10 +56,14 @@ p = m * v                 m=mass, v=velocity
 When something is traveling near the speed of light then the classical forumla
 for momentum does not hold true, instead the momentum of a photon is:
 ```
-E² = m₀²c⁴ + p²c²    m₀=is the rest mass, p=the momentum of the partical squared
-light has no rest mass
+E² = m₀²c⁴ + p²c²    m₀=is the rest mass, p=the momentum of the particle squared
+
+Light has no rest mass so the first term of the above addition becomes 0:
 E² = m₀²c⁴ + p²c²    
 E² = 0 + p²c²    
+E² = p²c²    
+√E² = √p²√c²
+E = pc
 
 E = hf
 
@@ -116,7 +120,7 @@ The square of a particle’s wave function at a point in space and time is equal
 #### Energy
 ```
 Energy = Planks constant * wave frequency
-     E = hf
+E = hf
 ```
 #### Photon
 So a photon is something that has energy but no mass. There is a limit to the
@@ -176,3 +180,56 @@ surface it is on.
 #### Wave packet
 This describes a wave that is localized to place in time and space. So it would
 zero amplitude everywhere except around a specific location.
+
+### Position and momentum
+Why are there uncertainties in measuring a particles position and momentum. Recall
+that momentum is the measurement of motion of a moving body and is the product
+of mass and velocity.
+
+Say we want to measure the position of a particle moving in direction x.
+```
+-----------------------------------> x
+  particle moving in direction x
+```
+We want to measure x with the smallest possible uncertaity, call it delta x. So
+we will have 
+```
+x+∆x
+```
+And we want to make ∆x as small as possible which will give the most accurate 
+possition of the particle we are measuring. So to locate the object we have to
+look at it which we do by shining light on it so that light bounces off it.
+But the light used to find the particle is under the constraint of the lights
+wavelenght, like we can't detect something smaller than the wavelength of the light
+itself. So the following must hold true
+```
+λ < ∆x
+```
+Also when our particle gets hit by a photon it will be nudged a little in some
+undetermined direction. How much it will get nedged?  Recall that the wavelenght
+of a particle is equal to Plank's constant divided by momentum which is true for
+both the particle and the photon hitting it. Momentum is equal to Planck's constant
+divied by the wavelength. So the nudging of the particle will affect its momentum
+Δp, so we could state this as:
+```
+λ = (h / Δp)
+```
+We can combine both of these into:
+```
+(h / Δp) < Δx
+h < (Δp x Δx)
+```
+So the product of the two uncertainties must be larger than Planck's constant.
+This Heisenbergs uncertainty principal.
+We can measure the position of our particle to extremely small Δx. But as we do
+that we will make it impossible to measure momentum very accurately. As shown above
+the larger one is the lower the other was to be with an absolute minium being 
+Planck's constant. So it is impossible to make the product smaller than Planck's constant
+which means making one of the uncertainties really small will cause the other
+to be larger.
+
+### Conjugate Pairs
+Are a pair of observables that obey the Heisenberg uncertainly principal.
+Time and energy also have the same uncertainly behavious as we've seen with
+position and momentum.
+
