@@ -152,26 +152,6 @@ energy in form of a proton (perhaps more I'm not sure) to move inwards.
 The number of protons and neutrons comprising an atoms nuclues determines that
 atom's mass number (nucleon number).
 
-### Quarks
-Atoms are constructed of two types of elementary particles: electrons and quarks.
-Quarks are what the proton and neutron are made of. Each proton and neutron are
-made up of three quarks of two types, up quarks and down quarks.
-```
-Up quark charge:   +2/3
-Down quark charge: -1/3
-```
-Protons:
-```
-+2/3 + 2/3 - 1/3 = 1 (electrical charge)
-```
-Neutrons:
-```
-+2/3 - 1/3 - 1/3 = 0 (electrical charge)
-```
-The necleus is held together by the "stong nuclear force".
-
-A quark is a fast moving point of energy
-
 #### Newton (N)
 ```
 N = Kg * m * S^-2
@@ -199,10 +179,16 @@ in space and how it evolves over time. One would solve the equation for a specif
 particle interacting with a physical system and the result is a wave function for
 that particle.
 ```
--h ∂²Ψ           ∂ψ
--- --- + Vψ = ih --
-2m ∂x²           ∂t
+ (kenetic energy) + (potential energy)    = (total enery)
 
+   h²  ∂²Ψ(x,t)                             ih  ∂Ψ(x,t)
+- ---- --------    + U(x)Ψ(x,t)           = --- -------
+  8mπ²  ∂x²                                  2π  ∂t
+
+h = Planck's constant
+m = mass (never changes in the equation)
+i = imaginary number
+Ψ = is function of location x and time t.
 ```
 
 #### Wave packet
@@ -260,4 +246,73 @@ to be larger.
 Are a pair of observables that obey the Heisenberg uncertainly principal.
 Time and energy also have the same uncertainly behavious as we've seen with
 position and momentum.
+
+### Hadron
+Is a composite particle made up of two or more quarks. There are two families
+or hadrons, baryons and mesons.
+```
+1) Baryons have an odd number of quarks (usually 3).
+Examples: Protons, Neutons
+2) Mesons have an even number of quarks (usually one quark and an anti-quark).
+Examples: Pions
+```
+
+### Quarks
+Atoms are constructed of two types of elementary particles: electrons and quarks.
+Quarks are what the proton and neutron are made of. Each proton and neutron are
+made up of three quarks of two types, up quarks and down quarks.
+```
+Up quark charge:   +2/3
+Down quark charge: -1/3
+```
+Protons:
+```
++2/3 + 2/3 - 1/3 = 1 (electrical charge)
+```
+Neutrons:
+```
++2/3 - 1/3 - 1/3 = 0 (electrical charge)
+```
+The necleus is held together by the "stong nuclear force".
+
+A quark is a fast moving point of energy
+
+### Four Fundamental forces
+```
+Gravity
+All particles with mass are influenced by this force
+
+Electromagnetic force
+Acts on any particle with an electric charge.
+
+Weak nuclear force
+Operate on the ranges found inside the atomic nucleus.
+
+Strong nuclear force
+Operate on the ranges found inside the atomic nucleus.
+
+```
+
+### Standard Model
+Particles are divided into fermions and bosons. Fermions are the building block
+of matter, and bosons are force carrying particles
+Fermions are further divided into two families of elementary particles named
+quarks and leptons. Quarks are grouped/combine in two and threes to make up 
+composite particles called Hadrons.
+Subatomic particles with 3 quarks are called baryons. Those made of quark/anti-quark
+pairs are called mesons.
+There are 6 quark flavours:
+```
+up
+down
+strange
+charm
+top
+bottom
+```
+Quarks have something, a quality, that is called colour charge. This allows them
+to interact via the strong force.
+
+
+Fermions                                     Bosons
 
