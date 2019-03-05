@@ -1,3 +1,19 @@
+#### Force
+If you know how hard you hit something (the force, F) you can predict how predict
+how fast and in what direction that something will begin to move(its acceleration).
+```
+F = ma
+m = mass
+a = accelleration
+```
+Remember that mass is measure of the amount of matter in a body. Weight is the
+force by which a body is attracted to Earth.
+
+Potential energy can be though of as stored energy that has potential to cause
+motion. This varies in different positions. Take the gravitational force which
+gets weaker as two masses move away from each other.
+
+
 #### Max Planck
 1901 Radiation is emmitted in descrete packages of energy (quanta).
 A quantum is the smallest unit of energy (like there cannot be 1/2 quantam).
@@ -115,8 +131,6 @@ down.
 
 The square of a particle’s wave function at a point in space and time is equal to the probability of finding the particle at that point in space and time—is attributed to the German physicist Max Born. 
 
-#### Atom trap
-
 #### Energy
 ```
 Energy = Planks constant * wave frequency
@@ -189,6 +203,7 @@ h = Planck's constant
 m = mass (never changes in the equation)
 i = imaginary number
 Ψ = is function of location x and time t.
+U = potential energy of the particle
 ```
 
 #### Wave packet
