@@ -53,8 +53,8 @@ Qbits are sometimes visualized using a shape that looks like a sphere and called
 the Bloch sphere:
 ```
                 ^ z      
-                | 
                 |0>
+                |
                 |
                 |
                 -------------------------> y
@@ -63,6 +63,19 @@ the Bloch sphere:
            x/   |
                 |1>
 ```
+So we can have a 0 or a 1 state depending on if the vector is pointing up or
+pointing down. But it call also be pointing anywhere on the sphere, at least
+until you measure it, a which point it will collapse into either 0 or 1. In quantum 
+computing you measure a qubit with a gate which takes in the superposition vector
+and spits out 0 or 1 and the probability of 0 or 1 depends on the state of the
+qbit.
+
+How do we using this visualization. One way I've heard is to think of this earth
+and latitud, longitude, and amplitude that we use to identify a position on earth.
+If we draw a parallel with classical bits they would be like only being able to
+be positioned at the south pole or the north pole.
+So `|0>` is a vector (1 0) 
+
 
 
 ### Gates
