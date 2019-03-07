@@ -40,6 +40,34 @@ It might help to think of the Dirac notation as an array index by the label
 inside. For example, |0> means that there will be a one at index 0, |1> means
 that there will be a one in index 1.
 
+If we have a normal vector (3 4) then we can calculate the lenght using:
+```
+length = √3²+4² = 5
+```
+When we have qbits we talk about magnitude instead. Say we have the following:
+```
+5 + i
+magnitude = √5² + 1²
+          = √25 + 1
+          = √26
+
+Notice that i is not used when calculating the magnitude/length
+
+5 = 0i
+magnitude = √5²
+          = 25
+          = 5
+Now take the following number:
+3 + 4i
+magnitude = √3² + 4²
+          = √9 + 16
+          = √25
+          = 5
+Both have the same magnitude?
+
+```
+Just remember that i² = -1. This is just per definition (something that is made up
+to be this way to fit calculations/obervations).
 
 ### Quantum bits
 A qbit can take on a value of either 0 or 1 just like a normal bit. They can 
