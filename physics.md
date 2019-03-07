@@ -205,6 +205,13 @@ i = imaginary number
 Ψ = is function of location x and time t.
 U = potential energy of the particle
 ```
+Total energy term is how fast the wave function is changing in time.
+
+### Free particle
+Is a particle moving through a region of space where no external forces act upon
+it.
+The wave function for a free particle is called a plane wave. This is formed
+by two sine functions (one real and one imaginary).
 
 #### Wave packet
 This describes a wave that is localized to place in time and space. So it would
