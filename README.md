@@ -104,6 +104,23 @@ If we draw a parallel with classical bits they would be like only being able to
 be positioned at the south pole or the north pole.
 So `|0>` is a vector (1 0) 
 
+### Tensor product
+```
+Ψ₁ = [1
+      0 ]
+Ψ₂ = [0
+      1 ]
+
+ψ₁ tensor product Ψ₂:
+[
+  1 * [0          [0
+       1]       =  1
+  0 * [0           0
+       1]          1]
+]
+```
+The above is how quantum entanglement works. Ψ₁ represents one particle and Ψ₂
+a different particle.
 
 
 ### Gates
