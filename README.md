@@ -12,6 +12,29 @@ Notice the usage of brackets which is why it is called `bra-ket` or `Dirac` nota
 Remember that what is inside the brackets is just a label for the vector and can
 be anything (even a number).
 
+The ket is just the pipe symbol and the less-than around the symbol and means 
+that we are dealing quantum state in represented by a column vector:
+```
+|0> ket [1            "zero-ket"
+         0]
+
+|1> ket [0            "one-ket"
+         1]
+```
+The bra part is `<0|` the opposite of ket and is a row vector:
+```
+<0| bra [1 0]
+<1| bra [0 1]
+```
+Bascially the notation was invented to separate column vectors from row vectors.
+
+
+So, a particle has a spin in that is can spin like the earth but in any direction.
+How can this be represented with a matrix?  
+The answer is to use complex numbers. This is point of the Bloch sphere I think
+to have a visual representation of the spin. If we did not have complex number
+we would only be able to rotate in a two dimentional plane.
+
 Addition of vectors:
 ```
 |a> + |b> = |c>
@@ -122,12 +145,50 @@ So `|0>` is a vector (1 0)
 The above is how quantum entanglement works. Ψ₁ represents one particle and Ψ₂
 a different particle.
 
+You can have combinations of waves:
+```
+0.5Ψ₁ + 0.5Ψ₂
+```
+In this case we would have a wave that is 0.5 of the first wave, and
+0.5 of the second.
+```
+Ψ₁ = 1Ψ₁ + 0Ψ₂               [1    <--- the coefficient of Ψ₁
+                              0]
+|0> in bra-ket notation.
+100% Ψ₁ and 0% Ψ₂.
+Ψ₂ = 0Ψ₁ + 1Ψ₂               [0    <--- the coeffiecient of Ψ₂
+                              1]
+|1> in bra-ket notation.
+0% Ψ₁ and 100% Ψ₂.
+
+Now we will create a graph combining Ψ₁ and Ψ₂:
+               0.5Ψ₁ + 0.5Ψ₂
+
+We want to normalize this so equation so that the lenght of these vectors are 1,
+so that the quare roots of them become 1 which they currently are not.
+
+               0.707Ψ₁ + 0.707Ψ₂
+               (√2/2)  + (√2/2)
+
+So our vector will look like: (0.707, 0.707) and the graph is says that it 
+consists of equal parts of Ψ₁ and Ψ₂. A qubit can be in the state of Ψ₁, or Ψ₂, 
+or a combination of both.
+
+```
+Not sure if is significant or not but (√2/2, √2/2) is 45 degrees (π/4) on the 
+unit circle.
+
+
+
 
 ### Gates
 Just like the not, and, or xor, nand etc gates in classical computers there are
 gates in quantum computers as well. These gates are operate on a set of inputs
 and produce a set of outputs. But they can operate on all the states of the qbit
-as the same time.
+as the same time. 
+
+An operators is just 2*2 matrices and a gate is most often multiple operators
+chained together.
 
 Classic gates:
 Is a component that receives two incoming electric currents, compares them, and
@@ -367,7 +428,9 @@ x in this case is the tensor product operator. Should be an x with a circle arou
                  x₁y₁
 ```
 
-Working backwards, notice that we "should" be able to factor the product state into tensor product multiplications but this is not possible, there is no solution for these values:
+Working backwards, notice that we "should" be able to factor the product state 
+into tensor product multiplications but this is not possible, there is no 
+solution for these values:
 ```
                        a * c should be 1/√2
   1        a      c    a * d should be 0
@@ -737,6 +800,12 @@ unobservable; they simply don't exist outside of the context of an observation.
 
 
 #### The Heisenburg Uncertainty Principal (HUP)
+One way of looking at this is to visualize a graph that only has one peak. The probability
+of finding the particle under/within that area is very high. But it is not easy
+to find the frequency, there is only one peak so we don't know much about it really.
+Take another graph where there are many peaks. Now we can predict/determine the
+frequence with pretty good acuracy but now the possible place to find the particle
+are more.
 
 #### Position Eigenstate
 Just means that the particle will actually be in this location with 100% certainty.
