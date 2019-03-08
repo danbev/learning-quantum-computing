@@ -52,7 +52,10 @@ E = (6.626x10^-34)(2.998x10^8)
 ```
 
 Photons have no mass which means they travel at the speed of light (only at the
-speed of light). This is true for anything that has mass=0.
+speed of light). This is true for anything that has mass=0. You can think of a
+photon as a dot that vibrates. The more vibration the more energy and the less
+vibration the less energy. This vibration, or the how much it vibrates is called
+frequency.
 White light can be produced by combining red/green/blue together.
 
 The amount of energy in one photon:
@@ -268,6 +271,73 @@ to be larger.
 Are a pair of observables that obey the Heisenberg uncertainly principal.
 Time and energy also have the same uncertainly behavious as we've seen with
 position and momentum.
+
+### Subatomic particles
+```
+Fermions:
+Particles with 1/2, 1/3, ... spins.
+                  Quarks
++-----------+ +------------+ +------------+
+|  Up (u)   | |  charm (c) | |  top (t)   |
+|2.2 MeV/c² | |1.28 GeV/c² | |173.1 GeV/c²|
+|2/3 charge | |2/3 charge  | |2/3 charge  |
+|1/2 spin   | |1/2 spin    | |1/2 spin    |
++-----------+ +------------+ +------------+
++-----------+ +------------+ +------------+
+|  down (d) | | strange (s)| | bottom (b) |
+|4.7 MeV/c² | |96 MeV/c²   | |4.18 GeV/c² |
+|-1/3 charge| |-1/3 charge | |-1/3 charge |
+|1/3 spin   | |1/3 spin    | |1/3 spin    |
++-----------+ +------------+ +------------+
+
+                  Leptons
++--------------+ +--------------+ +--------------+
+| electron (e) | | muon (μ)     | | tao  (τ)     |
+|0.511 MeV/c²  | |96 MeV/c²     | |1.7768 GeV/c² |
+|-1 charge     | |-1 charge     | |-1 charge     |
+|1/2 spin      | |1/2 spin      | |1/2 spin      |
++--------------+ +--------------+ +--------------+
++--------------+ +--------------+ +--------------+
+| electron     | | muon         | | tao          |
+| neutrino (Ve)| | neutrino (Vμ)| | neutrino (Vτ)|
+|2.2. eV/c²    | |0.17 MeV/c²   | |18.2 MeV/c²   |
+|0 charge      | |0 charge      | |0 charge      |
+|1/2 spin      | |1/2 spin      | |1/2 spin      |
++--------------+ +--------------+ +--------------+
+
+Bosons:
+Particles with 0, 1, 2,... spins.
++------------+ +-------------+
+| gluon (g)  | | higgs (H)   |
+|0 mass      | |124.79 GeV/c²|
+|0 charge    | |0 charge     |
+|1 spin      | |0 spin       |
++------------+ +-------------+
++------------+ 
+| photon (γ) |
+|0 mass      |
+|0 charge    |
+|1 spin      |
++------------+
++------------+
+| Z boson (Z)|
+|91.19 GeV/c²|
+|0 charge    |
+|1 spin      |
++------------+
+| W boson (W)|
+|80.39 GeV/c²|
+|+- 1        |
+|1 spin      |
++------------+
+```
+Spin is the rotation of a particle on its own axis and you can think of this as
+how the earth rotates. Spin can only have certain quantized values.
+
+Every particle and every atom has its own spin
+
+`MeV` is Mega electron volt and is the amount of energy an electron gains as it
+passes through on Volt of potential difference.
 
 ### Hadron
 Is a composite particle made up of two or more quarks. There are two families
