@@ -15,11 +15,11 @@ be anything (even a number).
 The ket is just the pipe symbol and the less-than around the symbol and means 
 that we are dealing quantum state in represented by a column vector:
 ```
-|0> ket [1            "zero-ket"
-         0]
+|0> ket ⌈1⌉            "zero-ket"
+        ⌊0⌋
 
-|1> ket [0            "one-ket"
-         1]
+|1> ket ⌈0⌉           "one-ket"
+        ⌊1⌋
 ```
 The bra part is `<0|` the opposite of ket and is a row vector:
 ```
@@ -28,6 +28,44 @@ The bra part is `<0|` the opposite of ket and is a row vector:
 ```
 Bascially the notation was invented to separate column vectors from row vectors.
 
+```
+X = tensor product
+|00>   q[0] = ⌈1⌉   q[1] = ⌈1⌉
+              ⌊0⌋          ⌊0⌋
+
+              ⌈1 ⌈1⌉ ⌉     ⌈1⌉
+              |  ⌊0⌋ |     |0|
+q[1] X q[0] = |      |   = |0|
+              |0 ⌈1⌉ |     ⌊0⌋
+              ⌊  ⌊0⌋ ⌋
+
+|01>   q[0] = ⌈0⌉   q[1] = ⌈1⌉
+              ⌊1⌋          ⌊0⌋
+
+              ⌈1 ⌈0⌉ ⌉     ⌈0⌉
+              |  ⌊1⌋ |     |1|
+q[1] X q[0] = |      |   = |0|
+              |0 ⌈0⌉ |     ⌊0⌋
+              ⌊  ⌊1⌋ ⌋
+
+|10>   q[0] = ⌈1⌉   q[1] = ⌈0⌉
+              ⌊0⌋          ⌊1⌋
+
+              ⌈0 ⌈1⌉ ⌉     ⌈0⌉
+              |  ⌊0⌋ |     |0|
+q[1] X q[0] = |      |   = |1|
+              |1 ⌈1⌉ |     ⌊0⌋
+              ⌊  ⌊0⌋ ⌋
+
+|11>   q[0] = ⌈0⌉   q[1] = ⌈0⌉
+              ⌊1⌋          ⌊1⌋
+
+              ⌈0 ⌈0⌉ ⌉     ⌈0⌉
+              |  ⌊1⌋ |     |0|
+q[1] X q[0] = |      |   = |0|
+              |1 ⌈0⌉ |     ⌊1⌋
+              ⌊  ⌊1⌋ ⌋
+```
 
 So, a particle has a spin in that is can spin like the earth but in any direction.
 How can this be represented with a matrix?  
