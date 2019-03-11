@@ -67,7 +67,7 @@ q[1] X q[0] = |      |   = |0|
               ⌊  ⌊1⌋ ⌋
 ```
 
-So, a particle has a spin in that is can spin like the earth but in any direction.
+So, a particle has a spin in that it can spin like the earth but in any direction.
 How can this be represented with a matrix?  
 The answer is to use complex numbers. This is point of the Bloch sphere I think
 to have a visual representation of the spin. If we did not have complex number
@@ -167,18 +167,18 @@ So `|0>` is a vector (1 0)
 
 ### Tensor product
 ```
-Ψ₁ = [1
-      0 ]
-Ψ₂ = [0
-      1 ]
+Ψ₁ = ⌈1⌉
+     ⌊0⌋
+Ψ₂ = ⌈0⌉
+     ⌊1⌋
 
 ψ₁ tensor product Ψ₂:
-[
-  1 * [0          [0
-       1]       =  1
-  0 * [0           0
-       1]          1]
-]
+⌈----------⌉
+|  1 * ⌈0⌉ |     ⌈0⌉
+|      ⌊1⌋ |  =  |1|
+|  0 * ⌈0⌋ |     |0|
+|      ⌊1⌋ |     ⌊1⌋
+⌊----------⌋
 ```
 The above is how quantum entanglement works. Ψ₁ represents one particle and Ψ₂
 a different particle.
@@ -396,6 +396,8 @@ Now, if you imagine (1 0) as being (x, y) then you could produce/draw a unit cir
 You an visualize operations using this unit cirlce, for example the bit flip
 operation on (1,0) will take you to (0,1), (1/√2, 1/√2) does nothing.
 I think that the bitflip operation is denoted with an X.
+This is alright as long as we use real number, if we use complex numbers then
+we will also have an extra z dimension and this becomes a sphere.
 
 
 If complex number were used then you would have to visualize a sphere.
@@ -403,16 +405,24 @@ If complex number were used then you would have to visualize a sphere.
 
 Hadamard gate
 ```
-       1   1
-       -   -                  1
-       √2  √2      1          -
-H|0> (        ) (  0   )  = ( √2 )
-       1   -1                
-       -   --                 1
-       √2  √2                 -
-                              √2
+     ⌈ 1    1⌉        ⌈ 1⌉
+     |--   --|        |--|
+     |√2   √2|  ⌈1⌉   |√2|   ⌈0.707⌉
+H|0> |       |  ⌊0⌋ = |  | = ⌊0.707⌋
+     | 1   -1|        | 1|
+     |--   --|        |--|
+     ⌊√2   √2⌋        ⌊√2⌋ 
 
+     ⌈ 1    1⌉        ⌈ 1⌉
+     |--   --|        |--|
+     |√2   √2|  ⌈0⌉   |√2|   ⌈ 0.707⌉
+H|1> |       |  ⌊1⌋ = |  | = ⌊-0.707⌋
+     | 1   -1|        |-1|
+     |--   --|        |--|
+     ⌊√2   √2⌋        ⌊√2⌋ 
+                     
 ```
+Below we can see these transistions on the unit cirle
 
 ```
                          (0,1)
@@ -429,6 +439,39 @@ H|0> (        ) (  0   )  = ( √2 )
                       \
                        \
                         (0,-1) 
+```
+
+```
+     ⌈ 1    1⌉  ⌈ 1⌉
+     |--   --|  |--|
+     |√2   √2|  |√2|   ⌈0.707*0.707 +  0.707*0.707⌉  ⌈0.50 + 0.5⌉  ⌈1⌉
+     |       |  |  | = ⌊0.707*0.707 + -0.707*0.707⌋= ⌊0.50 - 0.5⌋ =⌊0⌋
+     | 1   -1|  | 1|
+     |--   --|  |--|
+     ⌊√2   √2⌋  ⌊√2⌋ 
+
+     ⌈ 1    1⌉        ⌈ 1⌉
+     |--   --|        |--|
+     |√2   √2|  ⌈0⌉   |√2|   ⌈ 0.707⌉
+     |       |  ⌊1⌋ = |  | = ⌊-0.707⌋
+     | 1   -1|        |-1|
+     |--   --|        |--|
+     ⌊√2   √2⌋        ⌊√2⌋ 
+                     
+```
+Notice that measureing (-1, 0) is the same as (1,0):
+```
+⌈-1⌉
+⌊ 0⌋
+
+-1² + 0² = 1 + 0 = 1 (100% probability of being |0>
+```
+And the same goes for (0, -1):
+```
+⌈ 0⌉
+⌊-1⌋
+
+-0² + 1² = 0 + 1 = 1 (100% probability of being |1>
 ```
 
 We can chain operations (like bitflip, hadamard) by sending qbits through them:
