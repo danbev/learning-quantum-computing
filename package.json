@@ -1,0 +1,10 @@
+{
+  "name": "learning-quantum-computing",
+  "version": "0.0.1",
+  "author": "Daniel Bevenius",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@qiskit/qasm": "^0.6.1",
+    "jsqubits": "^1.1.0"
+  }
+}
