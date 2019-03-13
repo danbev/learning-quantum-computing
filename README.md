@@ -145,6 +145,10 @@ Where α and β are complex numbers which together obey:
 |α|² + |β|² = 1
 ```
 
+The physical qubit used in IBM Q is called a superconducting transmon qubit. This
+needs to be cooled down to 15 milliKelvin in a dilution refrigirator so that the
+is no noise or heat to excite the qubit.
+
 ### Quantum bits
 A qbit can take on a value of either 0 or 1 just like a normal bit. They can 
 be represented phycically as:
