@@ -130,6 +130,21 @@ Both have the same magnitude?
 Just remember that i² = -1. This is just per definition (something that is made up
 to be this way to fit calculations/obervations).
 
+A qubit is represented by a 2d vector space of the complex numbers C². So far we
+have only been using real numbers. So a qubit can be in one of the following
+states:
+```
+|0>
+|1>
+|ψ>
+```
+The superposition state can be specified as:
+```
+|ψ> = α|0> + β|1>
+Where α and β are complex numbers which together obey:
+|α|² + |β|² = 1
+```
+
 ### Quantum bits
 A qbit can take on a value of either 0 or 1 just like a normal bit. They can 
 be represented phycically as:
@@ -320,23 +335,39 @@ you get back the input value.
 
 
 ### Controlled NOT (CNOT)
-This is a gate that operators on a pair of bits, one which is the control bit
+This is a gate that operator on a pair of bits, one which is the control bit
 and the other the target bit. If the control bit is 1 then the target bit is
 flipped. And if the control bit is 0 then the target bit is left unchanged.
 The control bit is never updated.
 
 ```
 condition/control matrix:
-C = ( 1 0 0 0  )
-      0 1 0 0
-      0 0 0 1
-      0 0 1 0
+C = ⌈1 0 0 0⌉
+    |0 1 0 0|
+    |0 0 0 1|
+    ⌊0 0 1 0⌋
+Notice that the lower left corner is:
+⌈0 1⌉
+⌊1 0⌋
+And that this is the X operator (swap/exchange). The rest of the matric is
+for the control operation.
 
+        ⌈1 0 0 0⌉ ⌈0⌉   ⌈0⌉
+C|10> = |0 1 0 0| |0| = |0| = |11>
+        |0 0 0 1| |1|   |0|
+        ⌊0 0 1 0⌋ ⌊0⌋   ⌊1⌋
+```
 
-                            1 0 0 0     0       0
-C|10> = C((0 1) x (0 1) = ( 0 1 0 0 ) ( 0 ) = ( 0 ) = (0 1) x (0 1) = |11>
-                            0 0 0 1     1       0
-                            0 0 1 0     0       1
+Example:
+```
+include "qelib1.inc";
+qreg q[2];
+creg c[2];
+
+h q[1];
+cx q[1],q[0];
+measure q[1] -> c[1];
+measure q[0] -> c[0];
 ```
 
 A qbit is represented by (a b) where a and b are complex numbers and
@@ -473,6 +504,49 @@ And the same goes for (0, -1):
 
 -0² + 1² = 0 + 1 = 1 (100% probability of being |1>
 ```
+
+Example:
+```
+include "qelib1.inc";
+qreg q[1];
+creg c[1];
+
+h q;
+measure q -> c;
+```
+`qreg` are the number of quantum bit registers that we want to allocate.
+`creg` are the number of classical bit registers that we want to allocate.
+`h` is the hadamard operator which takes the qbit registers as input.
+We then measure q and specify that the output should go to 
+So what we are doing is basically:
+```
+       ⌈0.707  0.707⌉ ⌈1⌉   ⌈0.707⌉   0.707² = 0.5 50% |0>
+|0> -->⌊0.707 -0.707⌋ ⌊0⌋ = ⌊0.707⌋   0.707² = 0.5 50% |1>
+
+```
+So we should see |0> and |1> 50/50 of the time when running.
+
+Now, lets take this example:
+```
+include "qelib1.inc";
+qreg q[1];
+creg c[1];
+
+h q;
+barrier q;
+h q;
+measure q -> c;
+```
+A 'barrier' is an instruction that prevents optimizations.
+This would be something like:
+```
+       ⌈0.707  0.707⌉ ⌈1⌉   ⌈0.707⌉
+|0> -->⌊0.707 -0.707⌋ ⌊0⌋ = ⌊0.707⌋
+
+       ⌈0.707  0.707⌉ ⌈0.707⌉  ⌈1⌉
+       ⌊0.707 -0.707⌋ ⌊0.707⌋ =⌊0⌋ 
+```
+
 
 We can chain operations (like bitflip, hadamard) by sending qbits through them:
 ```
@@ -891,3 +965,79 @@ are more.
 #### Position Eigenstate
 Just means that the particle will actually be in this location with 100% certainty.
 
+#### Deutch Oracle problem
+We want to figure out what operation `f` if but we are only allowed to try 
+different inputs and inspect the output.
+```
+         +-----+
+bit ---> |  f  | ---> bit
+         +-----+
+```
+There are four functions on one bit:
+```
+1) Identity (multiplying with 1)
+2) Constant 0
+3) Constant 1
+4) Negation
+```
+How can we figure out what operation f is?
+On a classical computer we can
+```
+0 --->  f(x) ----> 0 (either identity or constant 0)
+1 --->  f(x) ----> 1 (f must be constant 0)
+
+1 --->  f(x) ----> 1 (either identity or constant 1)
+0 --->  f(x) ----> 1 (we know the operation is constant 1)
+```
+So we would have two operations minium to figure out what the function `f` is.
+What about in a quantum computer?  
+```
+|0> --- f(x) ---->  |0>
+|1> --- f(x) ---->  |1>
+```
+It's actually the same number to identify the four different functions.
+What if we want to know if `f` is constant or variable. const0, const1 are 
+constant and identity and negation are variable.
+```
+0 ---> f(x) ----> 0 could be const0 but would also be identity
+1 ---> f(x) ----> 0 is const0 
+
+|0> --- f(x) ---->  |0>
+```
+
+const0 in qasm:
+```
+include "qelib1.inc";
+// q[0] will hold the output value
+// q[1] will hold unmodified input value
+qreg q[2];
+creg c[2];
+
+// We don't need to set the output as const 0 just set is to zero 
+// and the default value is just that.
+// Simulate that our input is 1 by flipping 0.
+x q[1];
+measure q -> c;
+```
+All qubits are initialized to |0> so to place |1> in q[1] we can use the x
+gate/operator:
+```
+x q[1] --> ⌈0 1⌉⌈1⌉ = ⌈0⌉
+           ⌊1 0⌋⌊0⌋   ⌊1⌋
+
+```
+Now the output of our `const0` will be:
+```
+c[0] = 0
+c[1] = 1
+```
+Notice the inlcude in the source file. You can find [qelib1.inc](https://github.com/Qiskit/qiskit-js/blob/master/packages/qiskit-qasm/core/qelib1.inc).
+
+#### Deutsch-Jozsa Algorithm
+
+
+#### Grover's algorithm
+Say you have to search a list of items. You would on average have to search
+N/2 and in the worst case N times to find it. So if we have 8 items best case
+would be to have to look at 4 items and worst case 8.
+With a quantum computer we can find the item of interest in √8 = 2.8284 times.
