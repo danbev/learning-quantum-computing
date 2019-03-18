@@ -164,13 +164,48 @@ the Bloch sphere:
                 |0>
                 |
                 |
-                |
+                |Θ
                 -------------------------> y
-              / |
+              / |Φ
              /  |
            x/   |
                 |1>
+
+Θ = theta and is the angle in the vertical axis
+Φ = phi is the angle in the x-y plane
+
+          θ                0
+|Ψ> = cos - |0> + e^iΦ sin - |1>
+          2                2
 ```
+So if we have a zero angle for Θ and for Φ we get:
+
+```
+          0                0
+|Ψ> = cos - |0> + e^iΦ sin - |1>
+          2                2
+
+cos(0/2) = 0
+|Ψ> = 0 |0> + 0|1>
+|Ψ> = |0>
+```
+Which is the zero state.
+
+For the one state theta would have to be π (180 degrees as zero degrees is the
+zero state).
+```
+          π               π
+|Ψ> = cos - |0> + e^iΦsin - |1>
+          2               2
+cos(π/2) = 0
+sin(π/2) = 1
+|Ψ> = 0 |0> + 1  * 1 |1>
+|Ψ> = |1>
+```
+The reason for θ/2 is that we are working in radians and π is a complete cirle
+and π/2 is half way.
+
+
 So we can have a 0 or a 1 state depending on if the vector is pointing up or
 pointing down. But it call also be pointing anywhere on the sphere, at least
 until you measure it, a which point it will collapse into either 0 or 1. In quantum 
@@ -1045,3 +1080,52 @@ Say you have to search a list of items. You would on average have to search
 N/2 and in the worst case N times to find it. So if we have 8 items best case
 would be to have to look at 4 items and worst case 8.
 With a quantum computer we can find the item of interest in √8 = 2.8284 times.
+
+#### qiskit-js
+I'm trying to understand the Circuit class and now this map to my current knowledge
+of how qasm works. 
+Take the following example:
+```js
+const circuit = CircuitFor(const0);
+circuit.addGate('h', 0, 0);
+circuit.addGate('cx', 1, [0, 1]);
+circuit.run(10);
+```
+The API for `addGate` look like this:
+```
+addGate(gateName, column, wires) {
+```
+The `column` specifies the qubit to connect to this gate.
+`wires' is given as a number or an array of numbers and specifies gate connection.
+So the first call above is adding a hadamard gate on qubit 0 and there.
+When we add a gate, for example a hadamard gate in qasm:
+```
+h q[0];
+cx q[1], q[0];
+```
+We only specify a qubit that this is to be added to. Not visually the qubits
+are represented as rows in the GUI
+
+```
+circuit.addGate('h', 0, 0);
+
+            Column_0         Column_1
+Wire 0    -----h------------------------------------
+Wire 1    ------------------------------------------
+```
+So here we have to specify column and the wire, but in qasm we only specify
+the qubit. Why is that?  
+In the composer or in qasm the order of things is important, if we were to move
+the `h q[0] to after the cx gate then the hadamard gate would be placed in the 
+second column. 
+
+#### IBM Q u1, u2, u3
+In the IBM Q experience there are three physical single-qubit gates which take
+1, 2, and 3 parameters. All other gates are just special cases of these three.
+```
+gate u1(lambda) q { 
+  U(0,0,lambda) q; 
+}
+                     ⌈1        0⌉
+u1(λ) = U(0, 0, λ) = ⌊0   e^(iλ)⌋
+```
