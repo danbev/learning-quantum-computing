@@ -4,7 +4,7 @@ This project only exists to help me learn about quantum computing
 
 ### Vector notation
 I'm used to seeing a vector named a_hat (with a ^ above the label) but there
-is a different notation that seems to be used in quantum mechanics which is
+is a different notation used in quantum mechanics which is:
 ```
 a_hat = |a>
 ```
@@ -13,7 +13,7 @@ Remember that what is inside the brackets is just a label for the vector and can
 be anything (even a number).
 
 The ket is just the pipe symbol and the less-than around the symbol and means 
-that we are dealing quantum state in represented by a column vector:
+that we are dealing quantum state represented by a column vector:
 ```
 |0> ket ⌈1⌉            "zero-ket"
         ⌊0⌋
@@ -101,11 +101,13 @@ It might help to think of the Dirac notation as an array index by the label
 inside. For example, |0> means that there will be a one at index 0, |1> means
 that there will be a one in index 1.
 
-If we have a normal vector (3 4) then we can calculate the lenght using:
+
+
+If we have a normal vector (3 4) then we can calculate the length using:
 ```
 length = √3²+4² = 5
 ```
-When we have qbits we talk about magnitude instead. Say we have the following:
+When we have qubits we talk about magnitude instead. Say we have the following:
 ```
 5 + i
 magnitude = √5² + 1²
@@ -143,7 +145,33 @@ The superposition state can be specified as:
 |ψ> = α|0> + β|1>
 Where α and β are complex numbers which together obey:
 |α|² + |β|² = 1
+
+          0           0
+|Ψ> = cos - |0> + sin -  e^i0|1>
+          2           2
 ```
+The first complex number can be visualized as the Z component and an increase in 
+this number will increate the angle from the north pole outwards. That angle can
+go up to π (180 degrees). π/2 is half was and would be like 90 degrees, like
+a vector pointing somewhere on the equator. Notice that the operation is cosine
+and cos(0) = 1. So there is no angle and the vector is from the origin straight
+up to the north pole of the sphere. And this also means that sin(0) is 0. Also 
+notice that the second part is just that sin(θ/2). If we think of this as:
+```
+           Z
+                     sin(θ) or y  
+                     \   |
+                      \  | cos(θ) or x
+                       \ |
+                        \|
+
+```
+So this identifies a point vertically when phi is zero. 
+This somewhere is where the horizontal plane comes in which is the second term
+above. Notice that this uses sine.
+plane comes in which has a x and y plane. Think of x as coming out towards you
+and y 90 degrees to the right. When the angle 
+
 
 The physical qubit used in IBM Q is called a superconducting transmon qubit. This
 needs to be cooled down to 15 milliKelvin in a dilution refrigirator so that the
@@ -178,32 +206,78 @@ the Bloch sphere:
 |Ψ> = cos - |0> + e^iΦ sin - |1>
           2                2
 ```
+Notice that this is actually saying that the state of qubit can be represented
+by two values, theta and phi. And the state is any point on the sphere.
+
+Holding a pen to represent `z` helps me a little, and holding it straight up represent
+θ = 0. Now can only move to the right down to π (180 degrees). By moving it we 
+can stop at different points, and then the Φ angle can be updated to make the top
+of the pen point to any location on the sphere at that "hight".
+
+θ has to be a value between 0 and π (0 <= θ <= π). So it is cannot be greater than
+π (180 degrees).
+Φ has to be a value between 0 and 2π (0 <= 0 <= 2π). So it cannot be greather than
+2π (360 degrees).
+
+Recal the unit circle:
+```
+               π/2
+                |       
+                |
+                |
+                |
+                |
+    π --------------------- 0 and 2π
+                |
+                |
+                |
+                |
+                |
+               3π/2
+```
+
+
 So if we have a zero angle for Θ and for Φ we get:
 
 ```
           0                0
-|Ψ> = cos - |0> + e^iΦ sin - |1>
+|Ψ> = cos - |0> + e^i0 sin - |1>
           2                2
 
 cos(0/2) = 0
-|Ψ> = 0 |0> + 0|1>
+e^i0 = 1
+sin(0/2 = 0
+|Ψ> = 0 * |0> + 1 * 0 * 0|1>
+
+Now, I stumbled on this for a while. Notice that we have `0 * |0>` and my first
+thought that this must be 0. But I now think that this is 
+⌈0⌉       ⌈0⌉
+⌊0⌋ * 0 = ⌊0⌋
+
+And for the imaginary part:
+⌈1⌉       ⌈0⌉
+⌊0⌋ * 0 = ⌊0⌋
+
 |Ψ> = |0>
 ```
 Which is the zero state.
 
-For the one state theta would have to be π (180 degrees as zero degrees is the
-zero state).
+And if we set theta, θ, to π which means that the angle will be 180 degrees so
+it will be pointing straight down:
 ```
           π               π
-|Ψ> = cos - |0> + e^iΦsin - |1>
+|Ψ> = cos - |0> + e^i0sin - |1>
           2               2
 cos(π/2) = 0
 sin(π/2) = 1
 |Ψ> = 0 |0> + 1  * 1 |1>
+⌈0⌉       ⌈0⌉
+⌊0⌋ * 0 = ⌊0⌋
+|Ψ> = |0> + 1  * 1 |1>
 |Ψ> = |1>
 ```
 The reason for θ/2 is that we are working in radians and π is a complete cirle
-and π/2 is half way.
+and π2 is half way.
 
 
 So we can have a 0 or a 1 state depending on if the vector is pointing up or
@@ -218,6 +292,14 @@ and latitud, longitude, and amplitude that we use to identify a position on eart
 If we draw a parallel with classical bits they would be like only being able to
 be positioned at the south pole or the north pole.
 So `|0>` is a vector (1 0) 
+
+There is a good [simulation](https://www.st-andrews.ac.uk/physics/quvis/simulations_html5/sims/blochsphere/blochsphere.html) 
+that can be used to get a better feeling for this.
+
+### Phase
+A complex number has a magnitude and a phase. Think of the complex number as the
+needle of you watch. The angle theta tells us the time, which is known in physics
+as the phase.
 
 ### Tensor product
 ```
@@ -269,8 +351,14 @@ or a combination of both.
 ```
 Not sure if is significant or not but (√2/2, √2/2) is 45 degrees (π/4) on the 
 unit circle.
+```
+  ⌈ 1⌉
+  |--|
+  ⌊√2⌋
 
+Lets think of this point in terms of a bloch sphere
 
+```
 
 
 ### Gates
