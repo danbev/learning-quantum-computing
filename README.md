@@ -101,8 +101,6 @@ It might help to think of the Dirac notation as an array index by the label
 inside. For example, |0> means that there will be a one at index 0, |1> means
 that there will be a one in index 1.
 
-
-
 If we have a normal vector (3 4) then we can calculate the length using:
 ```
 length = √3²+4² = 5
@@ -120,6 +118,7 @@ Notice that i is not used when calculating the magnitude/length
 magnitude = √5²
           = 25
           = 5
+
 Now take the following number:
 3 + 4i
 magnitude = √3² + 4²
@@ -143,6 +142,7 @@ states:
 The superposition state can be specified as:
 ```
 |ψ> = α|0> + β|1>
+
 Where α and β are complex numbers which together obey:
 |α|² + |β|² = 1
 
@@ -166,11 +166,14 @@ notice that the second part is just that sin(θ/2). If we think of this as:
                         \|
 
 ```
-So this identifies a point vertically when phi is zero. 
-This somewhere is where the horizontal plane comes in which is the second term
-above. Notice that this uses sine.
-plane comes in which has a x and y plane. Think of x as coming out towards you
-and y 90 degrees to the right. When the angle 
+The second term also used θ, but uses the function sin instead. If you look above
+you can see that sine is the part from the tip of the vector to the "north pole".
+You can visualize this by rotating the above image side ways so you have horizontally
+which I'm more used to. So the first part of the second term is the hight/length
+of y at the current point. This will increase until it becomes the max (length) of 1 which
+is halfway (π/2). It will then decrease until it reaches π where it the vector
+will be pointing straight down. The imaginary part is where we get the horizontal
+rotation around the sphere and Φ is the angle of this rotation.
 
 
 The physical qubit used in IBM Q is called a superconducting transmon qubit. This
@@ -424,6 +427,19 @@ There are 4 operations on a single bit:
 4) Identity (multiplied by 1)
 ```
 
+Not/Pauli-X
+Inverter which implements logical negation. It is equivalent to a rotation
+round the x-axis of the bloch sphere
+```
+f(x) = -x   0 -> 1     ⌈0 1⌉⌈1⌉  = ⌈0⌉       ⌈0 1⌉⌈0⌉  = ⌈1⌉
+            1 -> 0     ⌊1 0⌋⌊0⌋    ⌊1⌋       ⌊1 0⌋⌊1⌋    ⌊0⌋
+
+```
+I can see the this is a tranformation but I can't really visualize this with
+the bloch sphere. 
+There is python example, [not_gate.py](./src/not_gate.py) that contains a 
+function and plots a bloch sphere.
+
 Identity:
 ```
 f(x) = x    0 -> 0     (1 0  (1   = (1        (1 0  (0   = (0
@@ -432,13 +448,6 @@ f(x) = x    0 -> 0     (1 0  (1   = (1        (1 0  (0   = (0
 Is reversable. If we know the outcome and the operation we can reverse this.
 Notice that the transformation comes first which in this case is the identity
 matrix, and the input which is the vector.
-
-Negation:
-```
-f(x) = ¬x   0 -> 1     (0 1  (1   = (0        (0 1  (0  = (1
-            1 -> 0      1 0)  0)     1)        1 0)  1)    0)
-```
-Is reversable. If we know the outcome and the operation we can reverse this.
 
 Constant-0
 ```
@@ -804,6 +813,8 @@ S = (0 0 1 0)
      0 0 0 1
 ```
 
+#### NOT gate
+
 #### Pauli or X Gate
 Similar to a NOT gate in classical computing. This will rotate the qbit 180 degrees
 along the x-axis.
@@ -819,6 +830,8 @@ It is named after Wolfgang Ernst Pauli who won the nobel prize in 1945.
 Y = (0 -i)
      i 0
 ```
+
+
 
 #### Toffoli (CCNOT)
 
@@ -1217,3 +1230,35 @@ gate u1(lambda) q {
                      ⌈1        0⌉
 u1(λ) = U(0, 0, λ) = ⌊0   e^(iλ)⌋
 ```
+
+#### Qiskit python
+```console
+$ pip install qiskit qiskit-aqua
+$ pip install qiskit[visualization] qiskit-aqua
+$ python3 -c 'import qiskit; print(qiskit.__version__)'
+0.7.1
+```
+
+#### Qutip
+A basis in 
+```console
+$ python3
+>>> from qutip import *
+>>> help(basis)
+```
+
+```python
+b = basis(2, 0)
+print(b);
+$ python3 bloch.py
+Quantum object: dims = [[2], [1]], shape = (2, 1), type = ket
+Qobj data =
+[[1.]
+ [0.]]
+```
+So the above would represent a single qubit in the |0> (zero ket state).
+
+We can plot this on a bloch sphere (see bloch.py for an example).
+
+
+
