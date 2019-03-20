@@ -27,6 +27,20 @@ The bra part is `<0|` the opposite of ket and is a row vector:
 <1| bra [0 1]
 ```
 Bascially the notation was invented to separate column vectors from row vectors.
+Also if you specify `<a|b>` this means to perform the dot product operation.
+
+Notice that |0> and |1> are very similar to the basis vectors in physics:
+```
+i_hat = ⌈1⌉
+        ⌊0⌋
+
+j_hat = ⌈0⌉
+        ⌊1⌋
+
+```
+These form a basis (you can reach any point in R²) by using linear combinations
+(scaling and adding). Not sure if this is signifcant at all but though it was
+interesting.
 
 ```
 X = tensor product
@@ -427,16 +441,31 @@ There are 4 operations on a single bit:
 4) Identity (multiplied by 1)
 ```
 
-Not/Pauli-X
+Not/Pauli-X:
 Inverter which implements logical negation. It is equivalent to a rotation
 round the x-axis of the bloch sphere
 ```
 f(x) = -x   0 -> 1     ⌈0 1⌉⌈1⌉  = ⌈0⌉       ⌈0 1⌉⌈0⌉  = ⌈1⌉
             1 -> 0     ⌊1 0⌋⌊0⌋    ⌊1⌋       ⌊1 0⌋⌊1⌋    ⌊0⌋
 
+          0           0
+|Ψ> = cos - |0> + sin -  e^i0|1>
+          2           2
 ```
 I can see the this is a tranformation but I can't really visualize this with
-the bloch sphere. 
+the bloch sphere and how it involved the x axis.
+
+
+Not/Pauli-Y:
+```
+f(x) = -x   0 -> 1     ⌈0 -i⌉⌈1⌉  = ⌈0*1 - i⌉
+            1 -> 0     ⌊i  0⌋⌊0⌋    ⌊i   + 0⌋
+
+          0           0
+|Ψ> = cos - |0> + sin -  e^i0|1>
+          2           2
+```
+
 There is python example, [not_gate.py](./src/not_gate.py) that contains a 
 function and plots a bloch sphere.
 
