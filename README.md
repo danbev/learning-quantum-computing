@@ -189,7 +189,6 @@ is halfway (π/2). It will then decrease until it reaches π where it the vector
 will be pointing straight down. The imaginary part is where we get the horizontal
 rotation around the sphere and Φ is the angle of this rotation.
 
-
 The physical qubit used in IBM Q is called a superconducting transmon qubit. This
 needs to be cooled down to 15 milliKelvin in a dilution refrigirator so that the
 is no noise or heat to excite the qubit.
@@ -441,22 +440,83 @@ There are 4 operations on a single bit:
 4) Identity (multiplied by 1)
 ```
 
-Not/Pauli-X:
-Inverter which implements logical negation. It is equivalent to a rotation
-round the x-axis of the bloch sphere
+#### Not/Pauli-X
+Inverter which implements logical negation. It is equivalent to a 180 degree
+rotation round the x-axis of the bloch sphere.
 ```
-f(x) = -x   0 -> 1     ⌈0 1⌉⌈1⌉  = ⌈0⌉       ⌈0 1⌉⌈0⌉  = ⌈1⌉
-            1 -> 0     ⌊1 0⌋⌊0⌋    ⌊1⌋       ⌊1 0⌋⌊1⌋    ⌊0⌋
-
-          0           0
-|Ψ> = cos - |0> + sin -  e^i0|1>
-          2           2
+ ⌈0 1⌉⌈1⌉  = ⌈0⌉       ⌈0 1⌉⌈0⌉  = ⌈1⌉
+ ⌊1 0⌋⌊0⌋    ⌊1⌋       ⌊1 0⌋⌊1⌋    ⌊0⌋
 ```
 I can see the this is a tranformation but I can't really visualize this with
-the bloch sphere and how it involved the x axis.
+the bloch sphere and how it involves the x axis.
+
+There are no imaginary numbers in the transform matrix (the gate) so this I think
+implies that this only involved the Z-X plan. So we can think of this is a transformation
+in that plane.
+```
+From:        Z    
+             ^
+             |
+           1 -
+             |
+             |
+   <----|-------->|------>    X
+       -1         1 ⌈1⌉
+                    ⌊0⌋
+To:
+             Z
+             ^
+             |
+           1 - ⌈0⌉
+             ^ ⌊1⌋
+             |
+   <----|---------|------>      X
+       -1         1
+   
+But that is nothing close to the posistion on the sphere!
+Remember that using polar colar coordinates we can identify our points. 
+Notice that this is a 90 degree rotation, but the sphere has different lenght/angles.
+
+          Z  0 (0 degrees) But the radius is one (unit circle)
+                 ^
+             *   |
+          *      |
+        *        |
+       *         |
+  π/2  *----------------------> X  
+       *         |
+        *        | 
+         *       |
+           *     |
+             *   π (180 degrees)
+
+⌈1⌉
+⌊0⌋
+
+The angle θ (theta) can be in the range 0 to π (180 degrees).
+The angle Φ (phi) can in the range of 0 to 2π (360 degrees).
+
+⌈0 1⌉⌈cos(0/2)       ⌉ = ⌈0 * cos(0/2) + sin(0/2) * e^i0⌉ = ⌈0⌉
+⌊1 0⌋⌊sin(0/2) * e^i0⌋   ⌊cos(0/2) = 0 * sin(0/2) + 0   ⌋ = ⌊1⌋
+
+|0> = cos(θ/2) * |0> + sin(θ/2) e^(iΦ) * |1>
+
+So if θ = 0:
+|φ> = cos(0/2) * |0> + sin(0/2) e^(iΦ) * |1>
+|φ> = 1 * |0> + 0 * e^(i 0π/20) * |1>
+|φ> = 1 * |0>
+|φ> = |0>
+
+And if θ = π:
+|φ> = cos(π/2) * |0> + sin(π/2) e^(i0) * |1>
+|φ> = 0 * |0> + 1 * e^(i0) * |1>
+|φ> = e^(i0) * |1>
+|φ> = 1 * |1>
+|φ> = |1>
+```
 
 
-Not/Pauli-Y:
+#### Pauli-Y
 ```
 f(x) = -x   0 -> 1     ⌈0 -i⌉⌈1⌉  = ⌈0*1 - i⌉
             1 -> 0     ⌊i  0⌋⌊0⌋    ⌊i   + 0⌋
@@ -466,10 +526,15 @@ f(x) = -x   0 -> 1     ⌈0 -i⌉⌈1⌉  = ⌈0*1 - i⌉
           2           2
 ```
 
+#### Pauli-Z
+
 There is python example, [not_gate.py](./src/not_gate.py) that contains a 
 function and plots a bloch sphere.
+```console
+$ python3 src/not_gate.py
+```
 
-Identity:
+#### Identity
 ```
 f(x) = x    0 -> 0     (1 0  (1   = (1        (1 0  (0   = (0
             1 -> 1      0 1)  0)     0)        0 1)  1)     1)
@@ -477,6 +542,12 @@ f(x) = x    0 -> 0     (1 0  (1   = (1        (1 0  (0   = (0
 Is reversable. If we know the outcome and the operation we can reverse this.
 Notice that the transformation comes first which in this case is the identity
 matrix, and the input which is the vector.
+
+#### Hadamard
+#### S
+#### S_dagger
+#### T
+#### T_dagger
 
 Constant-0
 ```
