@@ -1,7 +1,6 @@
 ## Learning Quantum computing
 This project only exists to help me learn about quantum computing
 
-
 ### Vector notation
 I'm used to seeing a vector named a_hat (with a ^ above the label) but there
 is a different notation used in quantum mechanics which is:
@@ -41,6 +40,58 @@ j_hat = ⌈0⌉
 These form a basis (you can reach any point in R²) by using linear combinations
 (scaling and adding). Not sure if this is signifcant at all but though it was
 interesting.
+
+```
+α|0> + β|1>      α, β ∈ Complex number set
+                 |α|² + |β|² = 1   (unit vector as the lengths are 1)
+
+We can stack these:
+⌈α⌉
+⌊β⌋
+```
+This gives us a two-dimensional vector in a complex vector plane.
+So α and β are the unit vectors and when you see:
+```
+α|0> + β|1>
+```
+it means that we are scaling these unit vectors by those complex numbers:
+```
+                  ^
+            ⌈0⌉|1>-
+            ⌊1⌋   |
+                  |   
+                  |   
+           ---------------|---> 
+                          |0>⌈1⌉
+                             ⌊0⌋  
+```
+All of the vectors produces must fit on the unit circle (have a radius of 1). So
+we can use the values specified on the unit circle to produce vectors. For
+example a 45 degree vector would be specified using:
+```
+√2/2⌈1⌉ + √2/2⌈0⌉ = ⌈√2/2⌉ = ⌈0.707106⌉
+    ⌊0⌋       ⌊1⌋   ⌊√2/2⌋   ⌊0.707106⌋
+```
+
+```
+                π/2
+          |1>   ^
+                |      / |Ψ>
+                |    / 
+                |  /
+                |/ ) Θ
+                +------------>
+                            |0>
+
+|Ψ> = cos(Θ)|0> + sin(Θ)|1> = ⌈cos(Θ)⌉
+                              ⌊sin(Θ)⌋
+
+When we measure:
+|0> with probability cos(Θ)²
+|1> with probability sin(Θ)²
+```
+Keep in mind that after we have measured the actual vector has no changed which
+is what is meant it collapsing.
 
 ```
 X = tensor product
@@ -224,6 +275,8 @@ the Bloch sphere:
 ```
 Notice that this is actually saying that the state of qubit can be represented
 by two values, theta and phi. And the state is any point on the sphere.
+Also note that the X axis is the horizontal axis <---->, y is the axis coming
+out towards me, and z is the vertical axis.
 
 Holding a pen to represent `z` helps me a little, and holding it straight up represent
 θ = 0. Now can only move to the right down to π (180 degrees). By moving it we 
@@ -235,7 +288,7 @@ of the pen point to any location on the sphere at that "hight".
 Φ has to be a value between 0 and 2π (0 <= 0 <= 2π). So it cannot be greather than
 2π (360 degrees).
 
-Recal the unit circle:
+Recall the unit circle:
 ```
                π/2
                 |       
@@ -490,9 +543,6 @@ Notice that this is a 90 degree rotation, but the sphere has different lenght/an
            *     |
              *   π (180 degrees)
 
-⌈1⌉
-⌊0⌋
-
 The angle θ (theta) can be in the range 0 to π (180 degrees).
 The angle Φ (phi) can in the range of 0 to 2π (360 degrees).
 
@@ -515,24 +565,26 @@ And if θ = π:
 |φ> = |1>
 ```
 
-
-#### Pauli-Y
-```
-f(x) = -x   0 -> 1     ⌈0 -i⌉⌈1⌉  = ⌈0*1 - i⌉
-            1 -> 0     ⌊i  0⌋⌊0⌋    ⌊i   + 0⌋
-
-          0           0
-|Ψ> = cos - |0> + sin -  e^i0|1>
-          2           2
-```
-
-#### Pauli-Z
-
 There is python example, [not_gate.py](./src/not_gate.py) that contains a 
 function and plots a bloch sphere.
 ```console
 $ python3 src/not_gate.py
 ```
+And there is a javascript example in [x_gate.js](./lib/x_gate.js).
+
+#### Pauli-Y
+```
+⌈0 -i⌉⌈cos(0/2)       ⌉ = ⌈0 * cos(0/2) + -1 sin(0/2) * e^i0 ⌉ = ⌈0 ⌉
+⌊i  0⌋⌊sin(0/2) * e^i0⌋   ⌊cos(0/2) * i + 0 * sin(0/2) * e^i)⌋   ⌊1i⌋
+```
+There is a javascript example in [y_gate.js](./lib/y_gate.js).
+
+#### Pauli-Z
+```
+⌈1  0⌉⌈cos(0/2)       ⌉ = ⌈1 * cos(0/2) + 0 * sin(0/2) * e^i0 ⌉ = ⌈1⌉
+⌊0 -1⌋⌊sin(0/2) * e^i0⌋   ⌊cos(0/2) * 0 + -1 * sin(0/2) * e^i)⌋   ⌊0⌋
+```
+
 
 #### Identity
 ```
@@ -543,11 +595,31 @@ Is reversable. If we know the outcome and the operation we can reverse this.
 Notice that the transformation comes first which in this case is the identity
 matrix, and the input which is the vector.
 
-#### Hadamard
-#### S
+#### S gate (phase gate)
+90 degree rotation around z-axis
+```
+⌈1 0⌉⌈cos(0/2)       ⌉ = ⌈1 * cos(0/2) + 0 * sin(0/2) * e^i0 ⌉ = ⌈1⌉
+⌊0 i⌋⌊sin(0/2) * e^i0⌋   ⌊cos(0/2) * 0 + -1 * sin(0/2) * e^i)⌋   ⌊0⌋
+```
 #### S_dagger
+-90 degree rotation around z-axis
+
+
 #### T
+45 degree rotation around z-axis
+
 #### T_dagger
+-45 degree rotation around z-axis
+
+All gates that rotate less than 180 degrees always rotate around z!
+
+#### Hadamard
+
+
+#### Toffoli Gate (CCNOT)
+Two control qubits and one target qubit. If both of the target qubits are 1 then
+the target qubit wil be flipped (the NOT gate). 
+
 
 Constant-0
 ```
