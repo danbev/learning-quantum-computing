@@ -101,6 +101,7 @@ When we measure:
 Keep in mind that after we have measured the actual vector has no changed which
 is what is meant it collapsing.
 
+### Tensor product
 ```
 X = tensor product
 |00>   q[0] = ⌈1⌉   q[1] = ⌈1⌉
