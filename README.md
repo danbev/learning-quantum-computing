@@ -50,7 +50,8 @@ We can stack these:
 ⌊β⌋
 ```
 This gives us a two-dimensional vector in a complex vector plane.
-So α and β are the unit vectors and when you see:
+So α and β are the scalars and the |0> and |1> the basis unit vectors when you
+see:
 ```
 α|0> + β|1>
 ```
