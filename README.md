@@ -90,6 +90,10 @@ or
 |Ψ> = cos(Θ)|0> + sin(Θ)|1> = ⌈cos(Θ)⌉
                               ⌊sin(Θ)⌋
 
+Using the above example of 45 degrees we get:
+cos(45)|0> + sin(45)|1> = ⌈0.707106⌉
+                          ⌊0.707106⌋
+
 When we measure:
 |0> with probability cos(Θ)²
 |1> with probability sin(Θ)²
