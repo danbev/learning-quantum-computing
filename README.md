@@ -241,15 +241,15 @@ The physical qubit used in IBM Q is called a superconducting transmon qubit. Thi
 needs to be cooled down to 15 milliKelvin in a dilution refrigirator so that the
 is no noise or heat to excite the qubit.
 
-### Bloch sphere
-A qbit can take on a value of either 0 or 1 just like a normal bit. They can 
+A qubit can take on a value of either 0 or 1 just like a normal bit. They can 
 be represented phycically as:
 * The spin of a particle in a magnetic field where up means 0 and down means 1
 * The polarization of a single photon where horizontal polarization means 1
   and vertical polarization means 0. So this is bascically building the computer
   using light.
 
-Qbits are sometimes visualized using a shape that looks like a sphere and called
+### Bloch sphere
+Qubits are sometimes visualized using a shape that looks like a sphere and called
 the Bloch sphere:
 ```
                 ^ z      
