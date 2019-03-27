@@ -66,12 +66,15 @@ it means that we are scaling these unit vectors by those complex numbers:
                           |0>⌈1⌉
                              ⌊0⌋  
 ```
-All of the vectors produces must fit on the unit circle (have a radius of 1). So
+All of the vectors produced must fit on the unit circle (have a radius of 1). So
 we can use the values specified on the unit circle to produce vectors. For
 example a 45 degree vector would be specified using:
 ```
 √2/2⌈1⌉ + √2/2⌈0⌉ = ⌈√2/2⌉ = ⌈0.707106⌉
     ⌊0⌋       ⌊1⌋   ⌊√2/2⌋   ⌊0.707106⌋
+or 
+√2/2|0> + √2/2|1> = ⌈√2/2⌉ = ⌈0.707106⌉
+                    ⌊√2/2⌋   ⌊0.707106⌋
 ```
 
 ```
