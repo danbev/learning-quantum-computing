@@ -182,6 +182,7 @@ Both have the same magnitude?
 Just remember that `i² = -1`. This is just per definition (something that is made up
 to be this way to fit calculations/obervations).
 
+### Superposition
 A qubit is represented by a 2d vector space of the complex numbers C². So far we
 have only been using real numbers. So a qubit can be in one of the following
 states:
@@ -193,21 +194,30 @@ states:
 The superposition state can be specified as:
 ```
 |ψ> = α|0> + β|1>
-
-Where α and β are complex numbers which together obey:
-|α|² + |β|² = 1
-
-          0           0
-|Ψ> = cos - |0> + sin -  e^i0|1>
-          2           2
 ```
-The first complex number can be visualized as the Z component and an increase in 
-this number will increate the angle from the north pole outwards. That angle can
-go up to π (180 degrees). π/2 is half was and would be like 90 degrees, like
-a vector pointing somewhere on the equator. Notice that the operation is cosine
-and cos(0) = 1. So there is no angle and the vector is from the origin straight
-up to the north pole of the sphere. And this also means that sin(0) is 0. Also 
-notice that the second part is just that sin(θ/2). If we think of this as:
+Where α and β are complex numbers which together obey:
+```
+|α|² + |β|² = 1
+```
+
+Using polar notation the 
+```
+          0           0
+|Ψ> = cos - |0> + sin -  e^iΦ|1>
+          2           2
+
+```
+The first number can be visualized as the Z component and an increase in 
+this number will increase the angle from the north pole outwards. That angle can
+go up to π (180 degrees). π/2 is half and would be like 90 degrees, like
+a vector pointing somewhere on the equator. In the example above both theta and 
+phi are 0 so this is the polar representation for |0>.
+
+Notice that the operation is cosine and cos(0) = 1. So there is no angle and the 
+vector is from the origin straight up to the north pole of the sphere. And this 
+also means that sin(0) is 0. Also notice that the second part is just that sin(θ/2). 
+
+If we think of this as:
 ```
            Z
                      sin(θ) or y  
@@ -226,11 +236,12 @@ is halfway (π/2). It will then decrease until it reaches π where it the vector
 will be pointing straight down. The imaginary part is where we get the horizontal
 rotation around the sphere and Φ is the angle of this rotation.
 
+### Physical Qubits
 The physical qubit used in IBM Q is called a superconducting transmon qubit. This
 needs to be cooled down to 15 milliKelvin in a dilution refrigirator so that the
 is no noise or heat to excite the qubit.
 
-### Quantum bits
+### Bloch sphere
 A qbit can take on a value of either 0 or 1 just like a normal bit. They can 
 be represented phycically as:
 * The spin of a particle in a magnetic field where up means 0 and down means 1
