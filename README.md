@@ -141,40 +141,15 @@ q[1] X q[0] = |      |   = |0|
               ⌊  ⌊1⌋ ⌋
 ```
 
+### Spin
+
 So, a particle has a spin in that it can spin like the earth but in any direction.
 How can this be represented with a matrix?  
 The answer is to use complex numbers. This is point of the Bloch sphere I think
 to have a visual representation of the spin. If we did not have complex number
 we would only be able to rotate in a two dimentional plane.
 
-Addition of vectors:
-```
-|a> + |b> = |c>
-```
-Multiplication of vectors:
-```
-a|a> = |d>
-```
-
-Now, I've been thinking about vectors as having both magnitude (length) and
-direction, like an arrow. Like this is how we imagine them being added/scaled etc.
-But that is just one particular vector space (euclidian vectors) and it might not be helpful in a 
-different vector space such as in quantum mechanics.
-In quantum mechanics we can have imaginary numbers which are multipied with vectors.
-Perhaps this is the reason for the different notation as well, to separate them?
-
-So when you see a vector like:
-```
-One bit with the value zero:                                     
-|0> in Dirac notation you can think (1 0) 
-
-One bit with the value one:
-|1> in Dirac notation you can think (0 1)
-```
-It might help to think of the Dirac notation as an array index by the label 
-inside. For example, |0> means that there will be a one at index 0, |1> means
-that there will be a one in index 1.
-
+### Magnitude 
 If we have a normal vector (3 4) then we can calculate the length using:
 ```
 length = √3²+4² = 5
@@ -185,24 +160,26 @@ When we have qubits we talk about magnitude instead. Say we have the following:
 magnitude = √5² + 1²
           = √25 + 1
           = √26
-
+```
 Notice that i is not used when calculating the magnitude/length
-
+```
 5 = 0i
 magnitude = √5²
           = 25
           = 5
+```
 
 Now take the following number:
+```
 3 + 4i
 magnitude = √3² + 4²
           = √9 + 16
           = √25
           = 5
+```
 Both have the same magnitude?
 
-```
-Just remember that i² = -1. This is just per definition (something that is made up
+Just remember that `i² = -1`. This is just per definition (something that is made up
 to be this way to fit calculations/obervations).
 
 A qubit is represented by a 2d vector space of the complex numbers C². So far we
