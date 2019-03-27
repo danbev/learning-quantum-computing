@@ -272,6 +272,7 @@ the Bloch sphere:
 ```
 Notice that this is actually saying that the state of qubit can be represented
 by two values, theta and phi. And the state is any point on the sphere.
+
 Also note that the X axis is the horizontal axis <---->, y is the axis coming
 out towards me, and z is the vertical axis.
 
@@ -345,7 +346,6 @@ sin(π/2) = 1
 The reason for θ/2 is that we are working in radians and π is a complete cirle
 and π2 is half way.
 
-
 So we can have a 0 or a 1 state depending on if the vector is pointing up or
 pointing down. But it call also be pointing anywhere on the sphere, at least
 until you measure it, a which point it will collapse into either 0 or 1. In quantum 
@@ -364,7 +364,7 @@ that can be used to get a better feeling for this.
 
 ### Phase
 A complex number has a magnitude and a phase. Think of the complex number as the
-needle of you watch. The angle theta tells us the time, which is known in physics
+needle of your watch. The angle theta tells us the time, which is known in physics
 as the phase.
 
 ### Tensor product
@@ -400,31 +400,31 @@ In this case we would have a wave that is 0.5 of the first wave, and
                               1]
 |1> in bra-ket notation.
 0% Ψ₁ and 100% Ψ₂.
+```
 
 Now we will create a graph combining Ψ₁ and Ψ₂:
+```
                0.5Ψ₁ + 0.5Ψ₂
-
-We want to normalize this so equation so that the lenght of these vectors are 1,
+```
+We want to normalize this equation so that the lenght of these vectors are 1,
 so that the quare roots of them become 1 which they currently are not.
-
+```
                0.707Ψ₁ + 0.707Ψ₂
                (√2/2)  + (√2/2)
+```
 
 So our vector will look like: (0.707, 0.707) and the graph is says that it 
 consists of equal parts of Ψ₁ and Ψ₂. A qubit can be in the state of Ψ₁, or Ψ₂, 
 or a combination of both.
 
-```
 Not sure if is significant or not but (√2/2, √2/2) is 45 degrees (π/4) on the 
 unit circle.
 ```
   ⌈ 1⌉
   |--|
   ⌊√2⌋
-
-Lets think of this point in terms of a bloch sphere
-
 ```
+Lets think of this point in terms of a bloch sphere
 
 
 ### Gates
