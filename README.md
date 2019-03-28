@@ -396,8 +396,8 @@ In this case we would have a wave that is 0.5 of the first wave, and
                               0]
 |0> in bra-ket notation.
 100% Ψ₁ and 0% Ψ₂.
-Ψ₂ = 0Ψ₁ + 1Ψ₂               [0    <--- the coeffiecient of Ψ₂
-                              1]
+Ψ₂ = 0Ψ₁ + 1Ψ₂               [0
+                              1] <--- the coeffiecient of Ψ₂
 |1> in bra-ket notation.
 0% Ψ₁ and 100% Ψ₂.
 ```
@@ -407,8 +407,22 @@ Now we will create a graph combining Ψ₁ and Ψ₂:
                0.5Ψ₁ + 0.5Ψ₂
 ```
 We want to normalize this equation so that the lenght of these vectors are 1,
-so that the quare roots of them become 1 which they currently are not.
+so that the quare roots of them become 1 which they currently are not. We need
+to normalize these values which can be done by:
 ```
+            ^
+            |
+        0.5 -    *
+            |
+            +----|---->
+                0.5
+magnitude  = √0.5² + 0.5² = √0.25 + 0.25 = √0.5 = 0.707106
+u_hat = (0.5/0.707106, 0.5/0.25) =  (0.707106, 0.707106)
+```
+Any time you need to normalize you can take the scalar and divide by the magnitude
+to the value in the unit vector (value).
+```
+
                0.707Ψ₁ + 0.707Ψ₂
                (√2/2)  + (√2/2)
 ```
