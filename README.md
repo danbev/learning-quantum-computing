@@ -422,17 +422,68 @@ u_hat = (0.5/0.707106, 0.5/0.25) =  (0.707106, 0.707106)
 Any time you need to normalize you can take the scalar and divide by the magnitude
 to the value in the unit vector (value).
 ```
-
                0.707Ψ₁ + 0.707Ψ₂
                (√2/2)  + (√2/2)
 ```
-
 So our vector will look like: (0.707, 0.707) and the graph is says that it 
 consists of equal parts of Ψ₁ and Ψ₂. A qubit can be in the state of Ψ₁, or Ψ₂, 
 or a combination of both.
 
 Not sure if is significant or not but (√2/2, √2/2) is 45 degrees (π/4) on the 
 unit circle.
+
+Since this vector is now normailzed and on the unit circle we can also write
+this vector as:
+```
+                              ⌈cos(Θ)⌉
+|Ψ> = cos(Θ)|0> + sin(Θ)|1> = ⌊sin(Θ)⌋ 
+```
+Now, sin(Θ) could also be written as:
+```
+sin(Θ) = cos(π/2 - Θ)
+
+Using our above example of a (√2/2, √2/2) or (0.707, 0.707):
+sin(45) = 0.8509
+cos(π/2 - 45) = 0.8509
+```
+
+And when we measure, the vector will be projected to either the |0> or
+|1> (ground or excited state):
+```
+|0> with probability of cos²(Θ)
+|1> with probability of sin²(Θ)
+```
+This is what a measurement is, a projection onto a standard basis.
+Why is this important, well not only can we measure the probability of a projection
+onto a standard basis but to any basis that we choose. Remember that |0> and |1> 
+are our unit vectors (basis?) but we could use a different vector as our basis(not
+sure I've got the terminology right here but I think it makes sense).
+
+In real life we can think of the photon which has a polarisation. For example
+the oscillation of the electric field can be horizontal or vertical. 
+```
+|0> horizontal polarisation. The wave is oscillating horizontally.
+|1> vertical polarisation. The wave is oscillating vertically.
+|Ψ> would be some other angle of polarisation. For example if it is 45 degrees
+    then this would be 1/√2|0> + 1/√2|1>
+```
+To measure this polarisation we use a filter. I've bought a sheet of this so 
+that I can play around with this. I've cut these into 3 small squares and start
+by using 2 of them. First I place them one in front of the other and see that
+light gets through, nothing is blocked/filtered. The filter is measuring the
+oscillation and letting the photons that are osillating vertically through. This would
+be them projecting to |0>.
+
+Now, if I rotate one of the filters 90 degress all photons will be blocked. This would
+be like the photon projecting/collapsing to |1>. 
+
+If I only rotate say 45 degrees then some will pass and some will be blocked with
+a 50/50 probability.
+
+Remeber that after the photon has passed through (if it is not blocked) then it's
+new polarisation will be |0>.
+
+
 ```
   ⌈ 1⌉
   |--|
