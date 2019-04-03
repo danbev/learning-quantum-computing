@@ -152,13 +152,13 @@ we would only be able to rotate in a two dimentional plane.
 ### Magnitude 
 If we have a normal vector (3 4) then we can calculate the length using:
 ```
-length = √3²+4² = 5
+length = √(3²+4²) = 5
 ```
 When we have qubits we talk about magnitude instead. Say we have the following:
 ```
 5 + i
-magnitude = √5² + 1²
-          = √25 + 1
+magnitude = √(5² + 1²)
+          = √(25 + 1)
           = √26
 ```
 Notice that i is not used when calculating the magnitude/length
@@ -172,8 +172,8 @@ magnitude = √5²
 Now take the following number:
 ```
 3 + 4i
-magnitude = √3² + 4²
-          = √9 + 16
+magnitude = √(3² + 4²)
+          = √(9 + 16)
           = √25
           = 5
 ```
