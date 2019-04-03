@@ -145,8 +145,8 @@ q[1] X q[0] = |      |   = |0|
 
 So, a particle has a spin in that it can spin like the earth but in any direction.
 How can this be represented with a matrix?  
-The answer is to use complex numbers. This is point of the Bloch sphere I think
-to have a visual representation of the spin. If we did not have complex number
+The answer is to use complex numbers. This is the point of the Bloch sphere I
+think, to have a visual representation of the spin. If we did not have complex number
 we would only be able to rotate in a two dimentional plane.
 
 ### Magnitude 
