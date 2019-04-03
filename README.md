@@ -200,7 +200,7 @@ Where α and β are complex numbers which together obey:
 |α|² + |β|² = 1
 ```
 
-Using polar notation the 
+Using polar notation this would be:
 ```
           0           0
 |Ψ> = cos - |0> + sin -  e^iΦ|1>
@@ -227,10 +227,10 @@ If we think of this as:
                         \|
 
 ```
-The second term also used θ, but uses the function sin instead. If you look above
+The second term also uses θ, but uses the function sin instead. If you look above
 you can see that sine is the part from the tip of the vector to the "north pole".
 You can visualize this by rotating the above image side ways so you have horizontally
-which I'm more used to. So the first part of the second term is the hight/length
+which I'm more used to. So the first part of the second term is the height/length
 of y at the current point. This will increase until it becomes the max (length) of 1 which
 is halfway (π/2). It will then decrease until it reaches π where it the vector
 will be pointing straight down. The imaginary part is where we get the horizontal
