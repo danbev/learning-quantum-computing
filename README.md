@@ -474,7 +474,7 @@ this vector as:
                               ⌈cos(Θ)⌉
 |Ψ> = cos(Θ)|0> + sin(Θ)|1> = ⌊sin(Θ)⌋ 
 ```
-Now, sin(Θ) could also be written as:
+Now, sin(θ) could also be written as:
 ```
 sin(Θ) = cos(π/2 - Θ)
 
