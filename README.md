@@ -349,15 +349,45 @@ sin(π/2) = 1
 |Ψ> = 0 + 1  * 1 |1>
 |Ψ> = |1>
 ```
-The reason for θ/2 is that we are working in radians and π is a complete cirle
-and π2 is half way.
+
+The reason for theta/2 (θ/2) is that we are working in radians and π is a 180
+degrees, and π2 is half way (90 degrees). Recall that this is a limit that is
+specified for theta. For Φ (phi) we have a limit of 360 degrees, 2π.
+
+Even though the we are dealing with complex numbers, we are still really working
+with coefficients that are scaling some basis vector:
+```
+        ^
+      2 -         * (3,2)
+        |
+        |
+        +---------|-->
+                  3
+V = 3⌈1⌉ + 2⌈0⌉  = ⌈3 * 1 + 2 * 0⌉ = ⌈3⌉
+     ⌊0⌋    ⌊1⌋    ⌊3 * 0 + 2 * 1⌋   ⌊2⌋
+
+--> * 3 = ------>
+^          ^
+|   * 2 =  |
+           |
+                      ^
+                      |
+           ^          |
+------> +  |  = ------>
+           |
+```
+The difference is that we cannot choose the coefficients directly, they are give
+already but we can specify the angles theta and phi.
+If we keep phi as zero and just change theta this is similar to the above example
+where scale and add the vectors to get a new vector.
+
 
 So we can have a 0 or a 1 state depending on if the vector is pointing up or
 pointing down. But it call also be pointing anywhere on the sphere, at least
 until you measure it, a which point it will collapse into either 0 or 1. In quantum 
 computing you measure a qubit with a gate which takes in the superposition vector
 and spits out 0 or 1 and the probability of 0 or 1 depends on the state of the
-qbit.
+qubit.
 
 How do we using this visualization. One way I've heard is to think of this earth
 and latitud, longitude, and amplitude that we use to identify a position on earth.
