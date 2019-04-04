@@ -232,7 +232,7 @@ you can see that sine is the part from the tip of the vector to the "north pole"
 You can visualize this by rotating the above image side ways so you have horizontally
 which I'm more used to. So the first part of the second term is the height/length
 of y at the current point. This will increase until it becomes the max (length) of 1 which
-is halfway (π/2). It will then decrease until it reaches π where it the vector
+is halfway (π/2). It will then decrease until it reaches π where the vector
 will be pointing straight down. The imaginary part is where we get the horizontal
 rotation around the sphere and Φ is the angle of this rotation.
 
@@ -279,10 +279,11 @@ out towards me, and z is the vertical axis.
 Holding a pen to represent `z` helps me a little, and holding it straight up represent
 θ = 0. Now can only move to the right down to π (180 degrees). By moving it we 
 can stop at different points, and then the Φ angle can be updated to make the top
-of the pen point to any location on the sphere at that "hight".
+of the pen point to any location on the sphere at that "height".
 
 θ has to be a value between 0 and π (0 <= θ <= π). So it is cannot be greater than
-π (180 degrees).
+π (180 degrees).  
+
 Φ has to be a value between 0 and 2π (0 <= 0 <= 2π). So it cannot be greather than
 2π (360 degrees).
 
@@ -305,27 +306,26 @@ Recall the unit circle:
 
 
 So if we have a zero angle for Θ and for Φ we get:
-
 ```
           0                0
 |Ψ> = cos - |0> + e^i0 sin - |1>
           2                2
-
-cos(0/2) = 0
+```
+Take the first term:
+```
+cos(0/2) = cos(0) = 1
+Which gives:
+1|0> = ⌈1⌉
+       ⌊0⌋
+```
+And for the second term we have:
+```
 e^i0 = 1
-sin(0/2 = 0
-|Ψ> = 0 * |0> + 1 * 0 * 0|1>
+sin(0/2) = sin(0) = 0
+1 * 0 * |1> = 0
 
-Now, I stumbled on this for a while. Notice that we have `0 * |0>` and my first
-thought that this must be 0. But I now think that this is 
-⌈0⌉       ⌈0⌉
-⌊0⌋ * 0 = ⌊0⌋
+|Ψ> = 1 * |0> + 0 
 
-And for the imaginary part:
-⌈1⌉       ⌈0⌉
-⌊0⌋ * 0 = ⌊0⌋
-
-|Ψ> = |0>
 ```
 Which is the zero state.
 
@@ -335,12 +335,18 @@ it will be pointing straight down:
           π               π
 |Ψ> = cos - |0> + e^i0sin - |1>
           2               2
+```
+Take the first term:
+```
 cos(π/2) = 0
+Which gives:
+0|0> = 0
+```
+And for the second term we have:
+```
+e^i0 =  e^(-1 * 0) e^0 = 1
 sin(π/2) = 1
-|Ψ> = 0 |0> + 1  * 1 |1>
-⌈0⌉       ⌈0⌉
-⌊0⌋ * 0 = ⌊0⌋
-|Ψ> = |0> + 1  * 1 |1>
+|Ψ> = 0 + 1  * 1 |1>
 |Ψ> = |1>
 ```
 The reason for θ/2 is that we are working in radians and π is a complete cirle
