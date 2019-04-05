@@ -694,136 +694,7 @@ matrix, and the input which is the vector.
 
 All gates that rotate less than 180 degrees always rotate around z!
 
-#### Hadamard
-
-
-#### Toffoli Gate (CCNOT)
-Two control qubits and one target qubit. If both of the target qubits are 1 then
-the target qubit wil be flipped (the NOT gate). 
-
-
-Constant-0
-```
-f(x) = 0    0 -> 0     (1 1  (1  = (1*1 + 0*1  = (1     (1 1  (0   = (0*1 + 1*1  = (1
-            1 -> 1      0 0)  0)    1*0 + 0*0)    0)     0 0)  1)     0*0 + 0*1)    0)
-```
-Is not reversable. If we know the outcome and the operation we still can't know
-the input value, it would be either 0 or 1.
-
-Constant-1
-```
-f(x) = 1    0 -> 1    (0 0  (1  = (0         (0 0  (0  = (0
-            1 -> 1     1 1)  0)    1)         1 1)  1)    1)
-```
-Is not reversable. If we know the outcome and the operation we still can't know
-the input value, it would be either 0 or 1.
-
-Quantum computers only use reversable operations.
-Also all operations are there own inverse, so if you apply the operation twice
-you get back the input value.
-
-
-### Controlled NOT (CNOT)
-This is a gate that operator on a pair of bits, one which is the control bit
-and the other the target bit. If the control bit is 1 then the target bit is
-flipped. And if the control bit is 0 then the target bit is left unchanged.
-The control bit is never updated.
-
-```
-condition/control matrix:
-C = ⌈1 0 0 0⌉
-    |0 1 0 0|
-    |0 0 0 1|
-    ⌊0 0 1 0⌋
-Notice that the lower left corner is:
-⌈0 1⌉
-⌊1 0⌋
-And that this is the X operator (swap/exchange). The rest of the matric is
-for the control operation.
-
-        ⌈1 0 0 0⌉ ⌈0⌉   ⌈0⌉
-C|10> = |0 1 0 0| |0| = |0| = |11>
-        |0 0 0 1| |1|   |0|
-        ⌊0 0 1 0⌋ ⌊0⌋   ⌊1⌋
-```
-
-Example:
-```
-include "qelib1.inc";
-qreg q[2];
-creg c[2];
-
-h q[1];
-cx q[1],q[0];
-measure q[1] -> c[1];
-measure q[0] -> c[0];
-```
-
-A qbit is represented by (a b) where a and b are complex numbers and
-```
-||a²|| + ||b²|| = 1
-```
-Examples qbit values:
-```
-  1
-( -
-  √2
-               (1/√2)² + (1/√2)² = 0.7071067812² + 0.7071067812² = 0.5 + 0.5 = 1
-  1
-  -
-  √2 )
-
-  1
-( -
-  2
-               (1/2)² + (√3/2)² = 0.25 + 0.8660254038² = 0.25 + 0.75 = 1
-  √3
-  -
-  2  )
-
-( -1           -1² + 0² = 1 + 0 = 1
-  0  )
-
-```
-Now take the qbit value (1/2 1/√2):
-```
-(1/2)² + (√3/2)² = 0.25 + 0.8660254038² = 0.25 + 0.75 = 1
-```
-When we measure this qbit it will collapse to either 0 or 1 and the probability
-in this case is 0.25 that it will be a zero and 0.75 that it will be a one.
-
-Operations on qbit are done by matrix multiplications or transformations. These
-seem to be called gates as well but I guess a gate in a circuit is really just 
-an operation.
-
-Now, if you imagine (1 0) as being (x, y) then you could produce/draw a unit cirle:
-```
-                          (0,1)
-
-     (-1/√2,1/√2)                       (1/√2,1/√2)
-
-
-
- (-1,0)                                           (1,0)
-
-
-
-   (-1/√2,-1/√2)                        (1/√2,-1/√2)
-
-
-                          (0,-1) 
-```
-You an visualize operations using this unit cirlce, for example the bit flip
-operation on (1,0) will take you to (0,1), (1/√2, 1/√2) does nothing.
-I think that the bitflip operation is denoted with an X.
-This is alright as long as we use real number, if we use complex numbers then
-we will also have an extra z dimension and this becomes a sphere.
-
-
-If complex number were used then you would have to visualize a sphere.
-
-
-Hadamard gate
+#### Hadamard gate
 ```
      ⌈ 1    1⌉        ⌈ 1⌉
      |--   --|        |--|
@@ -957,6 +828,134 @@ output |0> -------|   |-----> |0> output'
 input  |x> -------|   |-----> |x> input'
                   +---+
 ```
+
+
+
+#### Toffoli Gate (CCNOT)
+Two control qubits and one target qubit. If both of the target qubits are 1 then
+the target qubit wil be flipped (the NOT gate). 
+
+
+Constant-0
+```
+f(x) = 0    0 -> 0     (1 1  (1  = (1*1 + 0*1  = (1     (1 1  (0   = (0*1 + 1*1  = (1
+            1 -> 1      0 0)  0)    1*0 + 0*0)    0)     0 0)  1)     0*0 + 0*1)    0)
+```
+Is not reversable. If we know the outcome and the operation we still can't know
+the input value, it would be either 0 or 1.
+
+Constant-1
+```
+f(x) = 1    0 -> 1    (0 0  (1  = (0         (0 0  (0  = (0
+            1 -> 1     1 1)  0)    1)         1 1)  1)    1)
+```
+Is not reversable. If we know the outcome and the operation we still can't know
+the input value, it would be either 0 or 1.
+
+Quantum computers only use reversable operations.
+Also all operations are there own inverse, so if you apply the operation twice
+you get back the input value.
+
+
+### Controlled NOT (CNOT)
+This is a gate that operator on a pair of bits, one which is the control bit
+and the other the target bit. If the control bit is 1 then the target bit is
+flipped. And if the control bit is 0 then the target bit is left unchanged.
+The control bit is never updated.
+
+```
+condition/control matrix:
+C = ⌈1 0 0 0⌉
+    |0 1 0 0|
+    |0 0 0 1|
+    ⌊0 0 1 0⌋
+Notice that the lower left corner is:
+⌈0 1⌉
+⌊1 0⌋
+And that this is the X operator (swap/exchange). The rest of the matric is
+for the control operation.
+
+        ⌈1 0 0 0⌉ ⌈0⌉   ⌈0⌉
+C|10> = |0 1 0 0| |0| = |0| = |11>
+        |0 0 0 1| |1|   |0|
+        ⌊0 0 1 0⌋ ⌊0⌋   ⌊1⌋
+```
+
+Example:
+```
+include "qelib1.inc";
+qreg q[2];
+creg c[2];
+
+h q[1];
+cx q[1],q[0];
+measure q[1] -> c[1];
+measure q[0] -> c[0];
+```
+
+A qbit is represented by (a b) where a and b are complex numbers and
+```
+||a²|| + ||b²|| = 1
+```
+Examples qbit values:
+```
+  1
+( -
+  √2
+               (1/√2)² + (1/√2)² = 0.7071067812² + 0.7071067812² = 0.5 + 0.5 = 1
+  1
+  -
+  √2 )
+
+  1
+( -
+  2
+               (1/2)² + (√3/2)² = 0.25 + 0.8660254038² = 0.25 + 0.75 = 1
+  √3
+  -
+  2  )
+
+( -1           -1² + 0² = 1 + 0 = 1
+  0  )
+
+```
+Now take the qbit value (1/2 1/√2):
+```
+(1/2)² + (√3/2)² = 0.25 + 0.8660254038² = 0.25 + 0.75 = 1
+```
+When we measure this qbit it will collapse to either 0 or 1 and the probability
+in this case is 0.25 that it will be a zero and 0.75 that it will be a one.
+
+Operations on qbit are done by matrix multiplications or transformations. These
+seem to be called gates as well but I guess a gate in a circuit is really just 
+an operation.
+
+Now, if you imagine (1 0) as being (x, y) then you could produce/draw a unit cirle:
+```
+                          (0,1)
+
+     (-1/√2,1/√2)                       (1/√2,1/√2)
+
+
+
+ (-1,0)                                           (1,0)
+
+
+
+   (-1/√2,-1/√2)                        (1/√2,-1/√2)
+
+
+                          (0,-1) 
+```
+You an visualize operations using this unit cirlce, for example the bit flip
+operation on (1,0) will take you to (0,1), (1/√2, 1/√2) does nothing.
+I think that the bitflip operation is denoted with an X.
+This is alright as long as we use real number, if we use complex numbers then
+we will also have an extra z dimension and this becomes a sphere.
+
+
+If complex number were used then you would have to visualize a sphere.
+
 
 
 ### Entanglement
@@ -1141,6 +1140,9 @@ We can write the wave function with whatever observable we want:
     = a|x₁> + b|x₂> + c|x₃ + ...
     = a|y₁> + b|y₂> + c|y₃ + ...
 ```
+
+#### Unitary Transformations
+
 
 
 #### Spin
@@ -1499,6 +1501,4 @@ Qobj data =
 So the above would represent a single qubit in the |0> (zero ket state).
 
 We can plot this on a bloch sphere (see bloch.py for an example).
-
-
 
