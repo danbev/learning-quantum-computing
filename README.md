@@ -669,8 +669,8 @@ There is a javascript example in [z_gate.js](./lib/z_gate.js).
 
 #### Identity
 ```
-f(x) = x    0 -> 0     (1 0  (1   = (1        (1 0  (0   = (0
-            1 -> 1      0 1)  0)     0)        0 1)  1)     1)
+⌈1 0⌉⌈1⌉  = ⌈1⌉   ⌈1 0⌉⌈0⌉ = ⌈0⌉
+⌊0 1⌋⌊0⌋    ⌊0⌋   ⌊0 1⌋⌊1⌋   ⌊1⌋
 ```
 Is reversable. If we know the outcome and the operation we can reverse this.
 Notice that the transformation comes first which in this case is the identity
