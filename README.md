@@ -428,12 +428,12 @@ You can have combinations of waves:
 In this case we would have a wave that is 0.5 of the first wave, and
 0.5 of the second.
 ```
-Ψ₁ = 1Ψ₁ + 0Ψ₂               [1    <--- the coefficient of Ψ₁
-                              0]
+Ψ₁ = 1Ψ₁ + 0Ψ₂               ⌈1⌉    <--- the coefficient of Ψ₁
+                             ⌊0⌋
 |0> in bra-ket notation.
 100% Ψ₁ and 0% Ψ₂.
-Ψ₂ = 0Ψ₁ + 1Ψ₂               [0
-                              1] <--- the coeffiecient of Ψ₂
+Ψ₂ = 0Ψ₁ + 1Ψ₂               ⌈0⌉
+                             ⌊1⌋ <--- the coeffiecient of Ψ₂
 |1> in bra-ket notation.
 0% Ψ₁ and 100% Ψ₂.
 ```
@@ -443,7 +443,7 @@ Now we will create a graph combining Ψ₁ and Ψ₂:
                0.5Ψ₁ + 0.5Ψ₂
 ```
 We want to normalize this equation so that the lenght of these vectors are 1,
-so that the quare roots of them become 1 which they currently are not. We need
+so that the quare roots of them become 1 (which they currently do not). We need
 to normalize these values which can be done by:
 ```
             ^
@@ -452,7 +452,7 @@ to normalize these values which can be done by:
             |
             +----|---->
                 0.5
-magnitude  = √0.5² + 0.5² = √0.25 + 0.25 = √0.5 = 0.707106
+magnitude  = √(0.5² + 0.5²) = √(0.25 + 0.25) = √0.5 = 0.707106
 u_hat = (0.5/0.707106, 0.5/0.25) =  (0.707106, 0.707106)
 ```
 Any time you need to normalize you can take the scalar and divide by the magnitude
@@ -471,14 +471,15 @@ unit circle.
 Since this vector is now normailzed and on the unit circle we can also write
 this vector as:
 ```
-                              ⌈cos(Θ)⌉
-|Ψ> = cos(Θ)|0> + sin(Θ)|1> = ⌊sin(Θ)⌋ 
+|Ψ> = cos(Θ)|0> + sin(Θ)|1> = ⌈cos(Θ)⌉
+                              ⌊sin(Θ)⌋
 ```
 Now, sin(θ) could also be written as:
 ```
 sin(Θ) = cos(π/2 - Θ)
-
+```
 Using our above example of a (√2/2, √2/2) or (0.707, 0.707):
+```
 sin(45) = 0.8509
 cos(π/2 - 45) = 0.8509
 ```
@@ -494,6 +495,7 @@ Why is this important, well not only can we measure the probability of a project
 onto a standard basis but to any basis that we choose. Remember that |0> and |1> 
 are our unit vectors (basis?) but we could use a different vector as our basis(not
 sure I've got the terminology right here but I think it makes sense).
+
 
 In real life we can think of the photon which has a polarisation. For example
 the oscillation of the electric field can be horizontal or vertical. 
@@ -519,77 +521,33 @@ a 50/50 probability.
 Remeber that after the photon has passed through (if it is not blocked) then it's
 new polarisation will be |0>.
 
-
-```
-  ⌈ 1⌉
-  |--|
-  ⌊√2⌋
-```
-Lets think of this point in terms of a bloch sphere
-
-
 ### Gates
-Just like the not, and, or xor, nand etc gates in classical computers there are
-gates in quantum computers as well. These gates are operate on a set of inputs
-and produce a set of outputs. But they can operate on all the states of the qbit
-as the same time. 
+Just like the not, and, or, xor, nand etc gates in classical computers there are
+gates in quantum computers as well. These gates operate on a set of inputs
+and produce a set of outputs. But they can operate on all the states of the qubit
+as the same time.
 
-An operators is just 2*2 matrices and a gate is most often multiple operators
-chained together.
-
-Classic gates:
-Is a component that receives two incoming electric currents, compares them, and
-sends on a new outgoing electric current depending on the comparision made.
-
-#### Measurement gate
-This gates takes a qbit in superposition as input and outputs either 0 or 1.
-I think the wave function is used to get a probability of if the output will be
-0 or 1.
-As measuring/observing a qbit alters it state this should be the last act on a 
-quantum curcuit.
-
-#### Swap gate
-Takes 2 qbits and swaps there states.
-
-
-Representing classical bits as a vector:
-One bit with the value 0:
-```
-(1
- 0)
-```
-This can also be written in Dirac vector notation as: |0>
-One bit with the value 1:
-```
-(0
- 1)
-
-|1>
-```
-
-If we think of this as a vector originating from the origin (0) then the
-0 will be along the x axis, really a unit on it. And 1 will be a unit in the
-y axis and x will be zero.
-
-Quantum computing uses these vectors (and later matrixes) just like a normal
-computer would use bits and bytes.
-
-Notice in the following where multiplying a matrix with a vector flips the
-to middle bits:
-```
-(1 0 0 0   (0      (0
- 0 0 1 0    1    =  0
- 0 1 0 0    0       1
- 0 0 0 1)   0)      0)
-```
-
-There are 4 operations on a single bit:
+There are 4 operations on a single classical bit:
 ```
 1) Set it to 1
 2) Set it to 0
 3) Negate/Not~
 4) Identity (multiplied by 1)
 ```
+
+An operators is just 2*2 matric and a gate is most often multiple operators
+chained together.
+
+#### Classic gates
+Is a component that receives two incoming electric currents, compares them, and
+sends on a new outgoing electric current depending on the comparision made.
+
+#### Measurement gate
+This gates takes a qubit in superposition as input and outputs either 0 or 1.
+I think the wave function is used to get a probability if the output will be
+0 or 1.
+As measuring/observing a qubit alters it state this should be the last act on a
+quantum curcuit.
 
 #### Not/Pauli-X
 Inverter which implements logical negation. It is equivalent to a 180 degree
@@ -598,35 +556,55 @@ rotation round the x-axis of the bloch sphere.
  ⌈0 1⌉⌈1⌉  = ⌈0⌉       ⌈0 1⌉⌈0⌉  = ⌈1⌉
  ⌊1 0⌋⌊0⌋    ⌊1⌋       ⌊1 0⌋⌊1⌋    ⌊0⌋
 ```
-I can see the this is a tranformation but I can't really visualize this with
-the bloch sphere and how it involves the x axis.
+Lets go back to our two dimensional vector space and see what a transoformation
+look like there:
+```
+The base vectors are:
+x is ⌈1⌉ and for y we have ⌈0⌉
+     ⌊0⌋                   ⌊1⌋
+
+Now, we put these two in a matrix:
+⌈1 0⌉
+⌊0 1⌋
+
+And we can do transformations using:
+⌈1 0⌉⌈3⌉ = ⌈1 * 3 + 0 * 2⌉ = ⌈3⌉
+⌊0 1⌋⌊2⌋   ⌊0 * 3 + 1 * 2⌋   ⌊2⌋
+
+What happens if we use the not/pauli-x matrix/operation:
+⌈0 1⌉⌈3⌉ = ⌈0 * 3 + 1 * 2⌉ = ⌈2⌉
+⌊1 0⌋⌊2⌋   ⌊1 * 3 + 0 * 2⌋   ⌊3⌋
+```
+
+Remember that the |0> state is where cos(0) is pointing straight up.
 
 There are no imaginary numbers in the transform matrix (the gate) so this I think
 implies that this only involved the Z-X plan. So we can think of this is a transformation
 in that plane.
 ```
-From:        Z    
+From:        X    
              ^
              |
            1 -
              |
              |
-   <----|-------->|------>    X
+   <----|-------->|------>    Z
        -1         1 ⌈1⌉
                     ⌊0⌋
 To:
-             Z
+             X
              ^
              |
            1 - ⌈0⌉
              ^ ⌊1⌋
              |
-   <----|---------|------>      X
+   <----|---------|------>      Z
        -1         1
+```
    
-But that is nothing close to the posistion on the sphere!
 Remember that using polar colar coordinates we can identify our points. 
 Notice that this is a 90 degree rotation, but the sphere has different lenght/angles.
+```
 
           Z  0 (0 degrees) But the radius is one (unit circle)
                  ^
@@ -640,10 +618,13 @@ Notice that this is a 90 degree rotation, but the sphere has different lenght/an
          *       |
            *     |
              *   π (180 degrees)
+```
 
 The angle θ (theta) can be in the range 0 to π (180 degrees).
 The angle Φ (phi) can in the range of 0 to 2π (360 degrees).
 
+Lets use polar coordinates instead:
+```
 ⌈0 1⌉⌈cos(0/2)       ⌉ = ⌈0 * cos(0/2) + sin(0/2) * e^i0⌉ = ⌈0⌉
 ⌊1 0⌋⌊sin(0/2) * e^i0⌋   ⌊cos(0/2) = 0 * sin(0/2) + 0   ⌋ = ⌊1⌋
 
@@ -662,12 +643,14 @@ And if θ = π:
 |φ> = 1 * |1>
 |φ> = |1>
 ```
+But in principal we are doing the same thing in both examples.
 
 There is python example, [not_gate.py](./src/not_gate.py) that contains a 
 function and plots a bloch sphere.
 ```console
 $ python3 src/not_gate.py
 ```
+
 And there is a javascript example in [x_gate.js](./lib/x_gate.js).
 
 #### Pauli-Y
@@ -1094,21 +1077,8 @@ It is named after Wolfgang Ernst Pauli who won the nobel prize in 1945.
 |1> -> |0>
 ```
 
-#### Rotation Gates (Pauli Y and Pauli Z)
-
-```
-Y = (0 -i)
-     i 0
-```
-
-
-
-#### Toffoli (CCNOT)
-
-
 So a quantum gate manipulates the input of superpositions, rotates probabilities, 
 and produces another superposition as its output.
-
 
 ### Superposition
 Imagine having a coin that when in the air is in both heads or tail state, like
