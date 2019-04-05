@@ -665,7 +665,7 @@ There is a javascript example in [y_gate.js](./lib/y_gate.js).
 ⌈1  0⌉⌈cos(0/2)       ⌉ = ⌈1 * cos(0/2) + 0 * sin(0/2) * e^i0 ⌉ = ⌈1⌉
 ⌊0 -1⌋⌊sin(0/2) * e^i0⌋   ⌊cos(0/2) * 0 + -1 * sin(0/2) * e^i)⌋   ⌊0⌋
 ```
-
+There is a javascript example in [z_gate.js](./lib/z_gate.js).
 
 #### Identity
 ```
