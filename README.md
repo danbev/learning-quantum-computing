@@ -808,13 +808,14 @@ This would be something like:
 ```
 
 
-We can chain operations (like bitflip, hadamard) by sending qbits through them:
+We can chain operations (like bitflip, hadamard) by sending qubits through them:
 ```
-X = bitflip
-H = Hadamard
+X = X-gate
+H = Hadamard gate
 
-(1 0) ---> X -----> H --------------> X -------------> H -------> X --------> (-1, 0)
-             (0,1)    (1/√2, -1/√2)     (-1/√2,1/√2)     (0, -1)    (-1, 0)
+⌈1⌉ ---> X -----> H ----------> X ----------> H -----> X ------> 
+⌊0⌋         ⌈0⌉       ⌈ 1/√2⌉       ⌈-1/√2⌉      ⌈ 0⌉     ⌈-1⌉    ⌈-1⌉
+            ⌊1⌋       ⌊-1/√2⌉       ⌊ 1/√2⌋      ⌊-1⌋     ⌊ 0⌋    ⌊ 0⌋
 ```
 
 In quantum computing all operations must be reversable (why is that?). But with
