@@ -830,8 +830,6 @@ input  |x> -------|   |-----> |x> input'
                   +---+
 ```
 
-
-
 #### Toffoli Gate (CCNOT)
 Two control qubits and one target qubit. If both of the target qubits are 1 then
 the target qubit wil be flipped (the NOT gate). 
@@ -1143,8 +1141,32 @@ We can write the wave function with whatever observable we want:
 ```
 
 #### Unitary Transformations
+A matrix is unitary if the following condition is satisfied:
+```
+U  = ⌈a c⌉
+     ⌊b d⌋
 
 
+U† * U = U * U† = I         † = complex conjugate transpose
+                            I = identity matrix 
+```
+
+Taking the complext conjugate transpose is first taking the complex conjugates
+and then performing the transpose operation:
+```
+1) Complex conjugate:
+   ⌈a^* c^*⌉             ^* = complex conjugate
+   ⌊b^* d^*⌋
+2) Transpose:
+   ⌈a^* b^*⌉       
+   ⌊c^* d^*⌋
+
+U† = ⌈a^* b^*⌉    
+     ⌊c^* d^*⌋
+
+⌈a^* b^*⌉ ⌈a c⌉ = ⌈1 0⌉    
+⌊c^* d^*⌋ ⌊b d⌋   ⌊0 1⌋
+```
 
 #### Spin
 The observables in an electron are the up/down spin and the right left spin.
