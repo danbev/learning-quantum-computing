@@ -104,7 +104,8 @@ is what is meant it collapsing.
 ### Tensor product
 ```
 X = tensor product
-|00>   q[0] = ⌈1⌉   q[1] = ⌈1⌉
+
+|00>   q[1] = ⌈1⌉   q[0] = ⌈1⌉
               ⌊0⌋          ⌊0⌋
 
               ⌈1 ⌈1⌉ ⌉     ⌈1⌉
@@ -113,8 +114,9 @@ q[1] X q[0] = |      |   = |0|
               |0 ⌈1⌉ |     ⌊0⌋
               ⌊  ⌊0⌋ ⌋
 
-|01>   q[0] = ⌈0⌉   q[1] = ⌈1⌉
-              ⌊1⌋          ⌊0⌋
+
+|01>   q[1] = ⌈1⌉   q[0] = ⌈0⌉
+              ⌊0⌋          ⌊1⌋
 
               ⌈1 ⌈0⌉ ⌉     ⌈0⌉
               |  ⌊1⌋ |     |1|
@@ -122,8 +124,9 @@ q[1] X q[0] = |      |   = |0|
               |0 ⌈0⌉ |     ⌊0⌋
               ⌊  ⌊1⌋ ⌋
 
-|10>   q[0] = ⌈1⌉   q[1] = ⌈0⌉
-              ⌊0⌋          ⌊1⌋
+
+|10>   q[1] = ⌈0⌉   q[0] = ⌈1⌉
+              ⌊1⌋          ⌊0⌋
 
               ⌈0 ⌈1⌉ ⌉     ⌈0⌉
               |  ⌊0⌋ |     |0|
@@ -131,7 +134,8 @@ q[1] X q[0] = |      |   = |1|
               |1 ⌈1⌉ |     ⌊0⌋
               ⌊  ⌊0⌋ ⌋
 
-|11>   q[0] = ⌈0⌉   q[1] = ⌈0⌉
+
+|11>   q[1] = ⌈0⌉   q[0] = ⌈0⌉
               ⌊1⌋          ⌊1⌋
 
               ⌈0 ⌈0⌉ ⌉     ⌈0⌉
@@ -140,6 +144,28 @@ q[1] X q[0] = |      |   = |0|
               |1 ⌈0⌉ |     ⌊1⌋
               ⌊  ⌊1⌋ ⌋
 ```
+This is a method of combining vectors. So a tensor b is:
+```
+X = tensor product (I've get to find this in digraph)
+
+⌈a₀⌉   ⌈b₀⌉   ⌈     ⌈b₀⌉ ⌉   ⌈a₀b₀⌉
+|a₁| X |b₁| = |a₀ . |b₁| | = |a₀b₁|
+|a₂|   ⌊b₂⌋   |     ⌊b₂⌋ |   |a₀b₂|
+⌊a₃⌋          |          |   |a₁b₀|
+              |     ⌈b₀⌉ |   |a₁b₁|
+              |a₁ . |b₁| |   |a₁b₂|
+              |     ⌊b₂⌋ |   |a₂b₀|
+              |          |   |a₂b₁|
+              |a₂ . ⌈b₀⌉ |   |a₂b₂|
+              |     |b₁| |   |a₃b₀|
+              |     ⌊b₂⌋ |   |a₃b₁|
+              |          |   ⌊a₃b₂⌋
+              |a₃ . ⌈b₀⌉ |
+              |     |b₁| |
+              ⌊     ⌊b₂⌋ ⌋
+              
+```
+
 
 ### Spin
 
@@ -868,11 +894,15 @@ C = ⌈1 0 0 0⌉
     |0 1 0 0|
     |0 0 0 1|
     ⌊0 0 1 0⌋
+```
 Notice that the lower left corner is:
+```
 ⌈0 1⌉
 ⌊1 0⌋
+```
 And that this is the X operator (swap/exchange). The rest of the matric is
 for the control operation.
+```
 
         ⌈1 0 0 0⌉ ⌈0⌉   ⌈0⌉
 C|10> = |0 1 0 0| |0| = |0| = |11>
@@ -890,6 +920,13 @@ h q[1];
 cx q[1],q[0];
 measure q[1] -> c[1];
 measure q[0] -> c[0];
+```
+This can be visualized as:
+```
+a -----------*---------- a              control
+             |
+b ----------(+)---------- b (+) a       target qubit
+
 ```
 
 A qbit is represented by (a b) where a and b are complex numbers and
@@ -1525,3 +1562,6 @@ So the above would represent a single qubit in the |0> (zero ket state).
 
 We can plot this on a bloch sphere (see bloch.py for an example).
 
+
+How do we actually compute with qubits. I can understand how we can have multiple
+qubits entangled and we can operate 
