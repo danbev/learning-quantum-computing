@@ -929,42 +929,37 @@ b ----------(+)---------- b (+) a       target qubit
 
 ```
 
-A qbit is represented by (a b) where a and b are complex numbers and
+A qubit is represented by (a b) where a and b are complex numbers and
 ```
 ||a²|| + ||b²|| = 1
 ```
-Examples qbit values:
+Examples qubit values:
 ```
-  1
-( -
-  √2
-               (1/√2)² + (1/√2)² = 0.7071067812² + 0.7071067812² = 0.5 + 0.5 = 1
-  1
-  -
-  √2 )
+  ⌈ 1⌉
+  |--|
+  | 2|
+  |  |   (1/√2)² + (1/√2)² = 0.7071067812² + 0.7071067812² = 0.5 + 0.5 = 1
+  | 1|
+  |--|
+  ⌊√2⌋
 
-  1
-( -
-  2
-               (1/2)² + (√3/2)² = 0.25 + 0.8660254038² = 0.25 + 0.75 = 1
-  √3
-  -
-  2  )
-
-( -1           -1² + 0² = 1 + 0 = 1
-  0  )
+  ⌈ 1⌉
+  |--|
+  | 2|
+  |  |  (1/2)² + (√3/2)² = 0.25 + 0.8660254038² = 0.25 + 0.75 = 1
+  |√3|
+  |--|
+  ⌊ 2⌋
 
 ```
-Now take the qbit value (1/2 1/√2):
+Now take the qubit value (1/2 1/√2):
 ```
 (1/2)² + (√3/2)² = 0.25 + 0.8660254038² = 0.25 + 0.75 = 1
 ```
-When we measure this qbit it will collapse to either 0 or 1 and the probability
+When we measure this qubit it will collapse to either 0 or 1 and the probability
 in this case is 0.25 that it will be a zero and 0.75 that it will be a one.
 
-Operations on qbit are done by matrix multiplications or transformations. These
-seem to be called gates as well but I guess a gate in a circuit is really just 
-an operation.
+Operations on qubit are done by matrix multiplications or transformations.
 
 Now, if you imagine (1 0) as being (x, y) then you could produce/draw a unit cirle:
 ```
@@ -985,44 +980,40 @@ Now, if you imagine (1 0) as being (x, y) then you could produce/draw a unit cir
 ```
 You an visualize operations using this unit cirlce, for example the bit flip
 operation on (1,0) will take you to (0,1), (1/√2, 1/√2) does nothing.
-I think that the bitflip operation is denoted with an X.
 This is alright as long as we use real number, if we use complex numbers then
 we will also have an extra z dimension and this becomes a sphere.
-
-
 If complex number were used then you would have to visualize a sphere.
 
 
-
 ### Entanglement
-If the product state of two qbits cannot be factored they are said to be entangled.
+If the product state of two qubits cannot be factored they are said to be entangled.
 What does that mean?  
 We want to take a vector and factor out the products of it.
 ```
 x in this case is the tensor product operator. Should be an x with a circle around it.
 
-                 x₀y₀
- (x₀) x (y₀) = ( x₀y₁ )
-  x₁     y₁      x₁y₀
-                 x₁y₁
+                 ⌈x₀y₀⌉
+ ⌈x₀⌉ x ⌈y₀⌉ =   |x₀y₁|
+ ⌊x₁⌋   ⌊y₁⌋     |x₁y₀|
+                 ⌊x₁y₁⌋
 ```
-
 Working backwards, notice that we "should" be able to factor the product state 
 into tensor product multiplications but this is not possible, there is no 
 solution for these values:
 ```
-                       a * c should be 1/√2
-  1        a      c    a * d should be 0
-( -  ) = ( b ) x (d) = b * c should be 0
-  √2                   b * d should be 1/√2
-  0      
+                         a * c should be 1/√2, but c is 0 in this case
+ ⌈ 1⌉       ⌈a⌉   ⌈c⌉    a * d should be 0
+ |--|    =  ⌊b⌋ x ⌊d⌋ =  b * c should be 0
+ |√2|                    b * d should be 1/√2, but b is 0 in this case
+ | 0|     
+ |  |
+ | 0|
+ | 1|
+ |--|
+ ⌊√2⌋
 
-  0
-  1
-  -
-  √2
 ```
-So it is not possible to separete the qbit that make up this product state, they
+So it is not possible to separete the qubit that make up this product state, they
 have no individual value, the value only makes sense together.
 ```
 (1/√2)² + 0   = 0.5
@@ -1030,21 +1021,20 @@ have no individual value, the value only makes sense together.
               = 1.0
 ```
 So this super state has a 50% of collapsing to 0 and 50% of collapsing to 1. So
-both qbits take part in the determining the outcome of 0 or 1. So if we measured
-one of these qbits and we get |0> we know the other must also be |0>, likewise if
-we measure one and get |1> we know that the other must also be |1>. This is me trying
-to explain this so I could be way off (which is very likely).
-Measureing on qbit instantly collapses the other.
+both qubits take part in the determining the outcome of 0 or 1. So if we measured
+one of these qubits and we get |0> we know the other must also be |0>, likewise if
+we measure one and get |1> we know that the other must also be |1>. 
+Measureing one qubit instantly collapses the other.
 
-Remember that there is a physical qbits in there somewhere which are in this
-state together. So in a quantum computer these qbits would be realized as hardware
-in someway utilizing something from quantum mechanics which allows a qbit to be
+Remember that there is a physical qubits in there somewhere which are in this
+state together. So in a quantum computer these qubits would be realized as hardware
+in someway utilizing something from quantum mechanics which allows a qubit to be
 represented (photons are possible but it sounds like it is not very convienient to
 do so as it requires very cold temperatures). The strange thing is that if we 
-move these qbits apart from one another, even large distances, this will still 
+move these qubits apart from one another, even large distances, this will still 
 work. How is this possible? I don't think anyone knows but there is no information
 sent as this happens faster than the speed of light. There was a theory about
-named hidden variable that was about there being hidden information in the qbit
+named hidden variable that was about there being hidden information in the qubit
 so it knows what it's outcome should be. TODO: try to understand the Bell experiment
 on this which should prove that the hidden variable theory is incorrect.
 But how does this work then? This is very interesting and got me thinking about
@@ -1053,29 +1043,33 @@ was stored in someway separated from the actual 3d world we are in. In this case
 perhaps the information is stored there and there is no communication needed at
 all.
 
-This how we entangle qbits:
-
+This how we entangle qubits:
 ```                 (CNOT)
 |0> ------------------X-------
          +---+        |
 |0> -----| H |--------*-------
          +---+
        (Hadamard) 
-                       Hadamard                CNOT
-                                              1 0 0 0   1/√2      1/√2
-CH₁((1 0) x (1 0)) = C(1/√2 1/√2) x (1 0)) = (0 1 0 0) (0    ) = (0    )
-                                              0 0 0 1   1/√2      0
-                                              0 0 1 0   0         1/√2
+
+First we get the initial state by taking the tensor product of |0> and |0>.
+
+       Hadamard                              CNOT (operates on two qubits)
+                                              
+⌈1⌉    ⌈1/√2    0  1/√2    0  ⌉⌈1⌉ = ⌈1/√2⌉   ⌈1 0 0 0⌉ ⌈1/√2⌉ = ⌈1/√2⌉
+|0|    | 0   1/√2   0     1/√2⌋|0|   | 0  |   |0 1 0 0| | 0  |   | 0  |
+|0|    |1/√2    0  -1/√2   0  ||0|   |1/√2|   |0 0 0 1| |1/√2|   |1/√2|
+⌊0⌋    ⌊ 0   1/√2   0    -1/√2⌋⌊0⌋   ⌊ 0  ⌋   ⌊0 0 1 0⌋ ⌊ 0  ⌋   ⌊ 0  ⌋
+
 ```
 
 The measurement gate takes a qubit in a superposition of states as input and 
 spits either a 0 or 1.
 
 Regarding this probability, I was wondering how we can compute using it, I mean
-there is no guarantee that we find a value i a particular state even though the
-probability is high. Right, but if you have many particles they you can use
-the probability. Hmm, so is a single qbit implemented using multiple particles 
-then or how does that work.
+there is no guarantee that we find a value in a particular state even though the
+probability is high. Right, but if you have many particles then you can use
+the probability. Hmm, so is a single qubit implemented using multiple particles 
+then or how does that work?
 
 Measurement.
 We have learnt that measuring the state will collapse the wave function and this
@@ -1093,7 +1087,7 @@ e = number of units in the imaginary dimension
 ```
 
 #### Swap Gate
-Takes 2 qbits and swaps their state.
+Takes 2 qubits and swaps their state.
 ```  
      1 0 0 0
 S = (0 0 1 0)
@@ -1104,7 +1098,7 @@ S = (0 0 1 0)
 #### NOT gate
 
 #### Pauli or X Gate
-Similar to a NOT gate in classical computing. This will rotate the qbit 180 degrees
+Similar to a NOT gate in classical computing. This will rotate the qubit 180 degrees
 along the x-axis.
 It is named after Wolfgang Ernst Pauli who won the nobel prize in 1945.
 ```
@@ -1124,7 +1118,7 @@ does not tell you for certain the outcome (unless it the probability is 0 or 1
 I guess).
 
 So a classic bit can store either a 0 or a 1.
-A qbit can store a 0 and a 1 at the same time (2¹ = 2)
+A qubit can store a 0 and a 1 at the same time (2¹ = 2)
 
 A 2-bit classic computer can store store:
 ```
@@ -1134,10 +1128,10 @@ A 2-bit classic computer can store store:
 11
 ```
 But only one of these states (0, 1, 2, 3).
-A 2-bit qbit can store 2² = 4 values simultaneously. So it can store 0, 1, 2 3
+A 2-bit qubit can store 2² = 4 values simultaneously. So it can store 0, 1, 2 3
 at the same time. But this is under the asumption that we don't inspect the 
 value as it would then collapse and only be in of state would it not?
-How do the qbits get used in algorithms, I'm obviously missing something here?
+How do the qubits get used in algorithms, I'm obviously missing something here?
 
 
 #### Superconductor
@@ -1484,7 +1478,7 @@ N/2 and in the worst case N times to find it. So if we have 8 items best case
 would be to have to look at 4 items and worst case 8.
 With a quantum computer we can find the item of interest in √8 = 2.8284 times.
 
-#### qiskit-js
+#### qiskit-js (Quantum Information Science Kit for JavaScript)
 I'm trying to understand the Circuit class and now this map to my current knowledge
 of how qasm works. 
 Take the following example:
