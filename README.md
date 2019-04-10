@@ -561,7 +561,7 @@ There are 4 operations on a single classical bit:
 4) Identity (multiplied by 1)
 ```
 
-An operators is just 2*2 matric and a gate is most often multiple operators
+An operators is just 2*2 matrix and a gate is most often multiple operators
 chained together.
 
 #### Classic gates
@@ -802,7 +802,7 @@ measure q -> c;
 ```
 `qreg` are the number of quantum bit registers that we want to allocate.
 `creg` are the number of classical bit registers that we want to allocate.
-`h` is the hadamard operator which takes the qbit registers as input.
+`h` is the hadamard operator which takes the qubit registers as input.
 We then measure q and specify that the output should go to 
 So what we are doing is basically:
 ```
@@ -900,7 +900,7 @@ Notice that the lower left corner is:
 ⌈0 1⌉
 ⌊1 0⌋
 ```
-And that this is the X operator (swap/exchange). The rest of the matric is
+And that this is the X operator (swap/exchange). The rest of the matrix is
 for the control operation.
 ```
 
@@ -1635,7 +1635,7 @@ matrix/transform, `T` with the correct number of elements:
 2: (4) [0.7071067811865475, 0, -0.7071067811865475, 0]
 3: (4) [0, 0.7071067811865475, 0, -0.7071067811865475]
 ```
-The transform is a unitary matrix and will in this case be a 4x4 matric.
+The transform is a unitary matrix and will in this case be a 4x4 matrix.
 Then the state is updated by mutiplying:
 ```js
 this.state = math.multiply(this.T, this.state);
