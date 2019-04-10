@@ -43,7 +43,7 @@ Gamma photons are the most energetic and have the highest frequence meaning that
 they have the hightest frequency waves.
 
 Lets take violet light and show what the energy is for a photon of this type:
-````
+```
 f = 7.5*10^14Hz
 ```
 So we take that and use plank constant to calculate the energy:
