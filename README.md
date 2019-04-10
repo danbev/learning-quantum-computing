@@ -1516,6 +1516,168 @@ In the composer or in qasm the order of things is important, if we were to move
 the `h q[0] to after the cx gate then the hadamard gate would be placed in the 
 second column. 
 
+#### qiskit-sim
+This is a simlulator and Circuit is part of this package. The Circuit class
+has a run method that can execute a configured circuit.
+Lets take the following example:
+```js
+const { Circuit, Gate } = require('qiskit').sim;
+
+console.log(Gate.cx);
+console.log(Gate.h);
+
+const circuit = Circuit.createCircuit(2);
+circuit.addGate(Gate.h, 0, 0).circuit.addGate(Gate.cx, 1, 0).run();
+console.log(circuit.stateToString());
+```
+The call to the factor function `createCircuit` is just a convienence to create
+a new Circuit with for two qubits. The Circuit constructor will use this value
+to create the gates array with two empty members which are both arrays.
+A Circuit also has a state which is also an array and it has a transform array. 
+
+The state array holds the state of the qubits. 
+The transform array holds the transformations
+When we call:
+```js
+addGate(Gate.h, 0, 0);
+```
+We are adding the Gate.h which has the matrix/transformation:
+```console
+[[ 0.7071067811865475, 0.7071067811865475 ],
+ [ 0.7071067811865475, -0.7071067811865475 ]]
+```
+The second parameter is the column:
+```
+            Column_0         Column_1
+Wire 0    -----h------------------------------------
+```
+The third parameter would only be used if this gate is to be connected to
+a second gate (the gate operates on multiple qubits that is).
+After the addGate call the Circuits gates would be:
+```
+this.gates[wire][column] = this.gates[0][0] =
+  {id: "uVdyAn4IFbzSxR6huS", name: "h", connector: 0}
+```
+After we've added the cnot gate the state will look like this:
+```
+gates
+```
+`run` will call init on the Circuit class. It will calculate the number of 
+amplitudes, the number of elements that are needed to represent two qubits in 
+our case. This will loop through and add four elements to the `state` array and
+each one will be initialized to the zero state.
+Next, `initTransform` is called which will reset the T array to an empty array.
+
+Now, again the we are getting the amplitude and looping that number of times
+to populate the `T` (the transform array).
+```js
+(n = 4 i our case)
+
+for (let i = 0; i < n; i += 1) {
+  this.T[i] = [];
+
+  for (let j = 0; j < n; j += 1) {
+    this.T[i][j] = 0;
+  }
+}
+```
+So each entry is an array:
+```
+T[0] = [0, 0, 0, 0];
+T[1] = [0, 0, 0, 0];
+T[2] = [0, 0, 0, 0];
+T[3] = [0, 0, 0, 0];
+```
+Next, we return to the `run` method. Now, I was confused by the argument to
+the run function but it gives the option to provide the initial state for each 
+qubit. 
+
+Next, a new Circuit is created:
+```js
+const decomposed = new Circuit();
+```
+Then we load that newly created Circuit instance with our Circuit instance by
+first calling save, which seems to be storing this as json (copying it).
+```js
+decomposed.load(this.save(true));
+```
+Next, the function will loop over the columns (in our case we have 2). Notice 
+that the gate is retrieved using the `getGateAt` method:
+```js
+const gate = decomposed.getGateAt(column, wire);
+```
+This method will get the gate from the Circuits gates array:
+```js
+const gate = this.gates[wire][column];
+```
+Which in our case will be:
+```console
+{id: "EpmGCpp2UtPnZqp8xD", name: "h", connector: 0}
+```
+Then it will add a wires array to this gate object:
+```js
+gate.wires = [];
+```
+
+Next `applyGate` is called with the gate (now wired):
+```js
+this.applyGate(gate.name, gate.wires);
+```
+This will create a transform for the gate:
+```js
+this.createTransform(gate, wires);
+```
+`createTransform` calls the `wires` parameter `qubits`. This will setup the
+matrix/transform, `T` with the correct number of elements:
+```
+0: (4) [0.7071067811865475, 0, 0.7071067811865475, 0]
+1: (4) [0, 0.7071067811865475, 0, 0.7071067811865475]
+2: (4) [0.7071067811865475, 0, -0.7071067811865475, 0]
+3: (4) [0, 0.7071067811865475, 0, -0.7071067811865475]
+```
+The transform is a unitary matrix and will in this case be a 4x4 matric.
+Then the state is updated by mutiplying:
+```js
+this.state = math.multiply(this.T, this.state);
+```
+This is very similar to what we did earlier:
+```
+⌈1/√2    0  1/√2    0  ⌉⌈1⌉ = ⌈1/√2⌉
+| 0   1/√2   0     1/√2⌋|0|   | 0  |
+|1/√2    0  -1/√2   0  ||0|   |1/√2|
+⌊ 0   1/√2   0    -1/√2⌋⌊0⌋   ⌊ 0  ⌋ 
+```
+And we can verify this in the console:
+```console
+0: Complex {re: 0.7071067811865474, im: 0}
+1: Complex {re: 0, im: 0}
+2: Complex {re: 0.7071067811865474, im: 0}
+3: Complex {re: 0, im: 0}
+```
+So the state has been updated after the hardamard gate was applied. Next, we
+will be back in the run method and the loop over the columns and wires. There
+is only on qubit involved in the hardamard (think only one wire involved).
+So next, we move onto the next column. And this is where we have the cnot gate.
+
+The transform will be reset and a new one created:
+```console
+0: (4) [1, 0, 0, 0]
+1: (4) [0, 1, 0, 0]
+2: (4) [0, 0, 1, 0]
+3: (4) [0, 0, 0, 1]
+```
+
+After multipying the state will then be:
+```console
+ [Complex, Complex, Complex, Complex]
+0: Complex {re: 0.7071067811865474, im: 0}
+1: Complex {re: 0, im: 0}
+2: Complex {re: 0.7071067811865474, im: 0}
+3: Complex {re: 0, im: 0}
+length: 4
+```
+
+
 #### IBM Q u1, u2, u3
 In the IBM Q experience there are three physical single-qubit gates which take
 1, 2, and 3 parameters. All other gates are just special cases of these three.
