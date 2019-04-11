@@ -738,7 +738,15 @@ H|1> |       |  ⌊1⌋ = |  | = ⌊-0.707⌋
      |--   --|        |--|
      ⌊√2   √2⌋        ⌊√2⌋ 
                      
+
 ```
+This can also be written as:
+```
+ 1 
+-- ⌈1  1⌉
+√2 ⌊1 -1⌋
+```
+
 Below we can see these transistions on the unit cirle
 
 ```
@@ -1059,7 +1067,19 @@ First we get the initial state by taking the tensor product of |0> and |0>.
 |0|    | 0   1/√2   0     1/√2⌋|0|   | 0  |   |0 1 0 0| | 0  |   | 0  |
 |0|    |1/√2    0  -1/√2   0  ||0|   |1/√2|   |0 0 0 1| |1/√2|   |1/√2|
 ⌊0⌋    ⌊ 0   1/√2   0    -1/√2⌋⌊0⌋   ⌊ 0  ⌋   ⌊0 0 1 0⌋ ⌊ 0  ⌋   ⌊ 0  ⌋
+```
+Notice that the hadamard transformation is 4x4 matrix. Since have a two qubit
+system we need to make the unitary transform matrix 4x4. This can be done by
+taking H tensor product I:
+```
+   ⌈1  1⌉     ⌈1 0⌉
+H =⌊1 -1⌋ I = ⌊0 1⌋
 
+  1⌈1 0⌉  1⌈1 0⌉       ⌈1  0  1  0⌉
+   ⌊0 1⌋   ⌊0 1⌋     1 |0  1  0  1|
+                   =-- |1  0 -1  0|
+  1⌈1 0⌉ -1⌈1 0⌉    √2 ⌊0  1  0 -1⌋
+   ⌊0 1⌋   ⌊0 1⌋
 ```
 
 The measurement gate takes a qubit in a superposition of states as input and 
