@@ -441,7 +441,7 @@ as the phase.
 |  1 * ⌈0⌉ |     ⌈0⌉
 |      ⌊1⌋ |  =  |1|
 |  0 * ⌈0⌋ |     |0|
-|      ⌊1⌋ |     ⌊1⌋
+|      ⌊1⌋ |     ⌊0⌋
 ⌊----------⌋
 ```
 The above is how quantum entanglement works. Ψ₁ represents one particle and Ψ₂
