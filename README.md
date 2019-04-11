@@ -548,10 +548,10 @@ Remeber that after the photon has passed through (if it is not blocked) then it'
 new polarisation will be |0>.
 
 ### Gates
-Just like the not, and, or, xor, nand etc gates in classical computers there are
+Just like the `not`, `and`, `or`, `xor`, `nand` etc gates in classical computers there are
 gates in quantum computers as well. These gates operate on a set of inputs
 and produce a set of outputs. But they can operate on all the states of the qubit
-as the same time.
+as the same time by using matrix transformations.
 
 There are 4 operations on a single classical bit:
 ```
