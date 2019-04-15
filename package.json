@@ -4,7 +4,7 @@
   "author": "Daniel Bevenius",
   "license": "Apache-2.0",
   "dependencies": {
-    "qiskit": "^0.6.2",
+    "qiskit": "^0.6.3",
     "jsqubits": "^1.1.0"
   }
 }
