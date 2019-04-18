@@ -592,44 +592,9 @@ x is ⌈1⌉ and for y we have ⌈0⌉
 Now, we put these two in a matrix:
 ⌈1 0⌉
 ⌊0 1⌋
-
-And we can do transformations using:
-⌈1 0⌉⌈3⌉ = ⌈1 * 3 + 0 * 2⌉ = ⌈3⌉
-⌊0 1⌋⌊2⌋   ⌊0 * 3 + 1 * 2⌋   ⌊2⌋
-
-What happens if we use the not/pauli-x matrix/operation:
-⌈0 1⌉⌈3⌉ = ⌈0 * 3 + 1 * 2⌉ = ⌈2⌉
-⌊1 0⌋⌊2⌋   ⌊1 * 3 + 0 * 2⌋   ⌊3⌋
-```
-
-Remember that the |0> state is where cos(0) is pointing straight up.
-
-There are no imaginary numbers in the transform matrix (the gate) so this I think
-implies that this only involved the Z-X plan. So we can think of this is a transformation
-in that plane.
-```
-From:        X    
-             ^
-             |
-           1 -
-             |
-             |
-   <----|-------->|------>    Z
-       -1         1 ⌈1⌉
-                    ⌊0⌋
-To:
-             X
-             ^
-             |
-           1 - ⌈0⌉
-             ^ ⌊1⌋
-             |
-   <----|---------|------>      Z
-       -1         1
 ```
    
 Remember that using polar colar coordinates we can identify our points. 
-Notice that this is a 90 degree rotation, but the sphere has different lenght/angles.
 ```
 
           Z  0 (0 degrees) But the radius is one (unit circle)
@@ -669,7 +634,6 @@ And if θ = π:
 |φ> = 1 * |1>
 |φ> = |1>
 ```
-But in principal we are doing the same thing in both examples.
 
 There is python example, [not_gate.py](./src/not_gate.py) that contains a 
 function and plots a bloch sphere.
