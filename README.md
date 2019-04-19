@@ -1478,6 +1478,7 @@ c[1] = 1
 Notice the inlcude in the source file. You can find [qelib1.inc](https://github.com/Qiskit/qiskit-js/blob/master/packages/qiskit-qasm/core/qelib1.inc).
 
 #### Deutsch-Jozsa Algorithm
+TODO
 
 
 #### Grover's algorithm
@@ -1485,6 +1486,7 @@ Say you have to search a list of items. You would on average have to search
 N/2 and in the worst case N times to find it. So if we have 8 items best case
 would be to have to look at 4 items and worst case 8.
 With a quantum computer we can find the item of interest in √8 = 2.8284 times.
+TODO
 
 #### qiskit-js (Quantum Information Science Kit for JavaScript)
 I'm trying to understand the Circuit class and now this map to my current knowledge
@@ -1508,9 +1510,8 @@ When we add a gate, for example a hadamard gate in qasm:
 h q[0];
 cx q[1], q[0];
 ```
-We only specify a qubit that this is to be added to. Not visually the qubits
-are represented as rows in the GUI
-
+We only specify a qubit that this is to be added to. Now, visually the qubits
+are represented as rows.
 ```
 circuit.addGate('h', 0, 0);
 
@@ -1522,7 +1523,7 @@ So here we have to specify column and the wire, but in qasm we only specify
 the qubit. Why is that?  
 In the composer or in qasm the order of things is important, if we were to move
 the `h q[0] to after the cx gate then the hadamard gate would be placed in the 
-second column. 
+second column. But in qiskit we have to specify the columns too.
 
 #### qiskit-sim
 This is a simlulator and Circuit is part of this package. The Circuit class
@@ -1538,13 +1539,13 @@ const circuit = Circuit.createCircuit(2);
 circuit.addGate(Gate.h, 0, 0).circuit.addGate(Gate.cx, 1, 0).run();
 console.log(circuit.stateToString());
 ```
-The call to the factor function `createCircuit` is just a convienence to create
+The call to the factory function `createCircuit` is just a convienence to create
 a new Circuit with for two qubits. The Circuit constructor will use this value
 to create the gates array with two empty members which are both arrays.
 A Circuit also has a state which is also an array and it has a transform array. 
 
 The state array holds the state of the qubits. 
-The transform array holds the transformations
+The transform array holds the transformations.
 When we call:
 ```js
 addGate(Gate.h, 0, 0);
@@ -1565,10 +1566,6 @@ After the addGate call the Circuits gates would be:
 ```
 this.gates[wire][column] = this.gates[0][0] =
   {id: "uVdyAn4IFbzSxR6huS", name: "h", connector: 0}
-```
-After we've added the cnot gate the state will look like this:
-```
-gates
 ```
 `run` will call init on the Circuit class. It will calculate the number of 
 amplitudes, the number of elements that are needed to represent two qubits in 
@@ -1598,7 +1595,12 @@ T[3] = [0, 0, 0, 0];
 ```
 Next, we return to the `run` method. Now, I was confused by the argument to
 the run function but it gives the option to provide the initial state for each 
-qubit. 
+qubit. I think the usage of this is that you may have executed a circuit and 
+gotten a result and then would like to run another circuit, or the same, but 
+with the results from the prior execution. This input parameter give that option
+to specify the state. It might be nice to not have to do this, but instead
+of resetting the state for each run check if the state is in not in the zero
+state, and in that case use that state?
 
 Next, a new Circuit is created:
 ```js
@@ -1685,7 +1687,6 @@ After multipying the state will then be:
 length: 4
 ```
 
-
 #### IBM Q u1, u2, u3
 In the IBM Q experience there are three physical single-qubit gates which take
 1, 2, and 3 parameters. All other gates are just special cases of these three.
@@ -1729,3 +1730,52 @@ We can plot this on a bloch sphere (see bloch.py for an example).
 
 How do we actually compute with qubits. I can understand how we can have multiple
 qubits entangled and we can operate 
+
+### Shor's Algorithm
+The task is to factor an integer `N` into `d` demimal digits. The brute force
+method would have to go through all primes up to √N and see if the prime divides
+`N`.
+What is done instead of to reduct the problem into another one called period-
+finding.
+
+So lets make N = 35, and q = 5 and p is 7.
+So we have our two prime numbers which multiplied togther are 32. 
+And lets say our keybit size ie 48 (for no particular reason:
+```
+N = 35
+q = 5
+p = 7
+x mod N, x² mod N, x³ mod N, ...
+
+So let just take a random x value, 3
+3 mod 35 =   3
+3² mod 35 =  9
+3³ mod 35 = 27
+3⁴ mod 35 = 11
+3⁵ mod 35 = 33
+3⁶ mod 35 = 29
+3⁷ mod 35 = 17
+3⁸ mod 35 = 16
+3⁹ mod 35 = 13
+3¹⁰ mod 35 = 4
+3¹¹ mod 35 = 12
+3¹² mod 35 = 1
+3¹³ mod 35 = 3        <--- start of repeat
+3¹⁴ mod 35 = 9
+3¹⁵ mod 35 = 27
+
+So the period is 12 in this case.
+
+(p -1)(q-1) = (7-1)(5-1) = (6)(4) = 24
+
+```
+
+### Basis vector
+Is a set of vector that all other vectors can be uniquely written in terms
+of these vectors.
+
+### Dimension
+Of a complex vector space is the number of elements in a basis of the vector space
+
+### Hilbert space
+
