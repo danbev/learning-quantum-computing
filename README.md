@@ -1488,7 +1488,7 @@ would be to have to look at 4 items and worst case 8.
 With a quantum computer we can find the item of interest in √8 = 2.8284 times.
 TODO
 
-#### qiskit-js (Quantum Information Science Kit for JavaScript)
+### qiskit-js (Quantum Information Science Kit for JavaScript)
 I'm trying to understand the Circuit class and now this map to my current knowledge
 of how qasm works. 
 Take the following example:
@@ -1698,7 +1698,7 @@ gate u1(lambda) q {
 u1(λ) = U(0, 0, λ) = ⌊0   e^(iλ)⌋
 ```
 
-#### Qiskit python
+### Qiskit python
 ```console
 $ pip install qiskit qiskit-aqua
 $ pip install qiskit[visualization] qiskit-aqua
@@ -1706,7 +1706,7 @@ $ python3 -c 'import qiskit; print(qiskit.__version__)'
 0.7.1
 ```
 
-#### Qutip
+### Qutip
 A basis in 
 ```console
 $ python3
