@@ -852,6 +852,12 @@ input  |x> -------|   |-----> |x> input'
                   +---+
 ```
 
+When the hadamard gate is applied to the |0> state has its own symbol which is
+|+>:
+```
+|+> = 1/√2 (|0> + |1>)
+```
+
 #### Toffoli Gate (CCNOT)
 Two control qubits and one target qubit. If both of the target qubits are 1 then
 the target qubit wil be flipped (the NOT gate). 
