@@ -1097,10 +1097,10 @@ e = number of units in the imaginary dimension
 #### Swap Gate
 Takes 2 qubits and swaps their state.
 ```  
-     1 0 0 0
-S = (0 0 1 0)
-     0 1 0 0
-     0 0 0 1
+     ⌈1 0 0 0⌉
+S =  |0 0 1 0|
+     |0 1 0 0|
+     ⌊0 0 0 1⌋
 ```
 
 #### NOT gate
