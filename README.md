@@ -73,8 +73,13 @@ example a 45 degree vector would be specified using:
 √2/2⌈1⌉ + √2/2⌈0⌉ = ⌈√2/2⌉ = ⌈0.707106⌉
     ⌊0⌋       ⌊1⌋   ⌊√2/2⌋   ⌊0.707106⌋
 or 
+
 √2/2|0> + √2/2|1> = ⌈√2/2⌉ = ⌈0.707106⌉
                     ⌊√2/2⌋   ⌊0.707106⌋
+or
+
+1/√2|0> + 1/√2|1> = ⌈1/√2⌉ = ⌈0.707106⌉
+                    ⌊1/√2⌋   ⌊0.707106⌋
 ```
 
 ```
@@ -84,8 +89,19 @@ or
                 |    / 
                 |  /
                 |/ ) Θ
-                +------------>
+    π ----------+------------>
                             |0>
+
+Remember that we can describe a vector using two points (a, b), and we can also
+specify the same vector using polar coordinates (p, θ) where p is the magnitude/
+length:
+(a, b) -> (p, Θ)
+p = √(a² + b²)
+Θ = arctan(b/a)
+a = p cos(Θ)  b = p sin(Θ)
+⌈a⌉ = ⌈cos(θ)⌉
+⌊b⌋   ⌊sin(θ)⌋
+
 
 |Ψ> = cos(Θ)|0> + sin(Θ)|1> = ⌈cos(Θ)⌉
                               ⌊sin(Θ)⌋
@@ -143,6 +159,7 @@ q[1] X q[0] = |      |   = |1|
 q[1] X q[0] = |      |   = |0|
               |1 ⌈0⌉ |     ⌊1⌋
               ⌊  ⌊1⌋ ⌋
+
 ```
 This is a method of combining vectors. So a tensor b is:
 ```
@@ -168,7 +185,6 @@ X = tensor product (I've get to find this in digraph)
 
 
 ### Spin
-
 So, a particle has a spin in that it can spin like the earth but in any direction.
 How can this be represented with a matrix?  
 The answer is to use complex numbers. This is the point of the Bloch sphere I
@@ -187,7 +203,7 @@ magnitude = √(5² + 1²)
           = √(25 + 1)
           = √26
 ```
-Notice that i is not used when calculating the magnitude/length
+Notice that `i` is not used when calculating the magnitude/length
 ```
 5 = 0i
 magnitude = √5²
@@ -289,7 +305,7 @@ the Bloch sphere:
            x/   |
                 |1>
 
-Θ = theta and is the angle in the vertical axis
+Θ = theta is the angle in the vertical axis
 Φ = phi is the angle in the x-y plane
 
           θ                0
@@ -405,8 +421,7 @@ V = 3⌈1⌉ + 2⌈0⌉  = ⌈3 * 1 + 2 * 0⌉ = ⌈3⌉
 The difference is that we cannot choose the coefficients directly, they are give
 already but we can specify the angles theta and phi.
 If we keep phi as zero and just change theta this is similar to the above example
-where scale and add the vectors to get a new vector.
-
+where we scale and add the vectors to get a new vector.
 
 So we can have a 0 or a 1 state depending on if the vector is pointing up or
 pointing down. But it call also be pointing anywhere on the sphere, at least
@@ -667,22 +682,41 @@ Notice that the transformation comes first which in this case is the identity
 matrix, and the input which is the vector.
 
 #### S gate (phase gate)
-90 degree rotation around z-axis
+90 degree (π/2) rotation around z-axis
+```
+⌈1 0⌉⌈1⌉ = ⌈1 * 1 + 0 * 1⌉ = ⌈1⌉
+⌊0 i⌋⌊0⌋   ⌊0 * 1 + 0 * i⌋   ⌊0⌋
+
+⌈1 0⌉⌈0⌉ = ⌈0 * 1 + 0 * 1⌉ = ⌈0 ⌉
+⌊0 i⌋⌊1⌋   ⌊0 * 1 + 1 * i⌋   ⌊1i⌋
+Remeber that the magnitude does not take the imaginary part into account so
+the outcome is not affected by the these rotations/phase shifts.
+```
 ```
 ⌈1 0⌉⌈cos(0/2)       ⌉ = ⌈1 * cos(0/2) + 0 * sin(0/2) * e^i0 ⌉ = ⌈1⌉
 ⌊0 i⌋⌊sin(0/2) * e^i0⌋   ⌊cos(0/2) * 0 + -1 * sin(0/2) * e^i)⌋   ⌊0⌋
 ```
+
 #### S_dagger
--90 degree rotation around z-axis
+-90 degree (π/2) rotation around z-axis
+```
+⌈1  0⌉
+⌊0 -i⌋
 
 
-#### T
-45 degree rotation around z-axis
+#### T Gate
+45 degree (π/4) rotation around z-axis
+```
+⌈1      0⌉
+⌊0 e^iπ/4⌋
+```
 
 #### T_dagger
--45 degree rotation around z-axis
+-45 degree (π/4) rotation around z-axis
 
 All gates that rotate less than 180 degrees always rotate around z!
+
+
 
 #### Hadamard gate
 ```
@@ -856,6 +890,7 @@ When the hadamard gate is applied to the |0> state has its own symbol which is
 |+>:
 ```
 |+> = 1/√2 (|0> + |1>)
+|-> = 1/√2 (|0> - |1>)
 ```
 
 #### Toffoli Gate (CCNOT)
