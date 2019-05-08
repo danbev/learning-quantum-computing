@@ -443,6 +443,21 @@ that can be used to get a better feeling for this.
 A complex number has a magnitude and a phase. Think of the complex number as the
 needle of your watch. The angle theta tells us the time, which is known in physics
 as the phase.
+```
+   |
+   |     /
+   |   /
+   | / Θ (angle/phase)
+   +----------
+
+Real numbers are just phase 0 (no angle):
+-------|-|-|-|----
+       0 1 2 3
+
+Negative numbers are phase π (180 agrees):
+-|-|-|-|-|-|-|----
+  -2-1 0 
+```
 
 ### Tensor product
 ```
@@ -710,6 +725,7 @@ the outcome is not affected by the these rotations/phase shifts.
 ⌈1      0⌉
 ⌊0 e^iπ/4⌋
 ```
+Note that this is called `r4` in qiskit-sim. Rotate/phase shift π/4.
 
 #### T_dagger
 -45 degree (π/4) rotation around z-axis
@@ -1082,7 +1098,7 @@ all.
 
 This how we entangle qubits:
 ```                 (CNOT)
-|0> ------------------X-------
+|0> ------------------CX-------
          +---+        |
 |0> -----| H |--------*-------
          +---+
@@ -1727,6 +1743,42 @@ After multipying the state will then be:
 3: Complex {re: 0, im: 0}
 length: 4
 ```
+
+#### Connector
+When creating a circuit in qiskit we use the `addGate` function call to 
+add gates to wires (the qubits) and we specify the columns. For example:
+```js
+const c = Circuit.createCircuit(2);
+c.addGate('x', 0, 0).addGate('cx', 1, [0, 1])
+```
+So first we have a x gate, on column 0, and it operates on qubit
+0 (or wire 0). Next, we have a controlled not gate, which is in column 1, and
+operates on qubit 0, and is connected to qubit 1. In this case 0 is the control
+bit and 1 is the target qubit. This would be represented as a `+` and a connection
+to wire 1 in IBM's quantum expericene.
+
+If we switch this to be `[1, 0]` that would mean that this control not gate would
+use the 1 qubit/wire as its control bit and the target qubit would be 0. Both
+are valid as far as I know but the result will be different as the control qubit
+will determine if the target qubit should be swapped..
+
+This should produce a cicruit that looks like this:
+```
+         column 0    column 1
+wire 0 ---[H]---------[cx]------
+                       |
+wire 1 ---------------[*]------
+```
+
+```console
+[ [ { id: 'VKfLFjtL8uxqZf8Ltg', name: 'h', connector: 0 },
+    { id: 'gOwMXPF3p80tDHnvi8', name: 'cx', connector: 0 } ],
+  [  null,
+    { id: 'gOwMXPF3p80tDHnvi8', name: 'cx', connector: 1 } ] ]
+```
+So, a connector with value `0` means that there are no incoming connection
+to this gate. But for the second wire we see that it has a connector of 
+value `1`. Does that mean that it has one connection
 
 #### IBM Q u1, u2, u3
 In the IBM Q experience there are three physical single-qubit gates which take
