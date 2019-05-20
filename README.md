@@ -1037,6 +1037,54 @@ This is alright as long as we use real number, if we use complex numbers then
 we will also have an extra z dimension and this becomes a sphere.
 If complex number were used then you would have to visualize a sphere.
 
+### Physical single qubit gates (u1, u2, and u3)
+
+```
+|φ> = cos(θ/2) * |0> + sin(θ/2) e^(iΦ) * |1>
+```
+
+
+The following is the most general form of a single qubit unitary matrix:
+```
+U = ⌈cos(θ/2)          -e^(iλ)sin(θ/2)⌉
+    ⌊e^(Φ)sin(θ/2)   e^(iλ+iΦ)cos(θ/2)⌋
+
+So we can imagine a function named U that takes these parameters:
+U(theta,phi,lambda);
+U(Φ, θ, λ);
+```
+`u1` takes one parameter with is λ:
+```
+gate u1(lambda) q { U(0,0,lambda) q; }
+```
+The first two arguments, which are zero above, are the `theta` and `phi` parameters.
+This is then used in the general U matrix like this:
+```
+U = ⌈cos(0/2)          -e^(iλ)sin(0/2)⌉
+    ⌊e^(0)sin(0/2)   e^(iλ+i0)cos(0/2)⌋
+
+U = ⌈1     0⌉
+    ⌊0  e^iλ⌋
+```
+Now, lets take a look at the T gate again which is a 45 degree (π/4) rotation 
+around z-axis:
+```
+⌈1      0⌉
+⌊0 e^iπ/4⌋
+```
+Notice that this is bacically:
+```
+U1(π/4);
+```
+And if we take look at the t gate in qiskit-qasm we find:
+```
+gate t a { u1(pi/4) a; }
+```
+
+```
+gate u3(theta,phi,lambda) q { U(theta,phi,lambda) q; }
+```
+
 
 ### Entanglement
 If the product state of two qubits cannot be factored they are said to be entangled.
