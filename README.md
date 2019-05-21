@@ -1920,3 +1920,19 @@ Of a complex vector space is the number of elements in a basis of the vector spa
 
 ### Hilbert space
 
+### Eigen value and Eigen vectors
+```
+⌈4 -1⌉⌈1⌉ = ⌈(1*4) + (-1*1)⌉ = ⌈3⌉ = 3⌈1⌉
+⌊2  1⌋⌊1⌋   ⌊(1*2) + ( 1*1)⌋   ⌊3⌋    ⌊1⌋
+```
+Notice that only the lenght of the vector is affected and not its direction.
+Eigen is "egen" in Swedish and means own. Perhaps this is because is stays on its
+own straight line?
+
+In the above case the `3` is called the eigen value and the vector is the eigen
+vector:
+```
+3⌈1⌉
+ ⌊1⌋
+```
+
