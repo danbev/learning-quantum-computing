@@ -6,6 +6,6 @@
   "dependencies": {
     "jsqubits": "^1.1.0",
     "mathjs": "^5.9.0",
-    "qiskit": "^0.6.3"
+    "qiskit": "^0.9.0"
   }
 }
