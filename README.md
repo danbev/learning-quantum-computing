@@ -118,6 +118,8 @@ Keep in mind that after we have measured the actual vector has no changed which
 is what is meant it collapsing.
 
 ### Tensor product
+The symbol for the tensor product operation is a circle with an X in it. Don't
+confuse this with the XOR operator which is a circle with a cross in it.
 ```
 X = tensor product
 
@@ -182,6 +184,14 @@ X = tensor product (I've get to find this in digraph)
               ⌊     ⌊b₂⌋ ⌋
               
 ```
+
+### Multiple qubits
+When we have multiple qubits we have:
+```
+|Ψ> = a|00> + b|01> + c|10 + d|11>
+```
+The coefficients (a, b, c, d) are the magnitues and the sum of these squared must
+be 1.
 
 
 ### Spin
@@ -760,6 +770,21 @@ This can also be written as:
 -- ⌈1  1⌉
 √2 ⌊1 -1⌋
 ```
+And:
+```
+|0> + |x>
+----------
+   √2
+```
+This last confused me a litle, so lets break it down:
+```
+              ⌈1⌉   ⌈0⌉    ⌈1⌉
+|0> + |x>     ⌊0⌋ + ⌊1⌋    ⌊1⌋    ⌈1/√2⌉
+---------- =  --------- = ----- = ⌊1/√2⌋
+   √2            √2        √2
+```
+Remember we are just dealing with vectors but in ket notation. And this case we
+are adding two vectors (1, 0) and (0, 1) which gives (1, 1).
 
 ```
  ⌈1⌉
