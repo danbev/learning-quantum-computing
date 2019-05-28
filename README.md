@@ -727,6 +727,7 @@ the outcome is not affected by the these rotations/phase shifts.
 ```
 ⌈1  0⌉
 ⌊0 -i⌋
+```
 
 
 #### T Gate
