@@ -1543,7 +1543,7 @@ are more.
 #### Position Eigenstate
 Just means that the particle will actually be in this location with 100% certainty.
 
-#### Deutch Oracle problem
+#### Deutch Oracle algorithm
 Invented by David Deutch. We want to figure if operation `f` is constant or
 balanced, but we are only allowed to try different inputs and inspect the output.
 The function is constant if the output is independant on the input, and it is
