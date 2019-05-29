@@ -940,6 +940,9 @@ Two control qubits and one target qubit. If both of the target qubits are 1 then
 the target qubit wil be flipped (the NOT gate). 
 
 
+
+
+
 Constant-0
 ```
 f(x) = 0    0 -> 0     (1 1  (1  = (1*1 + 0*1  = (1     (1 1  (0   = (0*1 + 1*1  = (1
@@ -1541,8 +1544,11 @@ are more.
 Just means that the particle will actually be in this location with 100% certainty.
 
 #### Deutch Oracle problem
-We want to figure out what operation `f` if but we are only allowed to try 
-different inputs and inspect the output.
+Invented by David Deutch. We want to figure if operation `f` is constant or
+balanced, but we are only allowed to try different inputs and inspect the output.
+The function is constant if the output is independant on the input, and it is
+balanced if it is dependant.
+
 ```
          +-----+
 bit ---> |  f  | ---> bit
@@ -1550,63 +1556,608 @@ bit ---> |  f  | ---> bit
 ```
 There are four functions on one bit:
 ```
-1) Identity (multiplying with 1)
-2) Constant 0
-3) Constant 1
-4) Negation
+1) Identity (multiply the input by 1)
+2) Constant 0 (make it 0 regardless of the input)
+3) Constant 1 (make it 1 regardless of the input)
+4) Negation   (1 => 0, 0 => 1)
 ```
 How can we figure out what operation f is?
+
 On a classical computer we can
 ```
 0 --->  f(x) ----> 0 (either identity or constant 0)
-1 --->  f(x) ----> 1 (f must be constant 0)
+1 --->  f(x) ----> 0 (f must be constant 0)
 
 1 --->  f(x) ----> 1 (either identity or constant 1)
 0 --->  f(x) ----> 1 (we know the operation is constant 1)
 ```
 So we would have two operations minium to figure out what the function `f` is.
-What about in a quantum computer?  
+The function f could be viewed as a matrix, for example, lets say that f does:
+```js
+function f(x) {
+  return x === 0 ? 1 : 0;
+}
 ```
-|0> --- f(x) ---->  |0>
-|1> --- f(x) ---->  |1>
+This could be viewed as the following matrix:
 ```
-It's actually the same number to identify the four different functions.
-What if we want to know if `f` is constant or variable. const0, const1 are 
-constant and identity and negation are variable.
+⌈0 1⌉
+⌊1 0⌋
 ```
-0 ---> f(x) ----> 0 could be const0 but would also be identity
-1 ---> f(x) ----> 0 is const0 
+And we can multiply |0> and |1> and verify that these work:
+```
+⌈0 1⌉⌈1⌉ = ⌈0 * 1 + 0 * 0⌉ = ⌈0⌉
+⌊1 0⌋⌊0⌋   ⌊1 * 1 + 0 * 0⌋   ⌊1⌋
 
-|0> --- f(x) ---->  |0>
+⌈0 1⌉⌈0⌉ = ⌈0 * 0 + 1 * 1⌉ = ⌈1⌉
+⌊1 0⌋⌊1⌋   ⌊0 * 1 + 0 * 1⌋   ⌊0⌋
 ```
+This is the somewhat familar NOT gate. How about the other three functions ?
+```
+0 -> 0
+1 -> 0
+⌈1 1⌉⌈1⌉ = ⌈1 * 1 + 0 * 1⌉ = ⌈1⌉
+⌊0 0⌋⌊0⌋   ⌊1 * 0 + 1 * 0⌋   ⌊0⌋
 
-const0 in qasm:
+⌈1 1⌉⌈0⌉ = ⌈1 * 0 + 1 * 1⌉ = ⌈1⌉
+⌊0 0⌋⌊1⌋   ⌊0 * 0 + 0 * 0⌋   ⌊0⌋
 ```
-include "qelib1.inc";
-// q[0] will hold the output value
-// q[1] will hold unmodified input value
-qreg q[2];
-creg c[2];
-
-// We don't need to set the output as const 0 just set is to zero 
-// and the default value is just that.
-// Simulate that our input is 1 by flipping 0.
-x q[1];
-measure q -> c;
-```
-All qubits are initialized to |0> so to place |1> in q[1] we can use the x
-gate/operator:
-```
-x q[1] --> ⌈0 1⌉⌈1⌉ = ⌈0⌉
-           ⌊1 0⌋⌊0⌋   ⌊1⌋
 
 ```
-Now the output of our `const0` will be:
+0 -> 1
+1 -> 1
+⌈0 0⌉⌈1⌉ = ⌈0 * 1 + 0 * 0⌉ = ⌈0⌉
+⌊1 1⌋⌊0⌋   ⌊1 * 1 + 1 * 0⌋   ⌊1⌋
+
+⌈0 0⌉⌈0⌉ = ⌈0 * 0 + 0 * 1⌉ = ⌈0⌉
+⌊1 1⌋⌊1⌋   ⌊1 * 0 + 1 * 1⌋   ⌊1⌋
 ```
-c[0] = 0
-c[1] = 1
+
 ```
-Notice the inlcude in the source file. You can find [qelib1.inc](https://github.com/Qiskit/qiskit-js/blob/master/packages/qiskit-qasm/core/qelib1.inc).
+0 -> 0
+1 -> 1
+⌈1 0⌉⌈1⌉ = ⌈1 * 1 + 0 * 0⌉ = ⌈1⌉
+⌊0 1⌋⌊0⌋   ⌊1 * 0 + 1 * 0⌋   ⌊0⌋
+
+⌈1 0⌉⌈0⌉ = ⌈1 * 0 + 1 * 0⌉ = ⌈0⌉
+⌊0 1⌋⌊1⌋   ⌊0 * 0 + 1 * 1⌋   ⌊1⌋
+```
+
+In a quantum system every gate must be unitary (and therefor reversable) but this
+is not the case with the above matrices. For example, we don't know what value
+was multipled against the unitary matric when output is |1>, it could have been 
+|0> or |1> but that information would be lost. 
+
+What if we use two qubits instead of one as above?
+
+```
+        +------+
+|x> ----| CNOT |----|x>
+|y> ----|      |----|x XOR y>
+        +------+
+```
+Notice that the second qubit's operation is XOR, so when the control bit is on
+```
+|10> and |11>
+```
+the result is `1 ^ 0 = 1` and `1 ^ 1 = 0`.
+
+
+```
+        +--------+
+|x> ----|   Uf   |----|x>
+|y> ----|        |----|f(x) XOR y>
+        +--------+
+```
+`x` is the that we want to evaluate, this was the single qubit
+that we used in the examples above. This will go through the circuit unchanges and
+is how we can know what values was passed into the system.
+`y` will be the output of this circuit. This can be written as:
+```
+The function takes |x, y> to the state |x, y XOR f(x)>
+```
+What happens if y = 0:
+```
+|x, 0> to |x, 0 XOR f(x)> 
+
+x=0;     f(x) = { 0 -> 1, 1 -> 0 }
+
+|0, 0> -> |0, 0 XOR f(0)>   f(0) = 1
+          |0, 0 XOR 1>
+          |0, 1> Notice that this is the same as f(0) = 1
+
+x=1
+|1, 0> -> |1, 0 XOR f(1)>   f(1) = 0
+          |1, 0 XOR 0>
+          |1, 0> Notice that this is the same as f(1) = 0
+
+So we can write this as:
+|x, f(x)>
+```
+
+```
+        +--------+                   +--------+
+|x> ----|   Uf   |----|x>------------|   Uf   |--------|x>
+|y> ----|        |----|y XOR f(x)----|        |--------|y>
+        +--------+                   +--------+
+
+|x, y> goes to |x, y XOR(f)>
+which goes to
+|x, (y XOR f(x)) XOR f(x)>
+```
+
+In a quantum system the function f(x) above would be represented as unitary matrix.
+For `Uf` when it takes 0->1 and 1->0, we need a unitary matrix that looks like this:
+```
+⌈0 1⌉
+⌊1 0⌋
+
+[0, 1, 0, 0]
+[1, 0, 0, 0]
+[0, 0, 1, 0]
+[0, 0, 0, 1]
+```
+
+```
+              00 01 10 11 (input |x, y>)
+(output   00 [ 0, 1, 0, 0]
+|x', y'>) 01 [ 1, 0, 0, 0]
+          10 [ 0, 0, 1, 0]
+          11 [ 0, 0, 0, 1]
+```
+A `1` means for input |x, y> the output will be |x', y'>, for example when 
+the input is |00> the output will be |01>.
+For example:
+```
+|00>
+[ 0, 1, 0, 0]⌈1⌉   ⌈0⌉
+[ 1, 0, 0, 0]|0| = |1| = |01>
+[ 0, 0, 1, 0]|0|   |0|
+[ 0, 0, 0, 1]⌊0⌋   ⌊0⌋
+|01>
+[ 0, 1, 0, 0]⌈0⌉   ⌈1⌉
+[ 1, 0, 0, 0]|1| = |0| = |00>
+[ 0, 0, 1, 0]|0|   |0|
+[ 0, 0, 0, 1]⌊0⌋   ⌊0⌋
+|10>
+[ 0, 1, 0, 0]⌈0⌉   ⌈0⌉
+[ 1, 0, 0, 0]|0| = |0| = |10>
+[ 0, 0, 1, 0]|1|   |1|
+[ 0, 0, 0, 1]⌊0⌋   ⌊0⌋
+|11>
+[ 0, 1, 0, 0]⌈0⌉   ⌈0⌉
+[ 1, 0, 0, 0]|0| = |0| = |11>
+[ 0, 0, 1, 0]|0|   |0|
+[ 0, 0, 0, 1]⌊1⌋   ⌊1⌋
+```
+And this is what the matrix would look like for constant 0:
+```
+⌈1 1⌉⌈1⌉ = ⌈1 * 1 + 1 * 0⌉ = ⌈1⌉
+⌊0 0⌋⌊0⌋   ⌊0 * 1 + 0 * 0⌋   ⌊0⌋
+
+⌈1 1⌉⌈0⌉ = ⌈1 * 0 + 1 * 1⌉ = ⌈1⌉
+⌊0 0⌋⌊1⌋   ⌊0 * 0 + 0 * 0⌋   ⌊0⌋
+
+|00>
+[1, 1, 0, 0]⌈1⌉   ⌈1⌉
+[0, 0, 0, 0]|0| = |0|
+[0, 0, 1, 0]|0|   |0|
+[0, 0, 0, 1]⌊0⌋   ⌊0⌋
+
+|01>
+[1, 1, 0, 0]⌈0⌉   ⌈1⌉
+[0, 0, 0, 0]|1| = |0|
+[0, 0, 1, 0]|0|   |0|
+[0, 0, 0, 1]⌊0⌋   ⌊0⌋
+
+|10>
+[1, 1, 0, 0]⌈0⌉   ⌈0⌉
+[0, 0, 0, 0]|0| = |0|
+[0, 0, 1, 0]|1|   |1|
+[0, 0, 0, 1]⌊0⌋   ⌊0⌋
+
+|11>
+[1, 1, 0, 0]⌈0⌉   ⌈0⌉
+[0, 0, 0, 0]|0| = |0|
+[0, 0, 1, 0]|0|   |0|
+[0, 0, 0, 1]⌊1⌋   ⌊1⌋
+```
+
+So what if we just use this gate and apply it to our control qubit. The initial
+state of y be |0> so that would give:
+```
+[0, 1, 0, 0]⌈1⌉   ⌈0⌉
+[1, 0, 0, 0]|0| = |1|
+[0, 0, 1, 0]|0|   |0|
+[0, 0, 0, 1]⌊0⌋   ⌊0⌋
+```
+This is only checking the input |00> and would have to perform this operation (
+the matrix multiplation/appyling the gate) twice.
+
+```
+        +--------+            
+|x> ----|   Uf   |----|x>
+|y> ----|        |----|y XOR f(x)
+        +--------+             
+```
+
+Above we set the input `x` to be in either |0> or |1> depending on the input
+value. How about we put into a superposition state using a hadamard gate:
+So initial state will be |00>.
+
+```
+              +--------+            
+|x> --[H]-----|   Uf   |----|x>
+|y> ----------|        |----|y XOR f(x)
+              +--------+             
+
+      ⌈1/√2  1/√2⌉⌈1⌉   ⌈1/√2⌉   |0> + |1>
+H|0> =⌊1/√2 -1/√2⌋⌊0⌋ = ⌊1/√2⌋ = ---------
+                                    √2
+```
+So the state after the hadamard gate would be:
+```
+|x, y>
+
+⌈1/√2⌉ Tensor product ⌈1⌉
+⌊1/√2⌋                ⌊0⌋
+
+x = ⌈1/√2⌉   y = ⌈1⌉
+    ⌊1/√2⌋       ⌊0⌋
+
+        ⌈1/√2 ⌈1⌉ ⌉     ⌈1/√2⌉
+        |     ⌊0⌋ |     |  0|
+x X y = |         |   = |1/√2|
+        |1/√2 ⌈1⌉ |     ⌊  0⌋
+        ⌊     ⌊0⌋ ⌋
+```
+So that would be the state of the circut before execting the Uf gate. Let's 
+take a look what happens when we apply that gate to the current state:
+```
+[0, 1, 0, 0]⌈1/√2⌉   ⌈   0⌉
+[1, 0, 0, 0]|   0| = |1/√2|
+[0, 0, 1, 0]|1/√2|   |1/√2|
+[0, 0, 0, 1]⌊   0⌋   ⌊   0⌋
+
+So this means that there is a 50% change of measuring the state as:
+⌈0⌉     ⌈0⌉
+|1|     |0|
+|0| or  |1|  = |01> or |10>
+⌊0⌋     ⌊0⌋
+```
+So there is no real information to be gotten from this, we need a different solution
+to this. Instead of leaving y in the zero state we can put it into the superposition
+state:
+```
+                   +--------+            
+|x> ---------------|   Uf   |----|x>
+|y> --[x]---[H]----|        |----|y XOR f(x)
+                   +--------+             
+
+      ⌈1/√2  1/√2⌉⌈0⌉   ⌈ 1/√2⌉   |0> - |1>
+H|1> =⌊1/√2 -1/√2⌋⌊1⌋ = ⌊-1/√2⌋ = ---------
+                                     √2
+```
+
+Recall that x is representing the input which could be 0 or 1. We can leave this
+as x for now or replace it with an actual value but remember that there are two 
+options for this value at the moment.
+
+Lets start with x being in the zero state |0>:
+```
+
+⌈1⌉ Tensor product ⌈0⌉
+⌊0⌋                ⌊1⌋
+
+x = ⌈1⌉   y = ⌈ 1/√2⌉
+    ⌊0⌋       ⌊-1/√2⌋
+
+        ⌈1 ⌈ 1/√2⌉ ⌉     ⌈ 1/√2⌉
+        |  ⌊-1/√2⌋ |     |-1/√2|
+x X y = |         |   =  |   0|
+        |0 ⌈ 1/√2⌉ |     ⌊   0⌋
+        ⌊  ⌊-1/√2⌋ ⌋
+
+
+[0, 1, 0, 0]⌈ 1/√2⌉   ⌈-1/√2⌉
+[1, 0, 0, 0]|-1/√2| = | 1/√2|
+[0, 0, 1, 0]|   0|    |   0|
+[0, 0, 0, 1]⌊   0⌋    ⌊   0⌋
+
+and now x being in the one nd y |1>:
+x = ⌈0⌉   y = ⌈ 1/√2⌉
+    ⌊1⌋       ⌊-1/√2⌋
+
+        ⌈0 ⌈ 1/√2⌉ ⌉     ⌈   0⌉
+        |  ⌊-1/√2⌋ |     |   0|
+x X y = |          |   = | 1/√2|
+        |1 ⌈ 1/√2⌉ |     ⌊-1/√2⌋
+        ⌊  ⌊-1/√2⌋ ⌋
+
+[0, 1, 0, 0]⌈   0⌉    ⌈   0⌉
+[1, 0, 0, 0]|   0| =  |   0|
+[0, 0, 1, 0]| 1/√2|   | 1/√2|
+[0, 0, 0, 1]⌊-1/√2⌋   ⌊-1/√2⌋
+```
+
+Measuring this does not really give us anything useful either. 
+
+Lets try combining these two attempts, by applying the hadamard gate to 
+both x and y and also on x again after the Uf gate:
+```
+                   +--------+            
+|0> --------[H}----|   Uf   |----[H]--
+|1> --[X]---[H]----|        |----
+                   +--------+             
+
+x = ⌈1⌉   y = ⌈0⌉
+    ⌊0⌋       ⌊1⌋
+
+      ⌈1/√2  1/√2⌉⌈1⌉   ⌈1/√2⌉   |0> + |1>
+H|0> =⌊1/√2 -1/√2⌋⌊0⌋ = ⌊1/√2⌋ = ---------
+                                    √2
+
+      ⌈1/√2  1/√2⌉⌈0⌉   ⌈ 1/√2⌉   |0> - |1>
+H|1> =⌊1/√2 -1/√2⌋⌊1⌋ = ⌊-1/√2⌋ = ---------
+                                     √2
+
+                                                          ⌈+1/2⌉
+⌈|0> + 1>⌉⌈|0> - |1>⌉   +|0,0> - |0,1> + |1,0> - |1,1>    |-1/2|
+|--------||---------| = ------------------------------ =  |+1/2|
+⌊   √2   ⌋⌊   √2    ⌋               √2                    ⌊-1/2⌋
+
+Which is the same thing as:
+
+        ⌈0.707106 ⌈ 0.707106⌉ ⌉     ⌈ 0.5⌉
+        |         ⌊-0.707106⌋ |     |-0.5|
+x X y = |                     |   = | 0.5|
+        |0.707106 ⌈ 0.706106⌉ |     ⌊-0.5⌋
+        ⌊         ⌊-0.706106⌋ ⌋
+
+```
+So just keep in mind that what we are trying to do is determine if Uf, the function
+f is constant or balanced. And by putting the quantum circuit into this state
+we can determine what the Uf matrix is doing (constant or balanced).
+
+So we multiply this state with the `Uf` matrix:
+```
+[0, 1, 0, 0]⌈ 0.5⌉   ⌈-0.5⌉
+[1, 0, 0, 0]|-0.5| = | 0.5|
+[0, 0, 1, 0]| 0.5|   | 0.5|
+[0, 0, 0, 1]⌊-0.5⌋   ⌊-0.5⌋
+```
+We also run the top qubit through a hadamard gate. Just be careful about "choosing"
+the top qubit. The state of the circuit is currently:
+```
+⌈    0⌉
+|    0|
+|-1/√2|
+⌊ 1/√2⌋
+```
+```
+      ⌈0 ⌈-1/√2⌉⌉     ⌈    0⌉
+      |  ⌊ 1/√2⌋|     |    0|
+      |         | =   |-1/√2|
+      |1 ⌈-1/√2⌉|     ⌊ 1/√2⌋
+      ⌊  ⌊ 1/√2⌋⌋
+```
+We now measure the top qubit `x` and if it is in the |0> state Uf is a constant
+function and if not it is a balanced function. 
+`
+In our case the result is the |1> state so our function is balanced which indeed
+is true.
+
+Now, lets try a constant function.
+So we know that the constant zero matrix would look like this for a single 
+qubit:
+```
+⌈1 1⌉⌈1⌉ = ⌈1 * 1 + 1 * 0⌉ = ⌈1⌉
+⌊0 0⌋⌊0⌋   ⌊0 * 1 + 0 * 0⌋   ⌊0⌋
+
+⌈1 1⌉⌈0⌉ = ⌈1 * 0 + 1 * 1⌉ = ⌈1⌉
+⌊0 0⌋⌊1⌋   ⌊0 * 0 + 0 * 0⌋   ⌊0⌋
+
+|00>
+[1, 1, 0, 0]⌈1⌉   ⌈1⌉
+[0, 0, 0, 0]|0| = |0|
+[0, 0, 1, 0]|0|   |0|
+[0, 0, 0, 1]⌊0⌋   ⌊0⌋
+
+|01>
+[1, 1, 0, 0]⌈0⌉   ⌈1⌉
+[0, 0, 0, 0]|1| = |0|
+[0, 0, 1, 0]|0|   |0|
+[0, 0, 0, 1]⌊0⌋   ⌊0⌋
+
+|10>
+[1, 1, 0, 0]⌈0⌉   ⌈0⌉
+[0, 0, 0, 0]|0| = |0|
+[0, 0, 1, 0]|1|   |1|
+[0, 0, 0, 1]⌊0⌋   ⌊0⌋
+
+|11>
+[1, 1, 0, 0]⌈0⌉   ⌈0⌉
+[0, 0, 0, 0]|0| = |0|
+[0, 0, 1, 0]|0|   |0|
+[0, 0, 0, 1]⌊1⌋   ⌊1⌋
+
+[1, 1, 0, 0]⌈ 0.5⌉   ⌈1 * 0.5 + 1 * -0.5 + 0 + 0⌉  ⌈   0⌉
+[0, 0, 0, 0]|-0.5| = |                         0|  |   0|
+[0, 0, 1, 0]| 0.5|   |                       0.5|= | 0.5|
+[0, 0, 0, 1]⌊-0.5⌋   ⌊                      -0.5⌋  ⌊-0.5⌋
+
+And this is then passed through the hadamard gate:
+```
+     ⌈1 0  1  0⌉⌈   0⌉   ⌈ 0.3535533906⌉
+1/√2 |0 1  0  1||   0| = |-0.3535533906|
+     |1 0 -1  0|| 0.5|   |-0.3535533906|
+     ⌊0 1  0 -1⌋⌊-0.5⌋   ⌊ 0.3535533906⌋
+```
+Next, we want to measure the top qubit to determine if `Uf` is constant or 
+balanced:
+```
+      ⌈1 ⌈ 0.3535533906⌉⌉     ⌈ 0.3535533906⌉
+      |  ⌊-0.3535533906⌋|     |-0.3535533906|
+      |                 | =   |-0.3535533906|
+      |1 ⌈-0.3535533906⌉|     ⌊ 0.3535533906⌋
+      ⌊  ⌊ 0.3535533906⌋⌋
+```
+What is going on here? We want to collapse the qubits into classical bits.
+The probability in this case is 25...
+
+The result is |0> so f is a constant function.
+```
+
+The following is a different notaion but for the same thing as above.
+Our initial state would be (after the not gate to make y = 1):
+```
+|x, 1>
+```
+
+Our initial state would be (after the not gate to make y = 1):
+```
+|x, 1>
+      
+          ⌈|0> - |1>⌉   |x, 0> - |x, 1>
+H|x> = |x>|---------| = ---------------
+          ⌊   √2    ⌋         √2
+
+```
+
+Next, apply hadamard: 
+```
+   ⌈|0 XOR f(x)> - |1 XOR f(x)>⌉
+|x>| ------------------------- |
+   ⌊         √2                ⌋
+
+This can be simplified by realising:
+x = 0, f(x) { 0, 1} 
+            { 1, 0} 
+0 XOR f(0) - 1 XOR f(0) = 
+0 XOR 1    - 1 XOR 1    = 
+         1 - 0              // if the opposite of f(x)
+x = 1
+0 XOR f(1) - 1 XOR f(1) = 
+0 XOR 0    - 1 XOR 0    = 
+         0 - 1              // if the opposite of f(x)
+
+So this can be written as:
+
+   ⌈|f(x)> - |f_bar(x)>⌉
+|x>|-------------------|
+   ⌊       √2          ⌋
+
+```
+f_bar means the opposite of f(x).
+
+So, when f(x)=0 we have:
+```
+   ⌈|0> - |1>⌉
+|x>|---------|
+   ⌊   √2    ⌋
+```
+
+So, when f(x)x=1 we have:
+```
+   ⌈|1> - |0>⌉
+|x>|---------|
+   ⌊   √2    ⌋
+```
+
+```
+    ⌈|0> - |1>⌉
+|x> |---------|    if f(x) = 0
+    ⌊   √2    ⌋
+
+    ⌈|1> - |0>⌉
+|x> |---------|    if f(x) = 1
+    ⌊   √2    ⌋
+```
+```
+a - b = (-1)(b - a)
+```
+So we can use this to re-write the above like this:
+```
+              ⌈|0> - |1>⌉
+(-1)^f(x) |x> |---------| 
+              ⌊   √2    ⌋
+```
+
+But this is only checking the value of 0. The idea is to check all possible combination
+```
+|00> = q[1] = ⌈1⌉   q[0] = ⌈1⌉
+              ⌊0⌋          ⌊0⌋
+
+|01> = q[1] = ⌈1⌉   q[0] = ⌈0⌉
+              ⌊0⌋          ⌊1⌋
+
+|10> = q[1] = ⌈0⌉   q[0] = ⌈1⌉
+              ⌊1⌋          ⌊0⌋
+
+|11> = q[1] = ⌈0⌉   q[0] = ⌈0⌉
+              ⌊1⌋          ⌊1⌋
+```
+
+```
+|0> -------H-----------
+
+Recall that |0> can also be written as ⌈1⌉
+                                       ⌊0⌋
+
+which is the following vector:
+     y ^
+       |
+       |
+       |    (1, 0)
+       |    |
+       +---->----> x
+            1
+
+     ⌈ 1    1⌉        ⌈ 1⌉
+     |--   --|        |--|                          ⌈1⌉   ⌈0⌉    ⌈1⌉
+     |√2   √2|  ⌈1⌉   |√2|   ⌈0.707⌉   |0> + |1>    ⌊0⌋ + ⌊1⌋    ⌊1⌋
+H|0> |       |  ⌊0⌋ = |  | = ⌊0.707⌋ = ---------- = --------- =  ---  
+     | 1   -1|        | 1|                √2           √2        √2
+     |--   --|        |--|
+     ⌊√2   √2⌋        ⌊√2⌋ 
+
+And this could also be written as:
+1        1           |0> + |1>  
+-- |0> + -- |1> =    ----------
+√2       √2              √2
+
+     y ^
+       |
+     1 -
+       |   / (0.707, 0.707)  (imaging an arrow from the origin) 
+       | / 
+       +----|----> x
+            1
+
+0.707² + 0.707² = 0.5 + 0.5 = 1
+
+
+
+|1> -------H----------- :
+
+     ⌈ 1    1⌉        ⌈ 1⌉
+     |--   --|        |--|
+     |√2   √2|  ⌈0⌉   |√2|   ⌈ 0.707⌉
+H|1> |       |  ⌊1⌋ = |  | = ⌊-0.707⌋
+     | 1   -1|        |-1|
+     |--   --|        |--|
+     ⌊√2   √2⌋        ⌊√2⌋ 
+```
+So the quantum register/state for this could be written as:
+
+So, we want to put the state of the circuit into:
+```
+                                                           00 ⌈+1/2⌉
+⌈|0> + |1>⌉⌈|0> - |1>⌉   +|0,0> - |0,1> + |1,0> - |1,1>    01 |-1/2|
+| ------- || ------- | = ------------------------------  = 10 |+1/2|
+⌊   √2    ⌋⌊   √2    ⌋              2                      11 ⌊-1/2⌋
+
+```
+
 
 #### Deutsch-Jozsa Algorithm
 TODO
