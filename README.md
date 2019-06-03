@@ -862,6 +862,44 @@ And the same goes for (0, -1):
 
 -0² + 1² = 0 + 1 = 1 (100% probability of being |1>
 ```
+To place one qubit in a superposition we use a single hadamard matrix. To place
+n qubits in a superposition we use the tensor product of n hadamard matrices.
+```
+H X H or H^X2
+
+              j 0  1              1
+1 ⌈1  1⌉    i 0⌈1  1⌉   H[i,j] = --- (-1)^i&j
+--⌊1 -1⌋      1⌊1 -1⌋             √2
+√2
+
+          1                  1           1
+H[0,0] = --- (-1)^(0 & 0) = ---(-1)^0 = --- 1 = 0.707106
+          √2                 √2          √2
+
+          1                  1           1
+H[0,1] = --- (-1)^(0 & 1) = ---(-1)^0 = --- 1 = 0.707106
+          √2                 √2          √2
+
+          1                  1           1
+H[1,0] = --- (-1)^(1 & 0) = ---(-1)^0 = --- 1 = 0.707106
+          √2                 √2          √2
+
+          1                  1           1
+H[1,1] = --- (-1)^(1 & 1) = ---(-1)^1 = --- -1 = -0.707106
+          √2                 √2          √2
+ 
+```
+
+Hadamard tensor itself:
+```
+   1⌈1  1⌉   1⌈1  1⌉    ⌈1  1 1  1⌉
+    ⌊1 -1⌋    ⌊1 -1⌋    |1 -1 1 -1
+                      = 
+   1⌈1  1⌉  -1⌈1  1⌉
+    ⌊1 -1⌋    ⌊1 -1⌋
+
+
+```
 
 Example:
 ```
