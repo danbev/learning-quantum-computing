@@ -1679,7 +1679,6 @@ Notice that the second qubit's operation is XOR, so when the control bit is on
 ```
 the result is `1 ^ 0 = 1` and `1 ^ 1 = 0`.
 
-
 ```
         +--------+
 |x> ----|   Uf   |----|x>
@@ -1744,126 +1743,21 @@ For `Uf` when it takes 0->1 and 1->0, we need a unitary matrix that looks like t
 ```
 A `1` means for input |x, y> the output will be |x', y'>, for example when 
 the input is |00> the output will be |01>.
-For example:
+This really confused my initially, if you |x, y> (the tensor product of x and
+y) |00> that would give you:
 ```
-|00>
-[ 0, 1, 0, 0]⌈1⌉   ⌈0⌉
-[ 1, 0, 0, 0]|0| = |1| = |01>
-[ 0, 0, 1, 0]|0|   |0|
-[ 0, 0, 0, 1]⌊0⌋   ⌊0⌋
-|01>
-[ 0, 1, 0, 0]⌈0⌉   ⌈1⌉
-[ 1, 0, 0, 0]|1| = |0| = |00>
-[ 0, 0, 1, 0]|0|   |0|
-[ 0, 0, 0, 1]⌊0⌋   ⌊0⌋
-|10>
-[ 0, 1, 0, 0]⌈0⌉   ⌈0⌉
-[ 1, 0, 0, 0]|0| = |0| = |10>
-[ 0, 0, 1, 0]|1|   |1|
-[ 0, 0, 0, 1]⌊0⌋   ⌊0⌋
-|11>
-[ 0, 1, 0, 0]⌈0⌉   ⌈0⌉
-[ 1, 0, 0, 0]|0| = |0| = |11>
-[ 0, 0, 1, 0]|0|   |0|
-[ 0, 0, 0, 1]⌊1⌋   ⌊1⌋
-```
-And this is what the matrix would look like for constant 0:
-```
-⌈1 1⌉⌈1⌉ = ⌈1 * 1 + 1 * 0⌉ = ⌈1⌉
-⌊0 0⌋⌊0⌋   ⌊0 * 1 + 0 * 0⌋   ⌊0⌋
-
-⌈1 1⌉⌈0⌉ = ⌈1 * 0 + 1 * 1⌉ = ⌈1⌉
-⌊0 0⌋⌊1⌋   ⌊0 * 0 + 0 * 0⌋   ⌊0⌋
-
-|00>
-[1, 1, 0, 0]⌈1⌉   ⌈1⌉
-[0, 0, 0, 0]|0| = |0|
-[0, 0, 1, 0]|0|   |0|
-[0, 0, 0, 1]⌊0⌋   ⌊0⌋
-
-|01>
-[1, 1, 0, 0]⌈0⌉   ⌈1⌉
-[0, 0, 0, 0]|1| = |0|
-[0, 0, 1, 0]|0|   |0|
-[0, 0, 0, 1]⌊0⌋   ⌊0⌋
-
-|10>
-[1, 1, 0, 0]⌈0⌉   ⌈0⌉
-[0, 0, 0, 0]|0| = |0|
-[0, 0, 1, 0]|1|   |1|
-[0, 0, 0, 1]⌊0⌋   ⌊0⌋
-
-|11>
-[1, 1, 0, 0]⌈0⌉   ⌈0⌉
-[0, 0, 0, 0]|0| = |0|
-[0, 0, 1, 0]|0|   |0|
-[0, 0, 0, 1]⌊1⌋   ⌊1⌋
+⌈0⌉
+|1|
+|0|
+⌊0⌋
+And if you have |01> that would give:
+⌈1⌉
+|0|
+|0|
+⌊0⌋
 ```
 
-So what if we just use this gate and apply it to our control qubit. The initial
-state of y be |0> so that would give:
-```
-[0, 1, 0, 0]⌈1⌉   ⌈0⌉
-[1, 0, 0, 0]|0| = |1|
-[0, 0, 1, 0]|0|   |0|
-[0, 0, 0, 1]⌊0⌋   ⌊0⌋
-```
-This is only checking the input |00> and would have to perform this operation (
-the matrix multiplation/appyling the gate) twice.
-
-```
-        +--------+            
-|x> ----|   Uf   |----|x>
-|y> ----|        |----|y XOR f(x)
-        +--------+             
-```
-
-Above we set the input `x` to be in either |0> or |1> depending on the input
-value. How about we put into a superposition state using a hadamard gate:
-So initial state will be |00>.
-
-```
-              +--------+            
-|x> --[H]-----|   Uf   |----|x>
-|y> ----------|        |----|y XOR f(x)
-              +--------+             
-
-      ⌈1/√2  1/√2⌉⌈1⌉   ⌈1/√2⌉   |0> + |1>
-H|0> =⌊1/√2 -1/√2⌋⌊0⌋ = ⌊1/√2⌋ = ---------
-                                    √2
-```
-So the state after the hadamard gate would be:
-```
-|x, y>
-
-⌈1/√2⌉ Tensor product ⌈1⌉
-⌊1/√2⌋                ⌊0⌋
-
-x = ⌈1/√2⌉   y = ⌈1⌉
-    ⌊1/√2⌋       ⌊0⌋
-
-        ⌈1/√2 ⌈1⌉ ⌉     ⌈1/√2⌉
-        |     ⌊0⌋ |     |  0|
-x X y = |         |   = |1/√2|
-        |1/√2 ⌈1⌉ |     ⌊  0⌋
-        ⌊     ⌊0⌋ ⌋
-```
-So that would be the state of the circut before execting the Uf gate. Let's 
-take a look what happens when we apply that gate to the current state:
-```
-[0, 1, 0, 0]⌈1/√2⌉   ⌈   0⌉
-[1, 0, 0, 0]|   0| = |1/√2|
-[0, 0, 1, 0]|1/√2|   |1/√2|
-[0, 0, 0, 1]⌊   0⌋   ⌊   0⌋
-
-So this means that there is a 50% change of measuring the state as:
-⌈0⌉     ⌈0⌉
-|1|     |0|
-|0| or  |1|  = |01> or |10>
-⌊0⌋     ⌊0⌋
-```
-So there is no real information to be gotten from this, we need a different solution
-to this. Instead of leaving y in the zero state we can put it into the superposition
+Instead of leaving y in the one state we can put it into the superposition
 state:
 ```
                    +--------+            
@@ -1876,54 +1770,15 @@ H|1> =⌊1/√2 -1/√2⌋⌊1⌋ = ⌊-1/√2⌋ = ---------
                                      √2
 ```
 
-Recall that x is representing the input which could be 0 or 1. We can leave this
-as x for now or replace it with an actual value but remember that there are two 
-options for this value at the moment.
+Recall that x is representing the input which could be 0 or 1. We can leave
+this as x for now or replace it with an actual value but remember that there
+are two options for this value at the moment.
 
-Lets start with x being in the zero state |0>:
-```
-
-⌈1⌉ Tensor product ⌈0⌉
-⌊0⌋                ⌊1⌋
-
-x = ⌈1⌉   y = ⌈ 1/√2⌉
-    ⌊0⌋       ⌊-1/√2⌋
-
-        ⌈1 ⌈ 1/√2⌉ ⌉     ⌈ 1/√2⌉
-        |  ⌊-1/√2⌋ |     |-1/√2|
-x X y = |         |   =  |   0|
-        |0 ⌈ 1/√2⌉ |     ⌊   0⌋
-        ⌊  ⌊-1/√2⌋ ⌋
-
-
-[0, 1, 0, 0]⌈ 1/√2⌉   ⌈-1/√2⌉
-[1, 0, 0, 0]|-1/√2| = | 1/√2|
-[0, 0, 1, 0]|   0|    |   0|
-[0, 0, 0, 1]⌊   0⌋    ⌊   0⌋
-
-and now x being in the one nd y |1>:
-x = ⌈0⌉   y = ⌈ 1/√2⌉
-    ⌊1⌋       ⌊-1/√2⌋
-
-        ⌈0 ⌈ 1/√2⌉ ⌉     ⌈   0⌉
-        |  ⌊-1/√2⌋ |     |   0|
-x X y = |          |   = | 1/√2|
-        |1 ⌈ 1/√2⌉ |     ⌊-1/√2⌋
-        ⌊  ⌊-1/√2⌋ ⌋
-
-[0, 1, 0, 0]⌈   0⌉    ⌈   0⌉
-[1, 0, 0, 0]|   0| =  |   0|
-[0, 0, 1, 0]| 1/√2|   | 1/√2|
-[0, 0, 0, 1]⌊-1/√2⌋   ⌊-1/√2⌋
-```
-
-Measuring this does not really give us anything useful either. 
-
-Lets try combining these two attempts, by applying the hadamard gate to 
+Lets try combining, by applying the hadamard gate to 
 both x and y and also on x again after the Uf gate:
 ```
                    +--------+            
-|0> --------[H}----|   Uf   |----[H]--
+|0> --------[H]----|   Uf   |----[H]--
 |1> --[X]---[H]----|        |----
                    +--------+             
 
@@ -1952,9 +1807,9 @@ x X y = |                     |   = | 0.5|
         ⌊         ⌊-0.706106⌋ ⌋
 
 ```
-So just keep in mind that what we are trying to do is determine if Uf, the function
-f is constant or balanced. And by putting the quantum circuit into this state
-we can determine what the Uf matrix is doing (constant or balanced).
+So just keep in mind that what we are trying to do is determine if Uf, the
+function f is constant or balanced. And by putting the quantum circuit into
+this state we can determine what the Uf matrix is doing (constant or balanced).
 
 So we multiply this state with the `Uf` matrix:
 ```
@@ -1963,14 +1818,17 @@ So we multiply this state with the `Uf` matrix:
 [0, 0, 1, 0]| 0.5|   | 0.5|
 [0, 0, 0, 1]⌊-0.5⌋   ⌊-0.5⌋
 ```
-We also run the top qubit through a hadamard gate. Just be careful about "choosing"
-the top qubit. The state of the circuit is currently:
+We also run the top qubit through a hadamard gate (H X I) to produce:.
 ```
 ⌈    0⌉
 |    0|
 |-1/√2|
 ⌊ 1/√2⌋
 ```
+We now measure the top qubit `x` and if it is in the |0> state Uf is a constant
+function and if not it is a balanced function. 
+
+The state of the circuit is currently:
 ```
       ⌈0 ⌈-1/√2⌉⌉     ⌈    0⌉
       |  ⌊ 1/√2⌋|     |    0|
@@ -1978,77 +1836,51 @@ the top qubit. The state of the circuit is currently:
       |1 ⌈-1/√2⌉|     ⌊ 1/√2⌋
       ⌊  ⌊ 1/√2⌋⌋
 ```
-We now measure the top qubit `x` and if it is in the |0> state Uf is a constant
-function and if not it is a balanced function. 
 `
-In our case the result is the |1> state so our function is balanced which indeed
-is true.
+In our case the result is the top qubit |1> state so our function is balanced
+which indeed is true.
 
-Now, lets try a constant function.
-So we know that the constant zero matrix would look like this for a single 
-qubit:
+Notice that the `Uf` operates on a superposition state and not as I thought 
+on a single input like |00>, |01>, |10>, or |11>. 
+
+Now, lets try a constant function. For example constant 0:
 ```
-⌈1 1⌉⌈1⌉ = ⌈1 * 1 + 1 * 0⌉ = ⌈1⌉
-⌊0 0⌋⌊0⌋   ⌊0 * 1 + 0 * 0⌋   ⌊0⌋
-
-⌈1 1⌉⌈0⌉ = ⌈1 * 0 + 1 * 1⌉ = ⌈1⌉
-⌊0 0⌋⌊1⌋   ⌊0 * 0 + 0 * 0⌋   ⌊0⌋
-
-|00>
-[1, 1, 0, 0]⌈1⌉   ⌈1⌉
-[0, 0, 0, 0]|0| = |0|
-[0, 0, 1, 0]|0|   |0|
-[0, 0, 0, 1]⌊0⌋   ⌊0⌋
-
-|01>
-[1, 1, 0, 0]⌈0⌉   ⌈1⌉
-[0, 0, 0, 0]|1| = |0|
-[0, 0, 1, 0]|0|   |0|
-[0, 0, 0, 1]⌊0⌋   ⌊0⌋
-
-|10>
-[1, 1, 0, 0]⌈0⌉   ⌈0⌉
-[0, 0, 0, 0]|0| = |0|
-[0, 0, 1, 0]|1|   |1|
-[0, 0, 0, 1]⌊0⌋   ⌊0⌋
-
-|11>
-[1, 1, 0, 0]⌈0⌉   ⌈0⌉
-[0, 0, 0, 0]|0| = |0|
-[0, 0, 1, 0]|0|   |0|
-[0, 0, 0, 1]⌊1⌋   ⌊1⌋
-
-[1, 1, 0, 0]⌈ 0.5⌉   ⌈1 * 0.5 + 1 * -0.5 + 0 + 0⌉  ⌈   0⌉
-[0, 0, 0, 0]|-0.5| = |                         0|  |   0|
-[0, 0, 1, 0]| 0.5|   |                       0.5|= | 0.5|
-[0, 0, 0, 1]⌊-0.5⌋   ⌊                      -0.5⌋  ⌊-0.5⌋
-
-And this is then passed through the hadamard gate:
+⌈1, 1, 0, 0⌉
+|0, 0, 0, 0|
+|0, 0, 1, 0|
+⌊0, 0, 0, 1⌋
 ```
-     ⌈1 0  1  0⌉⌈   0⌉   ⌈ 0.3535533906⌉
-1/√2 |0 1  0  1||   0| = |-0.3535533906|
-     |1 0 -1  0|| 0.5|   |-0.3535533906|
-     ⌊0 1  0 -1⌋⌊-0.5⌋   ⌊ 0.3535533906⌋
-```
-Next, we want to measure the top qubit to determine if `Uf` is constant or 
-balanced:
-```
-      ⌈1 ⌈ 0.3535533906⌉⌉     ⌈ 0.3535533906⌉
-      |  ⌊-0.3535533906⌋|     |-0.3535533906|
-      |                 | =   |-0.3535533906|
-      |1 ⌈-0.3535533906⌉|     ⌊ 0.3535533906⌋
-      ⌊  ⌊ 0.3535533906⌋⌋
-```
-What is going on here? We want to collapse the qubits into classical bits.
-The probability in this case is 25...
+If x is |00> this would produce |00> and if |01> it should also produce |00>.
 
-The result is |0> so f is a constant function.
+And if we want have the constant 1:
+```
+⌈0, 0, 0, 0⌉
+|1, 1, 0, 0|
+|0, 0, 0, 0|
+⌊0, 0, 1, 1⌋
 ```
 
-The following is a different notaion but for the same thing as above.
-Our initial state would be (after the not gate to make y = 1):
+The complete circuit would look like this:
 ```
-|x, 1>
+(H X I)Uf(H X H)|0,1>
+```
+|0, 1> is the tensor product of |0> X |1>:
+```
+⌈1⌉ ⌈0⌉ = 1⌈0⌉   ⌈0⌉
+⌊0⌋X⌊1⌋    ⌊1⌋ = |1| 
+          0⌈0⌉   |0|
+           ⌊1⌋   ⌊0⌋
+
+H X H:
+√2⌈1  1⌉
+  ⌊1 -1⌋
+
+
+   ⌈1 1 0 0⌉⌈0⌉  ⌈0 + 1/√2 * 1 + 0 + 0⌉   ⌈1/√2⌉
+1  |1 0 0 0||1| =|0 +        0 + 0 + 0| = |   0|
+-- |0 0 1 0||0|  |0 +        0 + 0 + 0|   |   0|
+√2 ⌊0 0 0 1⌋⌊0⌉  |0 +        0 + 0 + 0|   ⌊   0⌋
+
 ```
 
 Our initial state would be (after the not gate to make y = 1):
@@ -2118,6 +1950,16 @@ So we can use this to re-write the above like this:
               ⌈|0> - |1>⌉
 (-1)^f(x) |x> |---------| 
               ⌊   √2    ⌋
+```
+With |x> in a superposition we have:
+```
+⌈(-1)^f(x) |0> + (-1)^f(x) |1>⌉⌈|0> - 1⌉
+|-----------------------------||-------|
+⌊          √2                 ⌋⌊   √2  ⌋
+```
+So if we have a constant function that returns 0:
+```
+
 ```
 
 But this is only checking the value of 0. The idea is to check all possible combination
@@ -2206,7 +2048,78 @@ Say you have to search a list of items. You would on average have to search
 N/2 and in the worst case N times to find it. So if we have 8 items best case
 would be to have to look at 4 items and worst case 8.
 With a quantum computer we can find the item of interest in √8 = 2.8284 times.
-TODO
+
+To be able to search in a quantum computer we need to encode the search as a
+binary encoding of the items:
+```
+x, w ∈ {0, 1}ⁿ
+N = 2ⁿ
+
+Let say n is 2. That would give N=4:
+⌈0 or 1⌉
+|0 or 1|
+|0 or 1|
+⌊0 or 1⌋
+
+Uf|x> = (-1)^f(x)|x>
+f(x) = 0 
+       (-1)⁰|x>
+       1x>
+       Notice that in this case nothing happens. The value is multiplied with
+       1 which is the same as a no-op.
+f(x) = 1
+       (-1)¹|x>
+       -1x>
+       In this case it will switch reflect/"rotate" the value
+```
+Before looking at the list of items we have no idea of where the item we are 
+looking for is. So any location is possible.
+```
+    1  N-1
+|s> -- ∑ |x>
+    √N x=0
+
+So |x> is in braket notaion, that is a vector. We are adding these vectors, 
+and then multiplying that value with 1/√N. 
+
+Let say we N is 2² = 4
+    1  4-1
+|s> -- ∑ |x>
+    √4 x=0
+```
+So what is all values are |0> then we would be adding them:
+```
+   ^
+   |
+   |
+   |
+   +--|--|--|--|-->
+      1
+⌈1⌉ + ⌈1⌉ ... = 1/√4 ⌈4⌉
+⌊0⌋   ⌊0⌋            ⌊0⌋
+
+⌈0.5⌉ + ⌈0.5⌉ ... = ⌈2⌉
+⌊  0⌋   ⌊   ⌋       ⌊0⌋
+
+Recall that 0.5² = 0.25. So the probability is 1/4 that the state will collapse
+to that value which is expected.
+```
+If we measure the state it would collable to any one of the basis states
+(|00>, |01>, |10>, or |11>) with an equal probability of 1/N = 1/2ⁿ.
+On our case this would be 1/4.
+How do we increase this probability?
+
+Amplitude Amplification
+In this case we want to stretch out
+
+Uniform superposition:
+```
+|s> HXⁿ|0>ⁿ
+```
+So this is zero state to the power of 2,  Hadapard tensored with itself 2 times
+
+
+A 1 would be used for the item we are looking for.
 
 ### qiskit-js (Quantum Information Science Kit for JavaScript)
 I'm trying to understand the Circuit class and now this map to my current knowledge
