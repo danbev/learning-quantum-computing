@@ -114,7 +114,7 @@ When we measure:
 |0> with probability cos(Θ)²
 |1> with probability sin(Θ)²
 ```
-Keep in mind that after we have measured the actual vector has no changed which
+Keep in mind that after we have measured the actual vector has not changed which
 is what is meant it collapsing.
 
 ### Tensor product
@@ -165,7 +165,7 @@ q[1] X q[0] = |      |   = |0|
 ```
 This is a method of combining vectors. So a tensor b is:
 ```
-X = tensor product (I've get to find this in digraph)
+X = tensor product (I've yet to find this in digraph)
 
 ⌈a₀⌉   ⌈b₀⌉   ⌈     ⌈b₀⌉ ⌉   ⌈a₀b₀⌉
 |a₁| X |b₁| = |a₀ . |b₁| | = |a₀b₁|
@@ -887,7 +887,6 @@ H[1,0] = --- (-1)^(1 & 0) = ---(-1)^0 = --- 1 = 0.707106
           1                  1           1
 H[1,1] = --- (-1)^(1 & 1) = ---(-1)^1 = --- -1 = -0.707106
           √2                 √2          √2
- 
 ```
 
 Hadamard tensor itself:
