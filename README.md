@@ -14,7 +14,7 @@ be anything (even a number).
 The ket is just the pipe symbol and the less-than around the symbol and means 
 that we are dealing quantum state represented by a column vector:
 ```
-|0> ket ⌈1⌉            "zero-ket"
+|0> ket ⌈1⌉           "zero-ket"
         ⌊0⌋
 
 |1> ket ⌈0⌉           "one-ket"
