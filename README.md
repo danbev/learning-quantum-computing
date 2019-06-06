@@ -1318,9 +1318,8 @@ The great thing about superconductors is that electricity flows without any loss
 so a current in a close loop can theoretically flow forever.
 In a qubit made of a superconductor loop, a current oscillates back and forth 
 around a loop. A microwave is injected which excites the current into a superposition of states
-This design is used by IBM’s cloud platform Q Experience which is the basis for 
-the code used in this book. It is also used by Google and a private venture called 
-Quantum Circuits, Inc. (QCI)
+This design is used by IBM’s cloud platform Q Experience and is is also used by
+Google and a private venture called Quantum Circuits, Inc. (QCI)
 
 #### Interference
 Observables are properties of an object that we can measure, for example the objects
