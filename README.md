@@ -428,13 +428,13 @@ V = 3⌈1⌉ + 2⌈0⌉  = ⌈3 * 1 + 2 * 0⌉ = ⌈3⌉
 ------> +  |  = ------>
            |
 ```
-The difference is that we cannot choose the coefficients directly, they are give
+The difference is that we cannot choose the coefficients directly, they are given
 already but we can specify the angles theta and phi.
 If we keep phi as zero and just change theta this is similar to the above example
 where we scale and add the vectors to get a new vector.
 
 So we can have a 0 or a 1 state depending on if the vector is pointing up or
-pointing down. But it call also be pointing anywhere on the sphere, at least
+pointing down. But it can also be pointing anywhere on the sphere, at least
 until you measure it, a which point it will collapse into either 0 or 1. In quantum 
 computing you measure a qubit with a gate which takes in the superposition vector
 and spits out 0 or 1 and the probability of 0 or 1 depends on the state of the
