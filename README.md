@@ -1224,8 +1224,8 @@ First we get the initial state by taking the tensor product of |0> and |0>.
                                               
 ⌈1⌉    ⌈1/√2    0  1/√2    0  ⌉⌈1⌉ = ⌈1/√2⌉   ⌈1 0 0 0⌉ ⌈1/√2⌉ = ⌈1/√2⌉
 |0|    | 0   1/√2   0     1/√2⌋|0|   | 0  |   |0 1 0 0| | 0  |   | 0  |
-|0|    |1/√2    0  -1/√2   0  ||0|   |1/√2|   |0 0 0 1| |1/√2|   |1/√2|
-⌊0⌋    ⌊ 0   1/√2   0    -1/√2⌋⌊0⌋   ⌊ 0  ⌋   ⌊0 0 1 0⌋ ⌊ 0  ⌋   ⌊ 0  ⌋
+|0|    |1/√2    0  -1/√2   0  ||0|   |1/√2|   |0 0 0 1| |1/√2|   | 0  |
+⌊0⌋    ⌊ 0   1/√2   0    -1/√2⌋⌊0⌋   ⌊ 0  ⌋   ⌊0 0 1 0⌋ ⌊ 0  ⌋   ⌊1/√2⌋
 ```
 Notice that the hadamard transformation is 4x4 matrix. Since have a two qubit
 system we need to make the unitary transform matrix 4x4. This can be done by
