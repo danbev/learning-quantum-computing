@@ -2133,8 +2133,10 @@ The API for `addGate` look like this:
 ```
 addGate(gateName, column, wires) {
 ```
-The `column` specifies the qubit to connect to this gate.
-`wires' is given as a number or an array of numbers and specifies gate connection.
+`column` is the column that this gates should be applied to. See below for a 
+visual representation of this.
+`wires' is given as a number or an array of numbers and specifies qubit(s) that
+this gate operates on.
 So the first call above is adding a hadamard gate on qubit 0 and there.
 When we add a gate, for example a hadamard gate in qasm:
 ```
