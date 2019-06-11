@@ -896,9 +896,15 @@ Hadamard tensor itself:
                       = 
    1⌈1  1⌉  -1⌈1  1⌉
     ⌊1 -1⌋    ⌊1 -1⌋
-
+```
 
 ```
+(H X I)(|0, 0>)
+(I X H)(|0, 0>)
+```
+Notice the order of the hadamard gate and the identity gate. The first will not
+affect the bottom qubit, and the second will not affect the top qubit.
+
 
 Example:
 ```
