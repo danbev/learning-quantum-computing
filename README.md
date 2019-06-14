@@ -1633,15 +1633,112 @@ And we can multiply |0> and |1> and verify that these work:
 ⌈0 1⌉⌈0⌉ = ⌈0 * 0 + 1 * 1⌉ = ⌈1⌉
 ⌊1 0⌋⌊1⌋   ⌊0 * 1 + 0 * 1⌋   ⌊0⌋
 ```
-This is the somewhat familar NOT gate. How about the other three functions ?
+To have a gate the operates on two qubits we would use:
+```
+              00 01 10 11 (input |x, y>)
+(output   00 [ 0, 1, 0, 0]
+|x', y'>) 01 [ 1, 0, 0, 0]
+          10 [ 0, 0, 1, 0]
+          11 [ 0, 0, 0, 1]
+
+             [ 0, 1, 0, 0] ⌈ 0.5⌉   ⌈-0.5⌉
+             [ 1, 0, 0, 0] |-0.5| = | 0.5|
+             [ 0, 0, 1, 0] | 0.5|   | 0.5|
+             [ 0, 0, 0, 1] ⌊-0.5⌋   ⌊-0.5⌋
+```
+How did we get this matrix for this function?
+```
+input to our "function" is the state |x, y>
+x can be either 0 or 1.
+y = y XOR f(x)
+
+f(0) = 1
+f(1) = 0
+
+input       function                         output
+|0, 0>      y = 0 XOR f(0) = 0 XOR 1 = 1     |0, 1>
+|0, 1>      y = 1 XOR f(0) = 1 XOR 1 = 0     |0, 0>
+|1, 0>      y = 0 XOR f(1) = 0 XOR 0 = 0     |1, 0>
+|1, 1>      y = 1 XOR f(1) = 1 XOR 1 = 0     |1, 1>
+
+Notice that x is never changed.
+
+Start with a 4x4 empty matrix:
+     00 01 10 11
+ 00 [ 0, 0, 0, 0]
+ 01 [ 0, 0, 0, 0]
+ 10 [ 0, 0, 0, 0]
+ 11 [ 0, 0, 0, 0]
+
+And then add a one to the columns/row that match the input and output above:
+     00 01 10 11
+ 00 [ 0, 1, 0, 0]
+ 01 [ 1, 0, 0, 0]
+ 10 [ 0, 0, 1, 0]
+ 11 [ 0, 0, 0, 1]
+
+```
+
+How about the other three functions/matrices?
+
+```
+0 -> 0
+1 -> 1
+⌈1 0⌉⌈1⌉ = ⌈1 * 1 + 0 * 0⌉ = ⌈1⌉
+⌊0 1⌋⌊0⌋   ⌊1 * 0 + 1 * 0⌋   ⌊0⌋
+
+⌈1 0⌉⌈0⌉ = ⌈1 * 0 + 1 * 0⌉ = ⌈0⌉
+⌊0 1⌋⌊1⌋   ⌊0 * 0 + 1 * 1⌋   ⌊1⌋
+
+f(0) = 0
+f(1) = 1
+
+input       function                         output
+|0, 0>      y = 0 XOR f(0) = 0 XOR 0 = 0     |0, 0>
+|0, 1>      y = 1 XOR f(0) = 1 XOR 0 = 1     |0, 1>
+|1, 0>      y = 0 XOR f(1) = 0 XOR 1 = 1     |1, 1>
+|1, 1>      y = 1 XOR f(1) = 1 XOR 1 = 0     |1, 0>
+
+              00 01 10 11 (input |x, y>)
+(output   00 [ 1, 0, 0, 0]
+|x', y'>) 01 [ 0, 1, 0, 0]
+          10 [ 0, 0, 0, 1]
+          11 [ 0, 0, 1, 0]
+
+             [ 1, 0, 0, 0] ⌈ 0.5⌉   ⌈ 0.5⌉
+             [ 0, 1, 0, 0] |-0.5| = |-0.5|
+             [ 0, 0, 0, 1] | 0.5|   |-0.5|
+             [ 0, 0, 1, 0] ⌊-0.5⌋   ⌊ 0.5⌋
+```
+
 ```
 0 -> 0
 1 -> 0
-⌈1 1⌉⌈1⌉ = ⌈1 * 1 + 0 * 1⌉ = ⌈1⌉
-⌊0 0⌋⌊0⌋   ⌊1 * 0 + 1 * 0⌋   ⌊0⌋
+⌈1 1⌉⌈1⌉ = ⌈1 * 1 + 1 * 0⌉ = ⌈1⌉
+⌊0 0⌋⌊0⌋   ⌊0 * 1 + 0 * 0⌋   ⌊0⌋
 
 ⌈1 1⌉⌈0⌉ = ⌈1 * 0 + 1 * 1⌉ = ⌈1⌉
 ⌊0 0⌋⌊1⌋   ⌊0 * 0 + 0 * 0⌋   ⌊0⌋
+
+f(0) = 0
+f(1) = 0
+
+input       function                         output
+|0, 0>      y = 0 XOR f(0) = 0 XOR 0 = 0     |0, 0>
+|0, 1>      y = 1 XOR f(0) = 1 XOR 0 = 1     |0, 1>
+|1, 0>      y = 0 XOR f(1) = 0 XOR 0 = 0     |1, 0>
+|1, 1>      y = 1 XOR f(1) = 1 XOR 0 = 1     |1, 1>
+
+              00 01 10 11 (input |x, y>)
+(output   00 [ 1, 0, 0, 0]
+|x', y'>) 01 [ 0, 1, 0, 0]
+          10 [ 0, 0, 1, 0]
+          11 [ 0, 0, 0, 1]
+
+             [ 1, 0, 0, 0] ⌈ 0.5⌉   ⌈ 0.5⌉
+             [ 0, 1, 0, 0] |-0.5| = |-0.5|
+             [ 0, 0, 1, 0] | 0.5|   | 0.5|
+             [ 0, 0, 0, 1] ⌊-0.5⌋   ⌊-0.5⌋
 ```
 
 ```
@@ -1652,16 +1749,26 @@ This is the somewhat familar NOT gate. How about the other three functions ?
 
 ⌈0 0⌉⌈0⌉ = ⌈0 * 0 + 0 * 1⌉ = ⌈0⌉
 ⌊1 1⌋⌊1⌋   ⌊1 * 0 + 1 * 1⌋   ⌊1⌋
-```
 
-```
-0 -> 0
-1 -> 1
-⌈1 0⌉⌈1⌉ = ⌈1 * 1 + 0 * 0⌉ = ⌈1⌉
-⌊0 1⌋⌊0⌋   ⌊1 * 0 + 1 * 0⌋   ⌊0⌋
+f(0) = 1
+f(1) = 1
 
-⌈1 0⌉⌈0⌉ = ⌈1 * 0 + 1 * 0⌉ = ⌈0⌉
-⌊0 1⌋⌊1⌋   ⌊0 * 0 + 1 * 1⌋   ⌊1⌋
+input       function                         output
+|0, 0>      y = 0 XOR f(0) = 0 XOR 1 = 1     |0, 1>
+|0, 1>      y = 1 XOR f(0) = 1 XOR 1 = 0     |0, 0>
+|1, 0>      y = 0 XOR f(1) = 0 XOR 1 = 1     |1, 1>
+|1, 1>      y = 1 XOR f(1) = 1 XOR 1 = 0     |1, 0>
+
+              00 01 10 11 (input |x, y>)
+(output   00 [ 0, 1, 0, 0]
+|x', y'>) 01 [ 1, 0, 0, 0]
+          10 [ 0, 0, 0, 1]
+          11 [ 0, 0, 1, 0]
+
+             [ 0, 1, 0, 0] ⌈ 0.5⌉   ⌈ 0.5⌉
+             [ 1, 0, 0, 0] |-0.5| = |-0.5|
+             [ 0, 0, 0, 1] | 0.5|   |-0.5|
+             [ 0, 0, 1, 0] ⌊-0.5⌋   ⌊ 0.5⌋
 ```
 
 In a quantum system every gate must be unitary (and therefor reversable) but this
@@ -1672,38 +1779,28 @@ was multipled against the unitary matric when output is |1>, it could have been
 What if we use two qubits instead of one as above?
 
 ```
-        +------+
-|x> ----| CNOT |----|x>
-|y> ----|      |----|x XOR y>
-        +------+
-```
-Notice that the second qubit's operation is XOR, so when the control bit is on
-```
-|10> and |11>
-```
-the result is `1 ^ 0 = 1` and `1 ^ 1 = 0`.
-
-```
         +--------+
 |x> ----|   Uf   |----|x>
 |y> ----|        |----|f(x) XOR y>
         +--------+
 ```
-`x` is the that we want to evaluate, this was the single qubit
+`x` is the that we want to evaluate, the input, this was the single qubit
 that we used in the examples above. This will go through the circuit unchanges and
 is how we can know what values was passed into the system.
-`y` will be the output of this circuit. This can be written as:
+`y` will be the output of this circuit. 
+
+This can be written as:
 ```
 The function takes |x, y> to the state |x, y XOR f(x)>
 ```
 What happens if y = 0:
 ```
-|x, 0> to |x, 0 XOR f(x)> 
-
-x=0;     f(x) = { 0 -> 1, 1 -> 0 }
-
-|0, 0> -> |0, 0 XOR f(0)>   f(0) = 1
-          |0, 0 XOR 1>
+|x, 0> to |x, 0 XOR f(x)>                    +-----------+
+                                             |0 xor 0 = 0|
+x=0;     f(x) = { 0 -> 1, 1 -> 0 }           |0 xor 1 = 1|
+                                             |1 xor 0 = 1|
+|0, 0> -> |0, 0 XOR f(0)>   f(0) = 1         |1 xor 1 = 1|
+          |0, 0 XOR 1>                       +-----------+
           |0, 1> Notice that this is the same as f(0) = 1
 
 x=1
@@ -1721,7 +1818,7 @@ So we can write this as:
 |y> ----|        |----|y XOR f(x)----|        |--------|y>
         +--------+                   +--------+
 
-|x, y> goes to |x, y XOR(f)>
+|x, y> goes to |x, y XOR f(x)>
 which goes to
 |x, (y XOR f(x)) XOR f(x)>
 ```
@@ -1773,6 +1870,17 @@ state:
 H|1> =⌊1/√2 -1/√2⌋⌊1⌋ = ⌊-1/√2⌋ = ---------
                                      √2
 ```
+Just a note about the following notation:
+```
+ |0> - |1>
+ ---------
+    √2
+```
+We are still just dealing with vectors, in this case we are subtracting (1, 0)
+by (0, 1) which is (1, -1). We are also dividing by √2 to that gives:
+```
+(1/√2, -1/√2) = (0.7071067812, -0.7071067812)
+```
 
 Recall that x is representing the input which could be 0 or 1. We can leave
 this as x for now or replace it with an actual value but remember that there
@@ -1789,18 +1897,18 @@ both x and y and also on x again after the Uf gate:
 x = ⌈1⌉   y = ⌈0⌉
     ⌊0⌋       ⌊1⌋
 
-      ⌈1/√2  1/√2⌉⌈1⌉   ⌈1/√2⌉   |0> + |1>
-H|0> =⌊1/√2 -1/√2⌋⌊0⌋ = ⌊1/√2⌋ = ---------
+      ⌈1/√2  1/√2⌉⌈1⌉   ⌈1/√2⌉   |0> + |1>    ⌈0.7071067812⌉
+H|0> =⌊1/√2 -1/√2⌋⌊0⌋ = ⌊1/√2⌋ = --------- =  ⌊0.7071067812⌋
                                     √2
 
-      ⌈1/√2  1/√2⌉⌈0⌉   ⌈ 1/√2⌉   |0> - |1>
-H|1> =⌊1/√2 -1/√2⌋⌊1⌋ = ⌊-1/√2⌋ = ---------
+      ⌈1/√2  1/√2⌉⌈0⌉   ⌈ 1/√2⌉   |0> - |1>   ⌈ 0.7071067812⌉
+H|1> =⌊1/√2 -1/√2⌋⌊1⌋ = ⌊-1/√2⌋ = --------- = ⌊-0.7071067812⌋
                                      √2
 
                                                           ⌈+1/2⌉
-⌈|0> + 1>⌉⌈|0> - |1>⌉   +|0,0> - |0,1> + |1,0> - |1,1>    |-1/2|
-|--------||---------| = ------------------------------ =  |+1/2|
-⌊   √2   ⌋⌊   √2    ⌋               √2                    ⌊-1/2⌋
+⌈|0> + |1>⌉⌈|0> - |1>⌉   +|0,0> - |0,1> + |1,0> - |1,1>   |-1/2|
+|---------||---------| = ------------------------------ = |+1/2|
+⌊   √2    ⌋⌊   √2    ⌋               √2                   ⌊-1/2⌋
 
 Which is the same thing as:
 
@@ -1810,8 +1918,123 @@ x X y = |                     |   = | 0.5|
         |0.707106 ⌈ 0.706106⌉ |     ⌊-0.5⌋
         ⌊         ⌊-0.706106⌋ ⌋
 
+Where X is the tensor product operator/symbol.
 ```
-So just keep in mind that what we are trying to do is determine if Uf, the
+So here we can see the state of the quantum circuit before we apply the Uf 
+transformation/function.
+
+Notice that this way or writing the quantum state as a nice property:
+```
+                                                           ⌈+1/2⌉
+⌈|0> + |1>⌉⌈|0> - |1>⌉   +|0,0> - |0,1> + |1,0> - |1,1>    |-1/2|
+|---------||---------| = ------------------------------ =  |+1/2|
+⌊   √2    ⌋⌊   √2    ⌋               √2                    ⌊-1/2⌋
+```
+The first matrix is the our top qubit, y, and the second is our bottom qubit
+x. So if we want to apply Uf we can inject it into this syntax:
+```
+⌈(-1)^f(0) |0> + (-1)^f(1) |1>⌉⌈|0> - |1>⌉ 
+|-----------------------------||---------|
+⌊            √2               ⌋⌊   √2    ⌋
+``` 
+Notice that we have replaced the top qubit with the Uf function.
+What will happen if f(0) = 1 and f(1) = 0:
+```
+⌈(-1)^1 |0> + (-1)^0 |1>⌉⌈|0> - |1>⌉ 
+|-----------------------||---------|
+⌊            √2         ⌋⌊   √2    ⌋
+
+⌈-1|0> + 1|1>⌉       ⌈|0> - |1>⌉ 
+|------------| = (-1)|---------|
+⌊    √2      ⌋       ⌊   √2    ⌋
+
+
+    ⌈|0> - |1>⌉⌈|0> - |1>⌉ 
+(-1)|---------||---------|
+    ⌊   √2    ⌋⌊   √2    ⌋
+
+And if we instead have if f(0) = 0 and f(1) = 1:
+⌈(-1)^0 |0> + (-1)^1 |1>⌉⌈|0> - |1>⌉ 
+|-----------------------||---------|
+⌊            √2         ⌋⌊   √2    ⌋
+
+⌈1|0> + (-1)|1>⌉       ⌈|0> - |1>⌉ 
+|--------------| = (+1)|---------|
+⌊    √2        ⌋       ⌊   √2    ⌋
+
+    ⌈|0> - |1>⌉⌈|0> - |1>⌉ 
+(+1)|---------||---------|
+    ⌊   √2    ⌋⌊   √2    ⌋
+```
+So for a balanced function the state would be one of:
+```
+    ⌈|0> - |1>⌉⌈|0> - |1>⌉ 
+(-1)|---------||---------|
+    ⌊   √2    ⌋⌊   √2    ⌋
+
+    ⌈|0> - |1>⌉⌈|0> - |1>⌉ 
+(+1)|---------||---------|
+    ⌊   √2    ⌋⌊   √2    ⌋
+
+    ⌈|0> - |1>⌉⌈|0> - |1>⌉ 
+(±1)|---------||---------|
+    ⌊   √2    ⌋⌊   √2    ⌋
+```
+
+What will happen if f(0) = 0 and f(1) = 0:
+```
+⌈(-1)^f(0) |0> + (-1)^f(1) |1>⌉⌈|0> - |1>⌉ 
+|-----------------------------||---------|
+⌊            √2               ⌋⌊   √2    ⌋
+
+⌈(-1)^0 |0> + (-1)^0 |1>⌉⌈|0> - |1>⌉ 
+|-----------------------||---------|
+⌊            √2         ⌋⌊   √2    ⌋
+
+⌈|0> + |1>⌉⌈|0> - |1>⌉ 
+|---------||---------|
+⌊    √2   ⌋⌊   √2    ⌋
+
+And if f(0) = 1 and f(1) = 1:
+⌈(-1)^1 |0> + (-1)^1 |1>⌉⌈|0> - |1>⌉ 
+|-----------------------||---------|
+⌊            √2         ⌋⌊   √2    ⌋
+
+⌈(-1) |0> + (-1) |1>⌉⌈|0> - |1>⌉ 
+|-------------------||---------|
+⌊            √2     ⌋⌊   √2    ⌋
+
+    ⌈|0> + |1>⌉⌈|0> - |1>⌉ 
+(-1)|---------||---------|
+    ⌊   √2    ⌋⌊   √2    ⌋
+```
+So for a constant function the state would be one of:
+```
+    ⌈|0> + |1>⌉⌈|0> - |1>⌉ 
+(+1)|---------||---------|
+    ⌊    √2   ⌋⌊   √2    ⌋
+
+    ⌈|0> + |1>⌉⌈|0> - |1>⌉ 
+(-1)|---------||---------|
+    ⌊   √2    ⌋⌊   √2    ⌋
+
+    ⌈|0> + |1>⌉⌈|0> - |1>⌉ 
+(±1)|---------||---------|
+    ⌊   √2    ⌋⌊   √2    ⌋
+```
+
+The last hadamard gate on the top qubit does the following:
+```
+    ⌈|0> + |1>⌉⌈|0> - |1>⌉ 
+(±1)|---------||---------| => |0>
+    ⌊   √2    ⌋⌊   √2    ⌋
+
+    ⌈|0> + |1>⌉⌈|0> - |1>⌉ 
+(-1)|---------||---------| => |1>
+    ⌊   √2    ⌋⌊   √2    ⌋
+```
+
+Just keep in mind that what we are trying to do is determine if Uf, the
 function f is constant or balanced. And by putting the quantum circuit into
 this state we can determine what the Uf matrix is doing (constant or balanced).
 
@@ -1844,25 +2067,8 @@ The state of the circuit is currently:
 In our case the result is the top qubit |1> state so our function is balanced
 which indeed is true.
 
-Notice that the `Uf` operates on a superposition state and not as I thought 
-on a single input like |00>, |01>, |10>, or |11>. 
-
-Now, lets try a constant function. For example constant 0:
-```
-⌈1, 1, 0, 0⌉
-|0, 0, 0, 0|
-|0, 0, 1, 0|
-⌊0, 0, 0, 1⌋
-```
-If x is |00> this would produce |00> and if |01> it should also produce |00>.
-
-And if we want have the constant 1:
-```
-⌈0, 0, 0, 0⌉
-|1, 1, 0, 0|
-|0, 0, 0, 0|
-⌊0, 0, 1, 1⌋
-```
+Notice that the `Uf` operates on a superposition state and not on a single
+input like |00>, |01>, |10>, or |11>. 
 
 The complete circuit would look like this:
 ```
@@ -1874,30 +2080,47 @@ The complete circuit would look like this:
 ⌊0⌋X⌊1⌋    ⌊1⌋ = |1| 
           0⌈0⌉   |0|
            ⌊1⌋   ⌊0⌋
-
-H X H:
-√2⌈1  1⌉
-  ⌊1 -1⌋
-
-
-   ⌈1 1 0 0⌉⌈0⌉  ⌈0 + 1/√2 * 1 + 0 + 0⌉   ⌈1/√2⌉
-1  |1 0 0 0||1| =|0 +        0 + 0 + 0| = |   0|
--- |0 0 1 0||0|  |0 +        0 + 0 + 0|   |   0|
-√2 ⌊0 0 0 1⌋⌊0⌉  |0 +        0 + 0 + 0|   ⌊   0⌋
-
 ```
 
 Our initial state would be (after the not gate to make y = 1):
 ```
 |x, 1>
-      
-          ⌈|0> - |1>⌉   |x, 0> - |x, 1>
-H|x> = |x>|---------| = ---------------
-          ⌊   √2    ⌋         √2
+x = 0
+⌈1⌉ ⌈0⌉ = 1⌈0⌉   ⌈0⌉
+⌊0⌋X⌊1⌋    ⌊1⌋ = |1| 
+          0⌈0⌉   |0|
+           ⌊1⌋   ⌊0⌋
+|01>
+
+x = 1
+⌈0⌉ ⌈0⌉ = 0⌈0⌉   ⌈0⌉
+⌊1⌋X⌊1⌋    ⌊1⌋ = |0| 
+          1⌈0⌉   |0|
+           ⌊1⌋   ⌊1⌋
+|11>
+```
+Next, we apply the hadamard transformation
+```
+State = |01>
+⌈0.707106 0        0.707106  0        ⌉ ⌈0⌉    ⌈0       ⌉
+|       0 0.707106 0         0.707106 | |1|  = |0.707106|
+|0.707106 0        -0.707106 0        | |0|    |0       |
+⌊       0 0.707106 0         -0.707106⌋ ⌊0⌋    ⌊0.707016⌋
+
+State = |11>
+⌈0.707106 0        0.707106  0        ⌉ ⌈0⌉    ⌈0        ⌉
+|       0 0.707106 0         0.707106 | |0|  = | 0.707106|
+|0.707106 0        -0.707106 0        | |0|    |0        |
+⌊       0 0.707106 0         -0.707106⌋ ⌊1⌋    ⌊-0.707016⌋
 
 ```
+So after the hadamard gate: 
+```
+    ⌈|0> - |1>⌉   |x, 0> - |x, 1>
+ |x>|---------| = ---------------
+    ⌊   √2    ⌋         √2
+```
 
-Next, apply hadamard: 
 ```
    ⌈|0 XOR f(x)> - |1 XOR f(x)>⌉
 |x>| ------------------------- |
@@ -1909,6 +2132,7 @@ x = 0, f(x) { 0, 1}
 0 XOR f(0) - 1 XOR f(0) = 
 0 XOR 1    - 1 XOR 1    = 
          1 - 0              // if the opposite of f(x)
+
 x = 1
 0 XOR f(1) - 1 XOR f(1) = 
 0 XOR 0    - 1 XOR 0    = 
@@ -1925,18 +2149,55 @@ f_bar means the opposite of f(x).
 
 So, when f(x)=0 we have:
 ```
-   ⌈|0> - |1>⌉
-|x>|---------|
-   ⌊   √2    ⌋
+   ⌈|0> - |1>⌉       ⌈⌈1⌉   ⌈0⌉⌉      ⌈⌈ 1⌉⌉        ⌈ 0.7071067812⌉
+|x>|---------|  = |x>|⌊0⌋ - ⌊1⌋| = |x>|⌊-1⌋|   = |x>⌊-0.7071067812⌋
+   ⌊   √2    ⌋       |---------|      |----|
+                     ⌊   √2    ⌋      ⌊ √2 ⌋
+                                
+|0> - |1> = (1,0) - (0,1) = (1,-1)          
+         ^                                          ^
+         |                                          |
+   (0,1) -                                     =    |  
+         |                                          |
+         +---|---------->                           +------------------->
+         | \ (0,1)                                  | \
+         |   *(1, -1) (1/√2,-1/√2)                  |  *(0.7071067812,-0.7071067812)
 ```
 
-So, when f(x)x=1 we have:
+And, when f(x)=1 we have:
 ```
-   ⌈|1> - |0>⌉
-|x>|---------|
-   ⌊   √2    ⌋
+   ⌈|1> - |0>⌉       ⌈⌈0⌉   ⌈1⌉⌉      ⌈⌈-1⌉⌉        ⌈-0.7071067812⌉
+|x>|---------|  = |x>|⌊1⌋ - ⌊0⌋| = |x>|⌊ 1⌋|   = |x>⌊ 0.7071067812⌋
+   ⌊   √2    ⌋       |---------|      |----|
+                     ⌊   √2    ⌋      ⌊ √2 ⌋
+
+|1> - |0> = (0,1) - (1,0) = (-1,1)          
+         ^                                         ^
+         |                                         |
+(-1,1)*  -      (-1/√2, 1/√2)  =   (-1/√2, 1/√2)*  |   
+        \|                                        \|
+         +---|---------->                          +------------------->
+            (0,1)
+
+[0, 1, 0, 0]⌈ 0.5⌉   ⌈-0.5⌉
+[1, 0, 0, 0]|-0.5| = | 0.5|
+[0, 0, 1, 0]| 0.5|   | 0.5|
+[0, 0, 0, 1]⌊-0.5⌋   ⌊-0.5⌋
 ```
 
+```
+f(x) = 0
+x = |0>
+⌈1⌉⌈ 0.7071067812⌉ = ⌈0.7071067812⌉
+⌊0⌋⌊-0.7071067812⌋   ⌊   0        ⌋
+
+f(x) = 1
+x = |1>
+⌈0⌉⌈-0.7071067812⌉ = ⌈   0        ⌉
+⌊1⌋⌊ 0.7071067812⌋   ⌊0.7071067812⌋
+```
+
+So we have:
 ```
     ⌈|0> - |1>⌉
 |x> |---------|    if f(x) = 0
@@ -1946,6 +2207,7 @@ So, when f(x)x=1 we have:
 |x> |---------|    if f(x) = 1
     ⌊   √2    ⌋
 ```
+
 ```
 a - b = (-1)(b - a)
 ```
@@ -1957,16 +2219,26 @@ So we can use this to re-write the above like this:
 ```
 With |x> in a superposition we have:
 ```
-⌈(-1)^f(x) |0> + (-1)^f(x) |1>⌉⌈|0> - 1⌉
-|-----------------------------||-------|
-⌊          √2                 ⌋⌊   √2  ⌋
-```
-So if we have a constant function that returns 0:
-```
+⌈(-1)^f(x) |0> + (-1)^f(x) |1>⌉⌈|0> - |1>⌉
+|-----------------------------||---------|
+⌊          √2                 ⌋⌊   √2    ⌋
+
+⌈(-1)^f(0) |0> + (-1)^f(1) |1>⌉⌈|0> - |1>⌉
+|-----------------------------||---------|
+⌊          √2                 ⌋⌊   √2    ⌋
+
+if f(0) = 1, and f(1) = 0:
+⌈(-1)^1 |0> + (-1)^0 |1>⌉⌈|0> - |1>⌉
+|-----------------------||---------|
+⌊          √2           ⌋⌊   √2    ⌋
+
+⌈-1 |0> + 1 |1>⌉⌈|0> - |1>⌉
+|--------------||---------|
+⌊   √2         ⌋⌊   √2    ⌋
 
 ```
 
-But this is only checking the value of 0. The idea is to check all possible combination
+The idea is to check all possible combination
 ```
 |00> = q[1] = ⌈1⌉   q[0] = ⌈1⌉
               ⌊0⌋          ⌊0⌋
