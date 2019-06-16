@@ -978,6 +978,7 @@ When the hadamard gate is applied to the |0> state has its own symbol which is
 |-> = 1/√2 (|0> - |1>)
 ```
 
+
 #### Toffoli Gate (CCNOT)
 Two control qubits and one target qubit. If both of the target qubits are 1 then
 the target qubit wil be flipped (the NOT gate). 
@@ -2741,4 +2742,43 @@ vector:
 3⌈1⌉
  ⌊1⌋
 ```
+
+### Reversalbe gates
+I've mentioned previously that all gates in a quantum system need to be reversable
+but I've not understood why. This section tries to explain why...
+
+The point is that erasing information is a process/operation that gives up 
+energy. The analogy that I've found useful comes from the book "Quantum Computing
+for Computer Scientists". Here they describe a system like a tub of water with 
+a divider that can separate the water. The system is in an unknown state when
+there is no divider at all:
+```
+ |        |
+ |~~~~~~~~|
+ +--------+
+    |?>
+```
+If we push all the water to the left we have the |0> state:
+```
+ |~~~~|   |
+ |    |   |
+ +--------+
+  |0>
+```
+If we push all the water to the right we have the |1> state:
+```
+ |    |~~~|
+ |    |   |
+ +--------+
+       |1>
+```
+Now, if we have the zero state and drill a hole in the dividor the water will
+start to leak out and this would be used to drive some sort of motor/turbine. This
+is where energy is leaving the system which is erasing information and an irriverable
+process. Writing information, putting the system into different state is reversable
+as long as we know the previous state. We can go from the unknown state to |0>
+to unknown and back to |0>. 
+
+A computer that is reverable and does not erase information does not use any 
+energy.  
 
