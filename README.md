@@ -2782,3 +2782,29 @@ to unknown and back to |0>.
 A computer that is reverable and does not erase information does not use any 
 energy.  
 
+Take the controlled not gate (CNOT):
+```
+⌈1 0 0 0⌉
+|0 1 0 0|
+|0 0 0 1|
+⌊0 0 1 0⌋
+```
+Lets say that we have a 2 qubit system with the qubits named `x` and `y`:
+```
+                |x>              |x>
+|x> -----[*]---------------[*]-------
+          |                 |
+|y> -----[cn]--------------[cn]------
+                |x XOR y>        |x XOR x XOR y>
+```
+`x XOR x` is always equal to 0:
+```
+x = 0     0 XOR 0 = 0
+x = 1     1 XOR 1 = 0
+
+x = 0, y = 1
+x XOR x XOR y:
+(0 XOR 0) XOR 1 = 0 XOR 1 = 1
+0 XOR (0 XOR 1) = 0 XOR 1 = 1
+```
+
