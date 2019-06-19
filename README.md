@@ -185,6 +185,84 @@ X = tensor product (I've yet to find this in digraph)
               
 ```
 
+### Qubits
+One qubit is an element of C²:
+```
+|Ψ> = α|0> + β|1>
+
+|0> = ⌈1⌉   |1> = ⌈0⌉
+      ⌊0⌋         ⌊1⌋
+
+α|0> = ⌈α⌉  β|1> = ⌈0⌉
+       ⌊0⌋         ⌊β⌋
+
+          ⌈α⌉   ⌈0⌉   ⌈α⌉
+|Ψ> =     ⌊0⌋ + ⌊β⌋ = ⌊β⌋
+```
+Where alpha and beta are complex numbers.
+
+Imaging the hydrogen atom which has a single electron which can either be in
+the ground state, |0>, or in the excited state |1>.
+
+The following bra:
+```
+<Ψ|
+```
+means the complex conjugate transpose:
+```
+Complex Conjugate:
+x + iy -> (x + iy)* = x -iy
+
+Transpose:
+⌈a b⌉    ⌈a b⌉†  ⌈a c⌉
+⌊c d⌋ => ⌊c d⌋ = ⌊b d⌋
+
+      ⌈α⌉
+|Ψ> = ⌊β⌋                        (ket)
+<Ψ| = [α* β*]                    (bra)
+
+
+<ψ| = <0|α* + <1|β*
+```
+
+Inner product can be written like this:
+```
+<Φ|Ψ>
+```
+Notice that we have a bra side first and then a ket side. So this would mean
+that we have a row vector and a column vector.
+
+Inner product of Ψ with itself:
+```
+<Ψ|Ψ>
+|Ψ> = α|0> + β|1>
+<Ψ| = [α* β*]                    (bra)
+      ⌈α⌉
+|Ψ> = ⌊β⌋                        (ket)
+
+Multiply the bra by the ket:
+[<0|α* + <1|β*][α|0> + β|1>]
+(<0|α* + <1|β*)(α|0> + β|1>)
+This is actually what we are doing, multiplying through. So we take the first
+term in the first paretheses times the first term in the second and so on.
+<0|α* * α|0> + <0|a* * β|1> = <1|β* * α|0> = <1|β* * β|1>
+|α|²<0|0> + α*β<0|1> + β*α<1|0> + |β|²<1|1> =
+
+<0|0> = 1
+<1|1> = 1
+Remember this means the inner product:
+⌈1⌉  ⌈1⌉
+⌊0⌋ .⌊0⌋ = [1 * 1 + 0 * 0] = 1
+
+<1|0> = 0
+⌈0⌉  ⌈1⌉
+⌊1⌋ .⌊0⌋ = [0 * 1 + 1 * 0] = 0
+<0|1> = 0
+
+|α|² 1 + 0 + 0 + |β|² 1 =  |α|² + |β|²
+```
+
+
 ### Multiple qubits
 When we have multiple qubits we have:
 ```
@@ -2806,5 +2884,15 @@ x = 0, y = 1
 x XOR x XOR y:
 (0 XOR 0) XOR 1 = 0 XOR 1 = 1
 0 XOR (0 XOR 1) = 0 XOR 1 = 1
+```
+
+
+### Measurement
+```
+|ψ> = α|0> + β|1>
+
+--------[/)]-------
+0 with probability |α|²
+1 with probability |β|²
 ```
 
