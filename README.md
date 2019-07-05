@@ -26,7 +26,16 @@ The bra part is `<0|` the opposite of ket and is a row vector:
 <1| bra [0 1]
 ```
 Bascially the notation was invented to separate column vectors from row vectors.
-Also if you specify `<a|b>` this means to perform the dot product operation.
+
+Also if you specify `<a|b>` this means to perform the dot product operation or
+inner product:
+```
+<0|1> = ⌈1⌉ ⌈0⌉   1*0 + 0*1 = 0
+        ⌊0⌋.⌊1⌋ =
+```
+The dot product tells us how much the two vectors are in the same direction. 
+When the dot product is zero it means the don't have anything in the same direction
+which makes sense as these vectors are perpendicular to each other.
 
 Notice that |0> and |1> are very similar to the basis vectors in physics:
 ```
