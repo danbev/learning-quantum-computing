@@ -271,6 +271,12 @@ Remember this means the inner product:
 |α|² 1 + 0 + 0 + |β|² 1 =  |α|² + |β|²
 ```
 
+### Exponential growth
+One qubit α₀|0> + α₁|1>    The electron in one hydrogen atom can either be in 
+                           the ground state of the excited state.
+
+Two qubits α₀₀|00> + k
+
 
 ### Multiple qubits
 When we have multiple qubits we have:
