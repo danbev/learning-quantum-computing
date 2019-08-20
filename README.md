@@ -100,6 +100,41 @@ or
                 |/ ) Θ
     π ----------+------------>
                             |0>
+```
+The ground state using the `α|0> + β|1>` notation would be when α is 1 and β is
+zero:
+```
+1|0> + 0|1> = |0>
+```
+And the excited state is when α is zero and β is 1:
+```
+0|0> + 1|1> = |1>
+```
+You can visualize the states as the rungs/orbits that an electron can be in
+around the nucleus. The state of the electron is superposition of the ground and
+excited state.
+We could also write this state as a two dimensional vector space:
+```
+⌈α⌉
+⌊β⌋
+```
+This vector space is a 2d, complex vector space, the vector is normalized meaning
+that |α|² + |β|² = 1.
+```
+
+            |1> ^
+                |      / 1/√2|0> + 1/√2|1>  (all vectors have a magnitude of 1)
+                |    /
+                |  /
+                |/
+      ----------+------------>
+                            |0>
+```
+
+```
+1/√2|0> + 1/√2|1> = 1/√2⌈1⌉ + 1/√2⌈0⌉ = ⌈1/√2⌉ + ⌈0   ⌉ = ⌈1/√2⌉
+                        ⌊0⌋       ⌊1⌋   ⌊0   ⌋   ⌊1/√2⌋   ⌊1/√2⌋
+```
 
 Remember that we can describe a vector using two points (a, b), and we can also
 specify the same vector using polar coordinates (p, θ) where p is the magnitude/
@@ -1680,7 +1715,7 @@ are more.
 Just means that the particle will actually be in this location with 100% certainty.
 
 #### Deutch Oracle algorithm
-Invented by David Deutch. We want to figure if operation `f` is constant or
+Invented by David Deutch. We want to figure out if operation `f` is constant or
 balanced, but we are only allowed to try different inputs and inspect the output.
 The function is constant if the output is independant on the input, and it is
 balanced if it is dependant.
@@ -1864,6 +1899,12 @@ input       function                         output
              [ 0, 0, 0, 1] | 0.5|   |-0.5|
              [ 0, 0, 1, 0] ⌊-0.5⌋   ⌊ 0.5⌋
 ```
+So we are able to specify the different functions using the above matrices.
+
+```
+⌈0 1⌉
+⌊1 0⌋
+```
 
 In a quantum system every gate must be unitary (and therefor reversable) but this
 is not the case with the above matrices. For example, we don't know what value
@@ -1917,41 +1958,6 @@ which goes to
 |x, (y XOR f(x)) XOR f(x)>
 ```
 
-In a quantum system the function f(x) above would be represented as unitary matrix.
-For `Uf` when it takes 0->1 and 1->0, we need a unitary matrix that looks like this:
-```
-⌈0 1⌉
-⌊1 0⌋
-
-[0, 1, 0, 0]
-[1, 0, 0, 0]
-[0, 0, 1, 0]
-[0, 0, 0, 1]
-```
-
-```
-              00 01 10 11 (input |x, y>)
-(output   00 [ 0, 1, 0, 0]
-|x', y'>) 01 [ 1, 0, 0, 0]
-          10 [ 0, 0, 1, 0]
-          11 [ 0, 0, 0, 1]
-```
-A `1` means for input |x, y> the output will be |x', y'>, for example when 
-the input is |00> the output will be |01>.
-This really confused my initially, if you |x, y> (the tensor product of x and
-y) |00> that would give you:
-```
-⌈0⌉
-|1|
-|0|
-⌊0⌋
-And if you have |01> that would give:
-⌈1⌉
-|0|
-|0|
-⌊0⌋
-```
-
 Instead of leaving y in the one state we can put it into the superposition
 state:
 ```
@@ -1980,7 +1986,7 @@ Recall that x is representing the input which could be 0 or 1. We can leave
 this as x for now or replace it with an actual value but remember that there
 are two options for this value at the moment.
 
-Lets try combining, by applying the hadamard gate to 
+Lets try applying the hadamard gate to 
 both x and y and also on x again after the Uf gate:
 ```
                    +--------+            
@@ -2003,8 +2009,10 @@ H|1> =⌊1/√2 -1/√2⌋⌊1⌋ = ⌊-1/√2⌋ = --------- = ⌊-0.7071067812
 ⌈|0> + |1>⌉⌈|0> - |1>⌉   +|0,0> - |0,1> + |1,0> - |1,1>   |-1/2|
 |---------||---------| = ------------------------------ = |+1/2|
 ⌊   √2    ⌋⌊   √2    ⌋               √2                   ⌊-1/2⌋
+```
 
 Which is the same thing as:
+```
 
         ⌈0.707106 ⌈ 0.707106⌉ ⌉     ⌈ 0.5⌉
         |         ⌊-0.707106⌋ |     |-0.5|
@@ -2015,9 +2023,10 @@ x X y = |                     |   = | 0.5|
 Where X is the tensor product operator/symbol.
 ```
 So here we can see the state of the quantum circuit before we apply the Uf 
-transformation/function.
+transformation/function (our oracle function which is either balanced or 
+constant).
 
-Notice that this way or writing the quantum state as a nice property:
+Notice that this way or writing the quantum state has a nice property:
 ```
                                                            ⌈+1/2⌉
 ⌈|0> + |1>⌉⌈|0> - |1>⌉   +|0,0> - |0,1> + |1,0> - |1,1>    |-1/2|
