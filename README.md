@@ -131,6 +131,22 @@ that |α|² + |β|² = 1.
                             |0>
 ```
 
+Measurement:
+```
+      (0 1) |1> ^
+                |π/2-θ / |Ψ> = cos(Θ)|0> + sin(θ)|1> = (cos(Θ) sin(Θ))
+                |    /
+                |  /
+                |/ Θ
+      ----------+------------>
+                     (1 0)  |0>
+
+|0> with probability cos²θ
+|1> with probability sin²θ or cos²(π/2 - θ)
+```
+After measuring the system is disturbed and the actual state will be either
+ground or excited. It gets projected onto one of states.
+
 ```
 1/√2|0> + 1/√2|1> = 1/√2⌈1⌉ + 1/√2⌈0⌉ = ⌈1/√2⌉ + ⌈0   ⌉ = ⌈1/√2⌉
                         ⌊0⌋       ⌊1⌋   ⌊0   ⌋   ⌊1/√2⌋   ⌊1/√2⌋
@@ -139,6 +155,7 @@ that |α|² + |β|² = 1.
 Remember that we can describe a vector using two points (a, b), and we can also
 specify the same vector using polar coordinates (p, θ) where p is the magnitude/
 length:
+```
 (a, b) -> (p, Θ)
 p = √(a² + b²)
 Θ = arctan(b/a)
@@ -149,12 +166,15 @@ a = p cos(Θ)  b = p sin(Θ)
 
 |Ψ> = cos(Θ)|0> + sin(Θ)|1> = ⌈cos(Θ)⌉
                               ⌊sin(Θ)⌋
+```
 
 Using the above example of 45 degrees we get:
+```
 cos(45)|0> + sin(45)|1> = ⌈0.707106⌉
                           ⌊0.707106⌋
-
+```
 When we measure:
+```
 |0> with probability cos(Θ)²
 |1> with probability sin(Θ)²
 ```
@@ -283,18 +303,24 @@ Inner product of Ψ with itself:
 <Ψ| = [α* β*]                    (bra)
       ⌈α⌉
 |Ψ> = ⌊β⌋                        (ket)
+```
 
 Multiply the bra by the ket:
+```
 [<0|α* + <1|β*][α|0> + β|1>]
 (<0|α* + <1|β*)(α|0> + β|1>)
+```
 This is actually what we are doing, multiplying through. So we take the first
 term in the first paretheses times the first term in the second and so on.
+```
 <0|α* * α|0> + <0|a* * β|1> = <1|β* * α|0> = <1|β* * β|1>
 |α|²<0|0> + α*β<0|1> + β*α<1|0> + |β|²<1|1> =
 
 <0|0> = 1
 <1|1> = 1
+```
 Remember this means the inner product:
+```
 ⌈1⌉  ⌈1⌉
 ⌊0⌋ .⌊0⌋ = [1 * 1 + 0 * 0] = 1
 
@@ -1346,7 +1372,8 @@ perhaps the information is stored there and there is no communication needed at
 all.
 
 This how we entangle qubits:
-```                 (CNOT)
+```
+                    (CNOT)
 |0> ------------------CX-------
          +---+        |
 |0> -----| H |--------*-------
@@ -1714,7 +1741,7 @@ are more.
 #### Position Eigenstate
 Just means that the particle will actually be in this location with 100% certainty.
 
-#### Deutch Oracle algorithm
+#### Deutsch Oracle algorithm
 Invented by David Deutch. We want to figure out if operation `f` is constant or
 balanced, but we are only allowed to try different inputs and inspect the output.
 The function is constant if the output is independant on the input, and it is
@@ -1777,18 +1804,23 @@ To have a gate the operates on two qubits we would use:
 ```
 How did we get this matrix for this function?
 ```
-input to our "function" is the state |x, y>
+The input to our "function" is the state |x, y>
 x can be either 0 or 1.
 y = y XOR f(x)
 
 f(0) = 1
-f(1) = 0
+f(1) = 0                             +-----------+
+                                     |0 xor 0 = 0|
+                                     |0 xor 1 = 1|
+                                     |1 xor 0 = 1|
+                                     |1 xor 1 = 0|
+                                     +-----------+
 
 input       function                         output
 |0, 0>      y = 0 XOR f(0) = 0 XOR 1 = 1     |0, 1>
 |0, 1>      y = 1 XOR f(0) = 1 XOR 1 = 0     |0, 0>
 |1, 0>      y = 0 XOR f(1) = 0 XOR 0 = 0     |1, 0>
-|1, 1>      y = 1 XOR f(1) = 1 XOR 1 = 0     |1, 1>
+|1, 1>      y = 1 XOR f(1) = 1 XOR 0 = 1     |1, 1>
 
 Notice that x is never changed.
 
@@ -1806,6 +1838,166 @@ And then add a one to the columns/row that match the input and output above:
  10 [ 0, 0, 1, 0]
  11 [ 0, 0, 0, 1]
 
+```
+
+We setup the state of this two qubit system by first settning qubit 1/
+wire 1 to the excited/|1> state, and then applying the hadamard gate to both
+which gives the following state:
+```
+0.5+0i|00>25%        ⌈ 1⌉     |00> - |01> + |10> - |11>     |0> + |1>  |0> - |1>
+-0.5+0i|01>25%  = 1/2|-1| =   ------------------------- = ( -------- )(---------)
+0.5+0i|10>25%        | 1|                2                     √2         √2
+-0.5+0i|11>25%       ⌊-1⌋
+```
+
+So the state of the system is the input to our oracle function (the matrix)
+that we created above. We set this up so that each we have an equal chance of
+|00|, |01>, |10>, |11>.
+```
+
+ |0> + |1>   |0> - |1>
+( -------- )(---------)
+     √2         √2
+```
+
+Lets ignore that the first qubit is in the superposition and just leave it as x.
+And the second qubit performs |y XOR f(x)>
+```
+             |0 XOR f(x)> - |1 XOR f(x)>
+        |x> (---------------------------)
+                          √2
+if f(x) = 0:
+             |0 XOR 0> - |1 XOR 0)>        |0> - |1>
+        |x> (----------------------) = |x>(---------)
+                     √2                        √2
+
+if f(x) = 1:
+             |0 XOR 1> - |1 XOR 1)>        |1> - |0>
+        |x> (----------------------) = |x>(---------)
+                     √2                        √2
+```
+Or as a single cooefficient:
+```
+
+              |0> - |1>
+(-1)^f(x)|x>( ---------)
+                 √2
+
+if f(x) = 0:
+        |0> - |1>
+(1)|x>( --------- )
+           √2
+
+if f(x) = 1:
+          |0> - |1>
+(-1)|x> ( ---------)
+             √2
+```
+Recall that x is also in the superposition:
+```
+    (x)
+ |0> + |1>   |0> - |1>
+( -------- )(---------)
+     √2         √2
+```
+
+so this would become:
+```
+
+ (-1)^f(0)|0> + (-1)^f(1)|1>  |0> - |1>
+( --------------------------)(---------)
+           √2                    √2
+
+f(0) = 1, f(1) = 0:
+ (-1)¹|0> + (-1)⁰|1>   |0> - |1>
+( ------------------ )(---------)
+           √2             √2
+
+ -1|0> + 1|1>    |0> - |1>         (-1 + 1) = 0
+( ------------ )(---------)        ( 1 - 1) = 0
+       √2            √2
+
+  |0> - |1>      |0> - |1>
+( ------------ )(---------) =
+       √2            √2
+```
+
+The hadamard matrix takes:
+```
+
+|0>+|1>          |0>-|1>
+------- -> |0|   ------  -> |1>
+  √2               √2
+```
+
+So after applying the hadamard gate to the first qubit that should put it
+into the |1> state.
+In qiskit-js the final state looks like this:
+```
+[
+  { re: 0, im: 0 },
+  { re: 0, im: 0 },
+  { re: -0.7071067811865474, im: 0 },
+  { re: 0.7071067811865474, im: 0 }
+]
+```
+Now, if we factor this tensor product (or what ever it is called) it would give:
+```
+0 ⌈-0.707106⌉    ⌈0        ⌉
+  ⌊ 0.707106⌋    |0        |
+               = |-0.707106|
+1 ⌈-0.707106⌉    ⌊ 0.707106⌋
+  ⌊ 0.707106⌋
+```
+
+What if we have a constant function?
+```
+f(0) = 1, f(1) = 1:
+ (-1)¹|0> + (-1)¹|1>   |0> - |1>
+( ------------------ )(---------)
+           √2             √2
+
+ -1|0> + -1|1>   |0> - |1>
+( ------------- )(---------)
+        √2           √2
+
+      |0> + |1>        |0> - |1>
+(-1)( ------------- )(---------)
+         √2               √2
+
+f(0) = 0, f(1) = 0:
+ (-1)⁰|0> + (-1)⁰|1>   |0> - |1>
+( ------------------ )(---------)
+           √2             √2
+
+ 1|0> + 1|1>    |0> - |1>
+( ----------- )(---------)
+           √2       √2
+
+      |0> + |1>   |0> - |1>
+(1)( ------------ )(---------)
+           √2          √2
+```
+
+Again, applying the hadamard to x will now give |0>
+
+```console
+
+             [ 1, 0, 0, 0] ⌈ 0.5⌉   ⌈ 0.5⌉
+             [ 0, 1, 0, 0] |-0.5| = |-0.5|
+             [ 0, 0, 0, 1] | 0.5|   |-0.5|
+             [ 0, 0, 1, 0] ⌊-0.5⌋   ⌊ 0.5⌋
+```
+Remember that the first matrix is the oracle function, the vector is the input
+values which represents the state of the system. Each outcome has a 25% chance
+at that point. We will then apply the hadamard gate to qubit 0/wire 0 and that
+should reverse that qubit to its initial state, |0>.
+```console
+State
+0+0i|00>0%
+0+0i|01>0%
+-0.70710678+0i|10>50%
+0.70710678+0i|11>50%
 ```
 
 How about the other three functions/matrices?
@@ -1934,7 +2126,7 @@ What happens if y = 0:
                                              |0 xor 0 = 0|
 x=0;     f(x) = { 0 -> 1, 1 -> 0 }           |0 xor 1 = 1|
                                              |1 xor 0 = 1|
-|0, 0> -> |0, 0 XOR f(0)>   f(0) = 1         |1 xor 1 = 1|
+|0, 0> -> |0, 0 XOR f(0)>   f(0) = 1         |1 xor 1 = 0|
           |0, 0 XOR 1>                       +-----------+
           |0, 1> Notice that this is the same as f(0) = 1
 
