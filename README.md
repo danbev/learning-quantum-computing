@@ -181,6 +181,22 @@ When we measure:
 Keep in mind that after we have measured the actual vector has not changed which
 is what is meant it collapsing.
 
+
+### Postulates
+```
+(I) The state of a quantum object is completely specified by the wave function
+Ψ(x). This is a complex function. This is a function of position. 
+
+(II) 
+The wave function means that the probability of finding the object a point x,
+upon measurement, is equal to the norm/length/magnitude squared ψ(x):
+```
+P(x) = |ψ(x)|²
+```
+The total probability has to be normalized. So this function gives the probability
+density
+
+
 ### Tensor product
 The symbol for the tensor product operation is a circle with an X in it. Don't
 confuse this with the XOR operator which is a circle with a cross in it.
@@ -1738,14 +1754,22 @@ Take another graph where there are many peaks. Now we can predict/determine the
 frequence with pretty good acuracy but now the possible place to find the particle
 are more.
 
+
 #### Position Eigenstate
 Just means that the particle will actually be in this location with 100% certainty.
+
 
 #### Deutsch Oracle algorithm
 Invented by David Deutch. We want to figure out if operation `f` is constant or
 balanced, but we are only allowed to try different inputs and inspect the output.
-The function is constant if the output is independant on the input, and it is
+The function is constant if the output is independent on the input, and it is
 balanced if it is dependant.
+
+This can be written as:
+```
+f : {0, 1} --> {0, 1}
+```
+So `f` is a function that takes 0 or one as input and outputs 0 or 1.
 
 ```
          +-----+
@@ -1763,11 +1787,11 @@ How can we figure out what operation f is?
 
 On a classical computer we can
 ```
-0 --->  f(x) ----> 0 (either identity or constant 0)
-1 --->  f(x) ----> 0 (f must be constant 0)
+f(0) ----> 0 (either identity or constant 0)
+f(1) ----> 0 (f must be constant 0)
 
-1 --->  f(x) ----> 1 (either identity or constant 1)
-0 --->  f(x) ----> 1 (we know the operation is constant 1)
+f(1) ----> 1 (either identity or constant 1)
+f(0) ----> 1 (we know the operation is constant 1)
 ```
 So we would have two operations minium to figure out what the function `f` is.
 The function f could be viewed as a matrix, for example, lets say that f does:
@@ -2611,7 +2635,64 @@ So, we want to put the state of the circuit into:
 
 
 #### Deutsch-Jozsa Algorithm
-TODO
+Similar to the Deutsch-Oracle algoritm but instead of just instead of checking/determining
+if a single function is constant or balanced we are concerned with if the input
+of {0, 1}² are const or balaned
+this:
+```
+f : {0, 1} --> {0, 1}
+```
+This algoritm deals with `{0, 1}ⁿ` inputs:
+```
+f : {0, 1}ⁿ --> {0, 1}
+```
+So instead of just a single input values we have `n`. Just to be clear on this
+, the input is a string or an array of zero and ones. There is still a function
+f that is run for each of the inputs. It is the result from running `f` which 
+we check the resulting array of zeros or ones to see if the function is constant
+or balanced.
+
+Lets try this with two qubits:
+```
+f : {0, 1}² --> {0, 1}
+```
+Remember that we also have to make the gate reversable so we have the control
+bit y as well. So have the following functions for f:
+```
+00 -> 1
+01 -> 1
+10 -> 0
+11 -> 0
+
+f(0) = 1
+f(1) = 1
+```
+But for our oracle matrix we also have to account for the control bit y. So
+the input below will be (x1, x2, y):
+```
+     input    function                               output
++----000      y = 0 XOR f([0, 0]) = 0 XOR 1 = 1      001 ----------+
+|    001      y = 1 XOR f([0, 0]) = 1 XOR 1 = 0      000           |
+|    010      y = 0 XOR f([0, 1]) = O XOR 1 = 1      011           |
+|    011      y = 1 XOR f([0, 1]) = 1 XOR 1 = 0      010           |
+|    100      y = 0 XOR f([1, 0]) = 0 XOR 0 = 0      100           |
+|    101      y = 1 XOR f([1, 0]) = 1 XOR 0 = 1      101           |
+|    110      y = 0 XOR f([1, 1]) = O XOR 0 = 0      110           |
+|    111      y = 1 XOR f([1, 1]) = 1 XOR 0 = 1      111           |
+|                                                                  |
++---------------+                                                  |
+                ↓                                                  |
+               000 001 010 011 100 101 110 111                     |
+          000 [ 0,  1,  0,  0,  0,  0,  0,  0]                     |
+          001 [ 1,  0,  0,  0,  0,  0,  0,  0] <-------------------+
+          010 [ 0,  0,  1,  0,  0,  0,  0,  0]
+          011 [ 0,  0,  1,  0,  0,  0,  0,  0]
+          100 [ 0,  0,  0,  0,  1,  0,  0,  0]
+          101 [ 0,  0,  0,  0,  0,  1,  0,  0]
+          110 [ 0,  0,  0,  0,  0,  0,  1,  0]
+          111 [ 0,  0,  0,  0,  0,  0,  0,  1]
+
+```
 
 
 #### Grover's algorithm
