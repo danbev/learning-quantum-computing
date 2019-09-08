@@ -3193,3 +3193,23 @@ x XOR x XOR y:
 1 with probability |β|²
 ```
 
+
+### Standing waves
+I've taken notes about this and there is a good section about this on
+[Khan Academy](https://www.khanacademy.org/science/ap-physics-1/ap-mechanical-waves-and-sound/standing-waves-ap/a/standing-waves-review-ap?modal=1)
+
+
+### Wave length
+```
+     c                c = speed of light
+λ =  -                f = frequency
+     f               
+```
+
+### Photon Energy
+```
+E = hf               h = Planck's constant
+                     f = frequency
+                     E = photon energy
+```
+
