@@ -3183,7 +3183,6 @@ x XOR x XOR y:
 0 XOR (0 XOR 1) = 0 XOR 1 = 1
 ```
 
-
 ### Measurement
 ```
 |ψ> = α|0> + β|1>
@@ -3213,3 +3212,21 @@ E = hf               h = Planck's constant
                      E = photon energy
 ```
 
+### Notation notes
+This notation was not 100% clear to me when I first read it:
+```
+Σ |x>
+x ∈{0, 1}ⁿ
+```
+The following example where n=1:
+```
+Σ |x>                    ⌈1⌉   ⌈0⌉   ⌈1⌉
+x ∈{0, 1}¹ = |0> + |1> = ⌊0⌋ + ⌊1⌋ = ⌊1⌋
+```
+The following example where n=2:
+```
+Σ |x>                                 ⌈1⌉   ⌈0⌉   ⌈0⌉   ⌈0⌉    ⌈1⌉
+x ∈{0, 1}² = |00> + |01> |10> + |11>= |0| + |1| + |0| + |0| =  |1|
+                                      |0|   |0|   |1|   |0|    |1|
+                                      ⌊0⌋   ⌊0⌋   ⌊0⌉   ⌊1⌋    ⌊1⌋
+```
