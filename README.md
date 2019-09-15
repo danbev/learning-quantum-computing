@@ -2694,6 +2694,41 @@ the input below will be (x1, x2, y):
 
 ```
 
+```
+00 -> 0
+01 -> 0
+10 -> 1
+11 -> 1
+
+f(0) = 1
+f(1) = 1
+```
+But for our oracle matrix we also have to account for the control bit y. So
+the input below will be (x1, x2, y):
+```
+     input    function                               output
++----000      y = 0 XOR f([0, 0]) = 0 XOR 0 = 0      000 ----------+
+|    001      y = 1 XOR f([0, 0]) = 1 XOR 1 = 1      001           |
+|    010      y = 0 XOR f([0, 1]) = O XOR 0 = 0      010           |
+|    011      y = 1 XOR f([0, 1]) = 1 XOR 0 = 1      011           |
+|    100      y = 0 XOR f([1, 0]) = 0 XOR 1 = 0      101           |
+|    101      y = 1 XOR f([1, 0]) = 1 XOR 1 = 1      100           |
+|    110      y = 0 XOR f([1, 1]) = O XOR 0 = 1      111           |
+|    111      y = 1 XOR f([1, 1]) = 1 XOR 1 = 1      110           |
+|                                                                  |
++---------------+                                                  |
+                ↓                                                  |
+               000 001 010 011 100 101 110 111                     |
+          000 [ 1,  0,  0,  0,  0,  0,  0,  0] <-------------------+
+          001 [ 0,  1,  0,  0,  0,  0,  0,  0] 
+          010 [ 0,  0,  1,  0,  0,  0,  0,  0]
+          011 [ 0,  0,  0,  1,  0,  0,  0,  0]
+          100 [ 0,  0,  0,  0,  0,  1,  0,  0]
+          101 [ 0,  0,  0,  0,  1,  0,  0,  0]
+          110 [ 0,  0,  0,  0,  0,  0,  0,  1]
+          111 [ 0,  0,  0,  0,  0,  0,  1,  0]
+```
+
 
 #### Grover's algorithm
 Say you have to search a list of items. You would on average have to search
