@@ -190,11 +190,10 @@ is what is meant it collapsing.
 (II) 
 The wave function means that the probability of finding the object a point x,
 upon measurement, is equal to the norm/length/magnitude squared ψ(x):
-```
 P(x) = |ψ(x)|²
-```
 The total probability has to be normalized. So this function gives the probability
 density
+```
 
 
 ### Tensor product
