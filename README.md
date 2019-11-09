@@ -3164,3 +3164,82 @@ Is this as simple as multiplying
 ```
 
 
+### Interferometer and interference
+Take the following example:
+```
+                  (mirror)
+α                  +----+                
+  \                 /  \                 /
+   +---------------+    +---------------+
+   |Beam Splitter 1|    |Beam Splitter 2|
+   +---------------+    +---------------+
+  /                 \  /                 \
+β                  +----+
+                   (mirror)
+
+```
+Beam Splitter 1:
+```
+1 ⌈-1 1⌉ 
+--⌊1  1⌋
+√2
+```
+Beam Splitter 2:
+```
+1 ⌈1  1⌉ 
+--⌊1 -1⌋
+√2
+```
+The output of this system is:
+```
+output = (BS2 matrix)(BS1 matrix)⌈α⌉
+                                 ⌊β⌋
+```
+
+So lets take a concrete example and pass in |1>:
+```
+
+                  (mirror)
+                   +----+                
+                    /  \                 /
+   +---------------+    +---------------+
+   |Beam Splitter 1|    |Beam Splitter 2|
+   +---------------+    +---------------+
+  /                 \  /                 \
+⌈0⌉                +----+
+⌊1⌋                (mirror)
+```
+The result of the first beam splitter will be:
+```
+1 ⌈-1 1⌉ ⌈0⌉   1 ⌈1⌉  ⌈0.707106⌉
+--⌊1  1⌋ ⌊1⌋ = --⌊1⌋ =⌊0.707106⌋
+√2             √2
+
+⌈0.707106⌉² + ⌊0.707106⌋² = 1
+      0.5   + 0.5         = 1
+```
+So we take the result and the "pass" it through the second beam splitter:
+```
+1 ⌈1  1⌉ ⌈0.707106⌉   1  ⌈0.707106 +  0.707106⌉
+--⌊1 -1⌋ ⌊0.707106⌋ = -- ⌊0.707106 + -0.707106⌋
+√2                    √2
+
+                      1  ⌈0.14142⌉
+                    = -- ⌊0⌋
+                      √2             
+
+                      ⌈1⌉
+                    = ⌊0⌋
+```
+
+```
+                  (mirror)
+                   +----+                 1
+                    /  \                 /
+   +---------------+    +---------------+
+   |Beam Splitter 1|    |Beam Splitter 2|
+   +---------------+    +---------------+
+  /                 \  /                 \
+⌈0⌉                +----+                 -0 (=0)
+⌊1⌋                (mirror)
+```
