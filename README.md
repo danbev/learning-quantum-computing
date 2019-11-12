@@ -3119,6 +3119,12 @@ E = hf               h = Planck's constant
                      E = photon energy
 ```
 
+### Wave function
+```
+Ψ = wave function (depends on time...and other things)
+
+```
+
 ### Notation notes
 This notation was not 100% clear to me when I first read it:
 ```
@@ -3243,3 +3249,13 @@ So we take the result and the "pass" it through the second beam splitter:
 ⌈0⌉                +----+                 -0 (=0)
 ⌊1⌋                (mirror)
 ```
+
+
+Notice that a quantum state super inposed upon itself does not change its
+physical meaning:
+```
+|A≅ 2|A> ≅ -1|A> ≅ i|A>
+```
+This would just be scaling the vector in some manner but when we measure it
+would give the same result. This is true as long as the coefficient is none
+zero.
