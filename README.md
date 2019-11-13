@@ -1450,6 +1450,21 @@ gate u3(theta,phi,lambda) q { U(theta,phi,lambda) q; }
 
 
 ### Entanglement
+Lets say we have two particles which can be in one of two states:
+```
+particle₁ = |u₁> or |u₂>
+particle₂ = |v₁> or |v₂>
+```
+Now, if we want to describe the quantum state the whole system, both of the
+particles. Note that the particles are not interacting.
+So, particle one could be in |u₁> and particle two |v₁>. This can be described
+using the tensor product of these two states:
+```
+X = tensor product
+|u₁> X |v₁>
+```
+
+
 If the product state of two qubits cannot be factored they are said to be entangled.
 What does that mean?  
 We want to take a vector and factor out the products of it.
@@ -3259,3 +3274,16 @@ physical meaning:
 This would just be scaling the vector in some manner but when we measure it
 would give the same result. This is true as long as the coefficient is none
 zero.
+
+```
+α|A> + β|B>
+```
+The polarisation state of a photon can be express using only two terms, but
+in the above we have four terms. But if what we said above that the overall 
+coefficient does not matter.
+```
+1        1        α       β             β
+- α|A> + - β|B> = - |A> + -|B> = 1|A> + -|B>
+α        α        α       α             α
+```
+
