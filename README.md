@@ -3287,3 +3287,75 @@ coefficient does not matter.
 α        α        α       α             α
 ```
 
+
+### Photoelectric effect
+Hertz (1887) shined light against metal plates, high energy beams of light and
+noticed that electrons were released. The electrons that are released are some
+times called photo electrons but are still just electrons. They were release due
+to a photon which is why it is called the photo-electric effect. This will
+produce a photo-electric current.
+Electrons were only released when the light reached a certain frequency, before
+that no electrons were released. There is a threshold frequency V₀ (greek letter
+Nv (nu)). So the frequency has to be greater than V₀, V > V₀.
+The type of metal also effects this, as there energy involved to free the
+electrons, calls the work function. So V₀ depends on the metal and the configuration
+of atoms at the surface of the metal.
+
+The magnitude of the current was proportional to the intensity of the light. I
+think this means that the number of photos release is related to the intenstity
+but not the actual energy.
+The energy of the photo-electrons was independent of the intensity of the light.
+
+Einstein 1905 light is composed of quanta (later became known as photon) where
+```
+E = hv           E = energy, h=plancks constant, v=frequency (nu)
+```
+
+```
+E_e = 1/2 mv²  = E_q-W = hv - W             W = work function
+```
+
+```
+        h
+h_bar = --
+        2π
+
+h_bar * c = 200 Mev * fm                 fm = fermi = 10^-15
+```
+
+```
+       [E]               E = Energy           M = mass
+[h] =  ---               V = frequency        L = length
+       [V]               h = plancks constant T = time
+
+     
+[E] =  M * L²/T²
+       
+      1
+[V] = -                 frequency: cicles per unit time
+      T
+
+      M * L²/T²    M * L²    
+[h] = --------- =  ------
+         1           T
+         -        
+         T       
+
+    = L * ML
+           -
+           T
+
+    = [r] [p]                             r = radius/length, p = momentum
+    = this is the angular momemtum
+
+    L²
+    --   
+    2²    L²    1   L²   1   L² 
+   --- =  -- /  - = -- / - = -- 
+    1     2²    2   4    2   2
+    -
+    2
+    
+
+```
+
