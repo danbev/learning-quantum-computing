@@ -34,7 +34,7 @@ inner product:
         ⌊0⌋.⌊1⌋ =
 ```
 The dot product tells us how much the two vectors are in the same direction. 
-When the dot product is zero it means the don't have anything in the same direction
+When the dot product is zero it means they don't have anything in the same direction
 which makes sense as these vectors are perpendicular to each other.
 
 Notice that |0> and |1> are very similar to the basis vectors in physics:
@@ -145,11 +145,11 @@ Measurement:
 |1> with probability sin²θ or cos²(π/2 - θ)
 ```
 After measuring the system is disturbed and the actual state will be either
-ground or excited. It gets projected onto one of states.
+ground or excited. It gets projected onto one of the states.
 
 ```
-1/√2|0> + 1/√2|1> = 1/√2⌈1⌉ + 1/√2⌈0⌉ = ⌈1/√2⌉ + ⌈0   ⌉ = ⌈1/√2⌉
-                        ⌊0⌋       ⌊1⌋   ⌊0   ⌋   ⌊1/√2⌋   ⌊1/√2⌋
+1/√2|0> + 1/√2|1> = 1/√2⌈1⌉ + 1/√2⌈0⌉ = ⌈1/√2⌉ + ⌈0   ⌉ = ⌈1/√2⌉ = ⌈0.707106⌉
+                        ⌊0⌋       ⌊1⌋   ⌊0   ⌋   ⌊1/√2⌋   ⌊1/√2⌋   ⌊0.707106⌋
 ```
 
 Remember that we can describe a vector using two points (a, b), and we can also
