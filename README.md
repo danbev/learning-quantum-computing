@@ -154,12 +154,36 @@ ground or excited. It gets projected onto one of the states.
 
 Remember that we can describe a vector using two points (a, b), and we can also
 specify the same vector using polar coordinates (p, θ) where p is the magnitude/
-length:
+length and theta is the angle:
 ```
 (a, b) -> (p, Θ)
+```
+We can calculate the `p` using:
+```
 p = √(a² + b²)
-Θ = arctan(b/a)
-a = p cos(Θ)  b = p sin(Θ)
+```
+And the angle can be calculated using the inverse tangent function:
+```
+Θ = arctan(b/a)              // inverse tangent can also be written as tan⁻¹
+```
+Remember that we are trying to find the angle theta here, and we can thing
+of `b` as being the `y` value and `a` being the `x` value:
+```
+    /|
+   / |
+  /  | b (adjacent) 
+ /   |
+ ----+
+  a (opposite)
+
+adjacent/opposite = tangent
+```
+And `arctan` takes a value and returns the angle we want.
+
+So we now have both `p` and `θ`:
+```
+a = p cos(Θ)
+b = p sin(Θ)
 ⌈a⌉ = ⌈cos(θ)⌉
 ⌊b⌋   ⌊sin(θ)⌋
 
@@ -178,9 +202,6 @@ When we measure:
 |0> with probability cos(Θ)²
 |1> with probability sin(Θ)²
 ```
-Keep in mind that after we have measured the actual vector has not changed which
-is what is meant it collapsing.
-
 
 ### Postulates
 ```
@@ -362,7 +383,6 @@ When we have multiple qubits we have:
 The coefficients (a, b, c, d) are the magnitues and the sum of these squared must
 be 1.
 
-
 ### Spin
 So, a particle has a spin in that it can spin like the earth but in any direction.
 How can this be represented with a matrix?  
@@ -382,7 +402,7 @@ magnitude = √(5² + 1²)
           = √(25 + 1)
           = √26
 ```
-Notice that `i` is not used when calculating the magnitude/length
+Notice that `i` is not used when calculating the magnitude/length.
 ```
 5 = 0i
 magnitude = √5²
@@ -398,7 +418,6 @@ magnitude = √(3² + 4²)
           = √25
           = 5
 ```
-Both have the same magnitude?
 
 Just remember that `i² = -1`. This is just per definition (something that is made up
 to be this way to fit calculations/obervations).
