@@ -456,6 +456,28 @@ phi are 0 so this is the polar representation for |0>.
 Notice that the operation is cosine and cos(0) = 1. So there is no angle and the 
 vector is from the origin straight up to the north pole of the sphere. And this 
 also means that sin(0) is 0. Also notice that the second part is just that sin(θ/2). 
+Notice one thing about the state (|0> and |1>) which are the two states that
+can be obtained when measuring. If we visualize this in two dimensions we get:
+```
+                  ^
+   ⌈0⌉        |1>-|
+   ⌊1⌋            |
+                  |   
+                  |   
+           ---------------|---> 
+   ⌈1⌉                    |0>
+   ⌊0⌋
+```
+So above we are showing |0> and |1> and notice that they are orthogonal to each
+other (that is 90 degree angles). But in a bloch sphere the |0> state is north
+and |1> is south, that is they are 180 degrees apart. When we see a state like
+```
+          0           0
+|Ψ> = cos - |0> + sin -  e^iΦ|1>
+          2           2
+```
+Specifying cos and sin with (θ/2) is to account for this. 
+
 
 If we think of this as:
 ```
