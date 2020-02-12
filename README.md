@@ -623,11 +623,14 @@ Holding a pen to represent `z` helps me a little, and holding it straight up rep
 can stop at different points, and then the Φ angle can be updated to make the top
 of the pen point to any location on the sphere at that "height".
 
+```
 θ has to be a value between 0 and π (0 <= θ <= π). So it is cannot be greater than
 π (180 degrees).  
-
+```
+```
 Φ has to be a value between 0 and 2π (0 <= 0 <= 2π). So it cannot be greather than
 2π (360 degrees).
+```
 
 Why do we have `θ/2` above?  
 This is the input to cosine and sine and they can take an angle from 0 to
