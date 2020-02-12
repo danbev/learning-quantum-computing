@@ -166,7 +166,7 @@ And the angle can be calculated using the inverse tangent function:
 ```
 Θ = arctan(b/a)              // inverse tangent can also be written as tan⁻¹
 ```
-Remember that we are trying to find the angle theta here, and we can thing
+Remember that we are trying to find the angle theta here, and we can think
 of `b` as being the `y` value and `a` being the `x` value:
 ```
     /|
@@ -738,7 +738,7 @@ sin(π/2) = 1
 ```
 
 
-Even though the we are dealing with complex numbers, we are still really working
+Even though we are dealing with complex numbers, we are still really working
 with coefficients that are scaling some basis vector:
 ```
         ^
@@ -1608,7 +1608,7 @@ then or how does that work?
 Measurement.
 We have learnt that measuring the state will collapse the wave function and this
 happens all the time to particules when they get hit by light or other interaction. 
-This is why we don't see thing in superposition state in everyday life and also
+This is why we don't see things in superposition state in everyday life and also
 why it is so hard to create a quantum computer. They need to isolate the particle
 to avoid interference with the outside environment. 
 
