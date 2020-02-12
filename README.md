@@ -59,7 +59,7 @@ We can stack these:
 ⌊β⌋
 ```
 This gives us a two-dimensional vector in a complex vector plane.
-So α and β are the scalars and the |0> and |1> the basis unit vectors when you
+So `α` and `β` are the scalars and the `|0>` and `|1>` the basis unit vectors when you
 see:
 ```
 α|0> + β|1>
@@ -67,13 +67,13 @@ see:
 it means that we are scaling these unit vectors by those complex numbers:
 ```
                   ^
-            ⌈0⌉|1>-
-            ⌊1⌋   |
+        ⌈0⌉ or|1> -
+        ⌊1⌋       |
                   |   
                   |   
            ---------------|---> 
-                          |0>⌈1⌉
-                             ⌊0⌋  
+                          ⌈1⌉ or|0>
+                          ⌊0⌋  
 ```
 All of the vectors produced must fit on the unit circle (have a radius of 1). So
 we can use the values specified on the unit circle to produce vectors. For
