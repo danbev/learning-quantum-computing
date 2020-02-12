@@ -522,7 +522,7 @@ the Bloch sphere:
                 -------------------------> y
               / |Φ\
              /  |
-        x/   |
+        x   /   |
                 |1>
 
 Θ = theta is the angle in the vertical axis
@@ -559,24 +559,22 @@ of a qubit. Lets call the unit vector n_hat.
            x/   |
                 |
                 |
+```
 
 To visualize the angle on the z axis you have to remember that it is 90 degrees.
 So if we take a 90 triangle:
-
-              / |
-               |
-               |
-               +
+```
    /|
   / |
  /  | cos(θ)
 /   |
 ----+
-
+```
 
 This is how I'd normally visualize a vector. 
 
 If we flip this we get:
+```
 +----
 |   /
 |  /
@@ -587,7 +585,7 @@ If we flip this we get:
 n_hat_z = cos(θ)
 ```
 
-
+```
           θ                θ
 |Ψ> = cos - |0> + e^iΦ sin - |1>
           2                2
@@ -617,7 +615,7 @@ z = cos² y - sin² y = cos(2y)
 ```
 
 
-Also note that the X axis is the horizontal axis <---->, y is the axis coming
+Also note that the y axis is the horizontal axis <---->, x is the axis coming
 out towards me, and z is the vertical axis.
 
 Holding a pen to represent `z` helps me a little, and holding it straight up represent
