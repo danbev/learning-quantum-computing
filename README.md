@@ -47,7 +47,7 @@ j_hat = ⌈0⌉
 
 ```
 These form a basis (you can reach any point in R²) by using linear combinations
-(scaling and adding). Not sure if this is signifcant at all but though it was
+(scaling and adding). Not sure if this is signifcant at all but thought it was
 interesting.
 
 ```
@@ -59,16 +59,16 @@ We can stack these:
 ⌊β⌋
 ```
 This gives us a two-dimensional vector in a complex vector plane.
-So `α` and `β` are the scalars and the `|0>` and `|1>` the basis unit vectors when you
-see:
+So `α` and `β` are the scalars and the `|0>` and `|1>` the basis unit vectors
+when you see:
 ```
 α|0> + β|1>
 ```
 it means that we are scaling these unit vectors by those complex numbers:
 ```
                   ^
-        ⌈0⌉ or|1> -
-        ⌊1⌋       |
+      ⌈0⌉ or|1>   -
+      ⌊1⌋         |
                   |   
                   |   
            ---------------|---> 
