@@ -162,5 +162,26 @@ $ mkdir out && cd out
 $ cmake ..
 $ cmake --build . --config Release -- -j8
 ```
+```console
+$ file Release/qasm_simulator 
+Release/qasm_simulator: ELF 64-bit LSB executable, x86-64, version 1 (GNU/Linux), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=b8a30ab828bed5f736f4cfea8dc0396884eb08bc, for GNU/Linux 3.2.0, with debug_info, not stripped
+$ ldd Release/qasm_simulator 
+	linux-vdso.so.1 (0x00007ffff7fcf000)
+	libopenblas.so.0 => /usr/lib64/libopenblas.so.0 (0x00007ffff5cc0000)
+	libdl.so.2 => /usr/lib64/libdl.so.2 (0x00007ffff5cb9000)
+	libpthread.so.0 => /usr/lib64/libpthread.so.0 (0x00007ffff5c97000)
+	libstdc++.so.6 => /usr/lib64/libstdc++.so.6 (0x00007ffff5a9e000)
+	libm.so.6 => /usr/lib64/libm.so.6 (0x00007ffff5958000)
+	libgomp.so.1 => /usr/lib64/libgomp.so.1 (0x00007ffff591e000)
+	libgcc_s.so.1 => /usr/lib64/libgcc_s.so.1 (0x00007ffff5902000)
+	libc.so.6 => /usr/lib64/libc.so.6 (0x00007ffff5739000)
+	libgfortran.so.5 => /usr/lib64/libgfortran.so.5 (0x00007ffff5497000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007ffff7fd1000)
+	libquadmath.so.0 => /usr/lib64/libquadmath.so.0 (0x00007ffff544d000)
+```
+After building we can verify that we can run the simulator using:
+```console
+$ ./Release/qasm_simulator src/qobj-simulator-example.input > output
+```
 
 
