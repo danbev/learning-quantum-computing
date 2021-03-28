@@ -86,7 +86,7 @@ we can use the values specified on the unit circle to produce vectors.
 
 For example a 45 degree vector would be specified using:
 ```
-45 degrees = (√2/2, √2/2)
+45 degrees = (√2/2, √2/2), π/4
 
 √2/2⌈1⌉ + √2/2⌈0⌉ = ⌈√2/2⌉ = ⌈0.707106⌉
     ⌊0⌋       ⌊1⌋   ⌊√2/2⌋   ⌊0.707106⌋
@@ -136,6 +136,13 @@ meaning that |α|² + |β|² = 1.
                 |/
       ----------+------------>
                             |0>
+```
+Why the 1/√2?  
+```
+√2 = 1.4142
+   1
+------- = 
+1.4142
 ```
 
 Measurement:
@@ -812,6 +819,7 @@ Negative numbers are phase π (180 agrees):
 ```
 Ψ₁ = ⌈1⌉
      ⌊0⌋
+
 Ψ₂ = ⌈0⌉
      ⌊1⌋
 
@@ -847,9 +855,13 @@ Now we will create a graph combining Ψ₁ and Ψ₂:
 ```
                0.5Ψ₁ + 0.5Ψ₂
 ```
-We want to normalize this equation so that the lenght of these vectors are 1,
-so that the quare roots of them become 1 (which they currently do not). We need
-to normalize these values which can be done by:
+We want to normalize this equation so that the length of these vectors are 1,
+so that the quare roots of them become 1 (which they currently do not). 
+```
+0.5²+0.5² = 0.25 + 0.25 = 0.50
+```
+
+We need to normalize these values which can be done by:
 ```
             ^
             |
@@ -857,18 +869,37 @@ to normalize these values which can be done by:
             |
             +----|---->
                 0.5
+
 magnitude  = √(0.5² + 0.5²) = √(0.25 + 0.25) = √0.5 = 0.707106
-u_hat = (0.5/0.707106, 0.5/0.25) =  (0.707106, 0.707106)
+u_hat = (0.5/0.707106, 0.5/0.707106) =  (0.707106, 0.707106)
 ```
-Any time you need to normalize you can take the scalar and divide by the magnitude
-to the value in the unit vector (value).
+Any time you need to normalize you can take the scalar and divide by the
+magnitude of the value in the unit vector (value).
 ```
                0.707Ψ₁ + 0.707Ψ₂
                (√2/2)  + (√2/2)
 ```
 So our vector will look like: (0.707, 0.707) and the graph is says that it 
-consists of equal parts of Ψ₁ and Ψ₂. A qubit can be in the state of Ψ₁, or Ψ₂, 
-or a combination of both.
+consists of equal parts of Ψ₁ and Ψ₂ and the length will be 1:
+```
+0.707106² + 0.707106² = 1
+```
+This will give us a vector with x being 0.707106, and y being 0.707106 which
+is a 45 degree angle and a lenght of 1:
+```
+            ^
+            |
+   0.707106 |      *
+            |    
+            |
+            +------|-->
+                0.5
+```
+I think that normalizing makes it easier to to calculations later as we have
+a length of 1 and we don't have to account for different lengths or the vector
+(r, magnitude), we can just use the x,y values of the sin/cosine.
+
+A qubit can be in the state of Ψ₁, or Ψ₂, or a combination of both.
 
 Not sure if is significant or not but (√2/2, √2/2) is 45 degrees (π/4) on the 
 unit circle.
