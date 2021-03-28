@@ -138,12 +138,7 @@ meaning that |α|² + |β|² = 1.
                             |0>
 ```
 Why the 1/√2?  
-```
-√2 = 1.4142
-   1
-------- = 
-1.4142
-```
+Take a look at the section [nomalize](#normalization)
 
 Measurement:
 ```
@@ -850,6 +845,8 @@ In this case we would have a wave that is 0.5 of the first wave, and
 |1> in bra-ket notation.
 0% Ψ₁ and 100% Ψ₂.
 ```
+
+### Normalization
 
 Now we will create a graph combining Ψ₁ and Ψ₂:
 ```
