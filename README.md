@@ -890,7 +890,7 @@ is a 45 degree angle and a lenght of 1:
             |    
             |
             +------|-->
-                0.5
+                   0.707106
 ```
 I think that normalizing makes it easier to to calculations later as we have
 a length of 1 and we don't have to account for different lengths or the vector
