@@ -3,10 +3,10 @@
 
 int main(int argc, char** argv) {
   int i=0;
-  double input1[6] = {1.0, 3.0,
-                      5.0, 2.0,
-                      4.0, 6.0};
-  double input2[6] = {1.0, 2.0};
+  double input1[6] = {1.0, 3.0, 5.0,
+                      2.0, 4.0, 6.0};
+
+  double input2[2] = {1.0, 2.0};
 
   double output[3] = {.0, .0, .0};
 
