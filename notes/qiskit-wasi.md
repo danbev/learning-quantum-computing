@@ -17,47 +17,128 @@ $ make
 
 To install the library, you can run "make PREFIX=/path/to/your/installation install".
 ```
+
 I manually copied libopenblas.a to `/usr/lib64`.
-
-
 ```console
-$ sudo cp ../cmake/FindBLAS.cmake.fix-static-linking /usr/share/cmake/Modules/FindBLAS.cmake
+$ sudo cp libopenblas.a /usr/lib64/libopenblas.a 
+```
+
+As mentioned in `CMakeList.txt` we have to manually copy
+cmake/FindBLAS.cmake.fix-static-linking to `/usr/share/cmake/Modules/FindBLAS.cmake`:
+```console
+$ sudo cp cmake/FindBLAS.cmake.fix-static-linking /usr/share/cmake/Modules/FindBLAS.cmake
 ```
 
 Configure:
 ```console
+$ mkdir out && cd out
 $ cmake -DSTATIC_LINKING=True ..
 ```
 Build:
 ```console
 $ make
 ```
+
 I'm getting the following error:
 ```console
-$ make
-Scanning dependencies of target qasm_simulator
-[ 50%] Building CXX object CMakeFiles/qasm_simulator.dir/contrib/standalone/qasm_simulator.cpp.o
-c++: error: LINK_FLAGS: No such file or directory
-make[2]: *** [CMakeFiles/qasm_simulator.dir/build.make:63: CMakeFiles/qasm_simulator.dir/contrib/standalone/qasm_simulator.cpp.o] Error 1
-make[1]: *** [CMakeFiles/Makefile2:104: CMakeFiles/qasm_simulator.dir/all] Error 2
-make: *** [Makefile:141: all] Error 2
+$ make -j8
+[100%] Linking CXX executable Release/qasm_simulator
+/usr/bin/ld: /usr/lib/gcc/x86_64-redhat-linux/9/libgomp.a(target.o): in function `gomp_target_init':
+(.text+0x33c): warning: Using 'dlopen' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+/usr/bin/ld: CMakeFiles/qasm_simulator.dir/contrib/standalone/qasm_simulator.cpp.o:(.rodata+0x10e0): undefined reference to `slamch_'
+/usr/bin/ld: CMakeFiles/qasm_simulator.dir/contrib/standalone/qasm_simulator.cpp.o:(.rodata+0x10e8): undefined reference to `cheevx_'
+/usr/bin/ld: CMakeFiles/qasm_simulator.dir/contrib/standalone/qasm_simulator.cpp.o:(.rodata+0x10f0): undefined reference to `dlamch_'
+/usr/bin/ld: CMakeFiles/qasm_simulator.dir/contrib/standalone/qasm_simulator.cpp.o:(.rodata+0x10f8): undefined reference to `zheevx_'
+/usr/bin/ld: CMakeFiles/qasm_simulator.dir/contrib/standalone/qasm_simulator.cpp.o: in function `void eigensystem_hermitian<double>(matrix<std::complex<double> > const&, std::vector<double, std::allocator<double> >&, matrix<std::complex<double> >&)':
+qasm_simulator.cpp:(.text._Z21eigensystem_hermitianIdEvRK6matrixISt7complexIT_EERSt6vectorIS2_SaIS2_EERS4_[_Z21eigensystem_hermitianIdEvRK6matrixISt7complexIT_EERSt6vectorIS2_SaIS2_EERS4_]+0x7c): undefined reference to `dlamch_'
+
+/usr/bin/ld: qasm_simulator.cpp:(.text._Z21eigensystem_hermitianIdEvRK6matrixISt7complexIT_EERSt6vectorIS2_SaIS2_EERS4_[_Z21eigensystem_hermitianIdEvRK6matrixISt7complexIT_EERSt6vectorIS2_SaIS2_EERS4_]+0x28f): undefined reference to `zheevx_'
+collect2: error: ld returned 1 exit status
+make[2]: *** [CMakeFiles/qasm_simulator.dir/build.make:122: Release/qasm_simulator] Error 1
+make[1]: *** [CMakeFiles/Makefile2:123: CMakeFiles/qasm_simulator.dir/all] Error 2
+make: *** [Makefile:160: all] Error 2
 ```
-If we run make with `-n` we can see the commands it is executing:
+
 ```console
-$ make -n
-make -f CMakeFiles/qasm_simulator.dir/build.make CMakeFiles/qasm_simulator.dir/build
-/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/danielbevenius/work/quantum/qiskit-aer/build/CMakeFiles --progress-num=1 "Building CXX object CMakeFiles/qasm_simulator.dir/contrib/standalone/qasm_simulator.cpp.o"
-ccache /usr/lib64/ccache/c++   -I/home/danielbevenius/work/quantum/qiskit-aer/src -I/home/danielbevenius/work/quantum/qiskit-aer/src/third-party/macos/lib -I/home/danielbevenius/work/quantum/qiskit-aer/src/third-party/win64/lib -I/home/danielbevenius/work/quantum/qiskit-aer/src/third-party/linux/lib -isystem /home/danielbevenius/work/quantum/qiskit-aer/src/third-party/headers  -static -O2 -DNDEBUG   LINK_FLAGS -pthread -std=gnu++14 -o CMakeFiles/qasm_simulator.dir/contrib/standalone/qasm_simulator.cpp.o -c /home/danielbevenius/work/quantum/qiskit-aer/contrib/standalone/qasm_simulator.cpp
+$ nm CMakeFiles/qasm_simulator.dir/contrib/standalone/qasm_simulator.cpp.o  | grep _Z21eigensystem_hermitianIdEvRK6matrixISt7complexIT_EERSt6vectorIS2_SaIS2_EERS4_
+0000000000000000 W _Z21eigensystem_hermitianIdEvRK6matrixISt7complexIT_EERSt6vectorIS2_SaIS2_EERS4_
 ```
-Notice that `LINK_FLAGS` is missing the `-D` part. It looks like this variable
-is missing for a static build. How about adding an empty one?
-When configuring an dynamically linked build LINK_FLAGS will be set to `-fopenmp`:
+So this function uses these `slamch_` but it is not defined in the object file
+and would therefore need to be linked but that is not being done.
+
+$ nm -C CMakeFiles/qasm_simulator.dir/contrib/standalone/qasm_simulator.cpp.o  | grep slamch_
+                 U slamch_
 ```
-	set_target_properties(qasm_simulator PROPERTIES
-		LINK_FLAGS ${AER_LINKER_FLAGS}
+So this is indefined in the object file. It is in the header but there is no
+implementation for it so compilation. If we take a debug build and then use
+lldb we should be able to figure out where this symbol is defined:
 ```
-Notice that there are no quotation marks ("") around this variable, so if it is
-not set then the `set_target_properties` command will actually be invalid.
+$ lldb -- ./Debug/qasm_simulator
+(lldb) br s -n main
+(lldb) r
+(lldb) target modules lookup --symbol slamch_
+1 symbols match 'slamch_' in /home/danielbevenius/work/quantum/qiskit-aer/out2/Debug/qasm_simulator:
+
+1 symbols match 'slamch_' in /usr/lib64/libopenblas.so.0:
+        Address: libopenblas.so.0[0x0000000001ef35f0] (libopenblas.so.0.PT_LOAD[2]..text + 31241712)
+        Summary: libopenblas.so.0`slamch_
+(lldb) target modules lookup --symbol cheevx_
+1 symbols match 'cheevx_' in /home/danielbevenius/work/quantum/qiskit-aer/out2/Debug/qasm_simulator:
+
+1 symbols match 'cheevx_' in /usr/lib64/libopenblas.so.0:
+        Address: libopenblas.so.0[0x0000000001c0de80] (libopenblas.so.0.PT_LOAD[2]..text + 28204672)
+        Summary: libopenblas.so.0`cheevx_
+```
+So we can see that these are in /usr/lib64/libopenblas.so.0 which is the shared
+library:
+```console
+$ nm -D  /usr/lib64/libopenblas-r0.3.10.so | grep slamch_
+0000000001f853e0 T LAPACKE_slamch_work
+0000000001ef35f0 T slamch_
+```
+But we are linking against the static library and it does not seem to be there:
+```console
+$ nm  /usr/lib64/libopenblas.a | grep slamch_
+```
+Why is this symbol not include in the static archive?  
+Hmm, look at these symbols they seem to all come from the LAPACK library. This
+seems to happen if a fortran compiler is not available when compiling OpenBLAS.
+Adding a fortran compiler and then re-compiling:
+```console
+$ sudo dnf install -y gfortran
+```
+And after this we can see that we have the symbols in the static archive:
+```console
+$ nm  libopenblas.a | grep slamch_
+...
+lapacke_slamch_work.o:
+0000000000000000 T LAPACKE_slamch_work
+```
+(Recall that T means that the symbol is in the .text segment).
+
+That took care of one issue but another surfaced after this:
+```console
+[100%] Linking CXX executable Release/qasm_simulator
+/usr/bin/ld: /usr/lib/gcc/x86_64-redhat-linux/9/libgomp.a(target.o): in function `gomp_target_init':
+(.text+0x33c): warning: Using 'dlopen' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+/usr/bin/ld: /usr/lib64/libopenblas.a(cunmtr.o): in function `cunmtr_':
+cunmtr.f:(.text+0x305): undefined reference to `_gfortran_concat_string'
+/usr/bin/ld: cunmtr.f:(.text+0x4bf): undefined reference to `_gfortran_concat_string'
+/usr/bin/ld: cunmtr.f:(.text+0x521): undefined reference to `_gfortran_concat_string'
+/usr/bin/ld: cunmtr.f:(.text+0x561): undefined reference to `_gfortran_concat_string'
+/usr/bin/ld: /usr/lib64/libopenblas.a(zunmtr.o): in function `zunmtr_':
+zunmtr.f:(.text+0x304): undefined reference to `_gfortran_concat_string'
+/usr/bin/ld: /usr/lib64/libopenblas.a(zunmtr.o):zunmtr.f:(.text+0x4bf): more undefined references to `_gfortran_concat_string' follow
+collect2: error: ld returned 1 exit status
+make[2]: *** [CMakeFiles/qasm_simulator.dir/build.make:122: Release/qasm_simulator] Error 1
+make[1]: *** [CMakeFiles/Makefile2:123: CMakeFiles/qasm_simulator.dir/all] Error 2
+make: *** [Makefile:160: all] Error 2
+```
+I was able to force this by updating CMakeFiles/qasm_simulator.dir/link.txt:
+```
+ccache /usr/lib64/ccache/c++  -static -static-libgcc -static-libstdc++ -ffast-math -pedantic -Wall -Wfloat-equal -Wundef -Wcast-align -Wwrite-strings -Wmissing-declarations -Wredundant-decls -Wshadow -Woverloaded-virtual  -fopenmp -O3 -DNDEBUG -fopenmp CMakeFiles/qasm_simulator.dir/contrib/standalone/qasm_simulator.cpp.o CMakeFiles/qasm_simulator.dir/src/simulators/statevector/qv_avx2.cpp.o -o Release/qasm_simulator  /usr/lib64/libopenblas.a /usr/lib/gcc/x86_64-redhat-linux/9/libgfortran.a /usr/lib64/libdl.a -lquadmath /home/danielbevenius/.conan/data/spdlog/1.5.0/_/_/package/942d5c94aa934511ee4500bda27908cb4e791b24/lib/libspdlog.a -lpthread /home/danielbevenius/.conan/data/fmt/6.2.0/_/_/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/lib/libfmt.a -pthread
+```
+
 
 Also make sure that you are using the correct clang++. I have one with wasm support
 which is in ~/opt/bin and in the PATH. Use /usr/bin instead.
@@ -123,8 +204,22 @@ only deals with wasm object files.
 
 $ cp /usr/lib64/libopenblas.a ~/work/wasm/wasi-sdk/download/wasi-sdk-8.0/share/wasi-sysroot/lib/
 
-
 ### Basic Linear Algebra Subprograms (BLAS)
+Provides low level matrix operations.
+
+### Linear Algebra Package (LAPACK)
+Is a library of higher level linear algebra operations. LAPACK is built on top
+of BLAS (uses BLAS operations)
+
+Came out of a project named LINPACK which was written in the 70/80s. LAPACK is
+designed to work well on modern computers with regard to CPU caches. LAPACK was
+originally written in FORTRAN and the first FORTRAN standards restricted
+identifiers to only 6 characters which is why the symbols in LAPACK are very
+compact.
+
+The format for symboal is `pmmaaa` where p 
+
+
 
 
 ### Qiskit-Aer
@@ -154,7 +249,10 @@ Install dev deps:
 ```console
 $ sudo pip install -r requirements-dev.txt
 # pip install conan
-$ sudo dnf install openblas-devel
+$ sudo dnf install openblas-devel 
+$ sudo dnf install openblas-static
+$ sudo dnf install libgfortran-static
+
 
 Building as a standalone executable:
 ```console
@@ -182,6 +280,25 @@ $ ldd Release/qasm_simulator
 After building we can verify that we can run the simulator using:
 ```console
 $ ./Release/qasm_simulator src/qobj-simulator-example.input > output
+```
+
+So to be able to run this completely in a browser we need to be able to
+statically link it.
+
+
+Building with debug symbols:
+```console
+$ cmake -DCMAKE_BUILD_TYPE=Debug ..
+$ make -j8
+```
+
+### Try with emscripten
+```console
+$ git clone https://github.com/emscripten-core/emsdk.git
+$ cd emsdk
+$ ./emsdk install latest
+$ ./emsdk activate latest
+$ source ./emsdk_env.sh
 ```
 
 
