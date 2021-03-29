@@ -3,15 +3,31 @@
 
 int main(int argc, char** argv) {
   int i=0;
-  double A[6] = {1.0, 2.0, 1.0, -3.0, 4.0, -1.0};         
-  double B[6] = {1.0, 2.0, 1.0, -3.0, 4.0, -1.0};  
-  double C[9] = {.5, .5, .5, .5, .5, .5, .5, .5, .5}; 
+  double input1[6] = {1.0, 3.0,
+                      5.0, 2.0,
+                      4.0, 6.0};
+  double input2[6] = {1.0, 2.0};
+
+  double output[3] = {.0, .0, .0};
 
   // multiply two matricies with double precision values
-  cblas_dgemm(CblasColMajor, CblasNoTrans, CblasTrans, 3, 3, 2, 1, A, 3, B, 3, 2, C, 3);
+  cblas_dgemm(CblasColMajor,
+      CblasNoTrans,
+      CblasNoTrans, 
+      3,            // m, rows in the first input matrix
+      1,            // n, columns in the second input matrix
+      2,            // k columns of first input matrix, rows of second input matrix
+      1,            // value to scale the values with
+      input1, 
+      3,            // for row major
+      input2, 
+      3,            // for row major
+      1,            // value use to scale output
+      output, 
+      3);           // for row major
 
-  for(i=0; i<9; i++)
-    printf("%lf ", C[i]);
+  for(i=0; i < 3; i++)
+    printf("%lf ", output[i]);
 
   printf("\n");
 
