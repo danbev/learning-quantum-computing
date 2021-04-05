@@ -138,6 +138,7 @@ I was able to force this by updating CMakeFiles/qasm_simulator.dir/link.txt:
 ```
 ccache /usr/lib64/ccache/c++  -static -static-libgcc -static-libstdc++ -ffast-math -pedantic -Wall -Wfloat-equal -Wundef -Wcast-align -Wwrite-strings -Wmissing-declarations -Wredundant-decls -Wshadow -Woverloaded-virtual  -fopenmp -O3 -DNDEBUG -fopenmp CMakeFiles/qasm_simulator.dir/contrib/standalone/qasm_simulator.cpp.o CMakeFiles/qasm_simulator.dir/src/simulators/statevector/qv_avx2.cpp.o -o Release/qasm_simulator  /usr/lib64/libopenblas.a /usr/lib/gcc/x86_64-redhat-linux/9/libgfortran.a /usr/lib64/libdl.a -lquadmath /home/danielbevenius/.conan/data/spdlog/1.5.0/_/_/package/942d5c94aa934511ee4500bda27908cb4e791b24/lib/libspdlog.a -lpthread /home/danielbevenius/.conan/data/fmt/6.2.0/_/_/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/lib/libfmt.a -pthread
 ```
+The additions are libgfortran.a and -lquadmath
 
 
 Also make sure that you are using the correct clang++. I have one with wasm support
@@ -301,4 +302,7 @@ $ ./emsdk activate latest
 $ source ./emsdk_env.sh
 ```
 
+
+
+### Conan
 
