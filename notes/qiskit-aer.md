@@ -197,3 +197,85 @@ an unsigned in which in the case of a negative value will become
 ```
 Looking at this again I guess another option would be to make `block_bits_`,
 `qubits_`. and `gpu_blocking_bits_` uint_t in the CacheBlocking class.
+
+
+Another warning src/simulators/statevector/statevector_state_chunk.hpp:
+```console
+template <class statevec_t>                                                         
+template <class T>                                                                  
+cmatrix_t State<statevec_t>::vec2density(const reg_t &qubits, const T &vec) {    
+  const size_t N = qubits.size();                                                   
+  const size_t DIM = 1ULL << N;                                                     
+  auto qubits_sorted = qubits;                                                      
+  std::sort(qubits_sorted.begin(), qubits_sorted.end());                            
+                                                                                    
+  // Return full density matrix                                                     
+  cmatrix_t densmat(DIM, DIM);                                                      
+  if ((N == BaseState::num_qubits_) && (qubits == qubits_sorted)) {                 
+    const int_t mask = QV::MASKS[N];                                                
+#pragma omp parallel for if (2 * N > omp_qubit_threshold_ &&                   \
+                             BaseState::threads_ > 1)                          \
+    num_threads(BaseState::threads_)                                  
+```
+Notice that N is an long unsigned int, and it is being compared with
+omp_qubity_threshold (omp=OpenMP) which is an int:
+```c++
+int omp_qubit_threshold_ = 14; 
+```
+It does not look like this value could ever be less than zero so perhaps it
+can be changed into `uint_t`?  
+
+Another warning this time in src/simulators/density_matrix/densitymatrix_state_chunk.hpp:
+```console
+/home/danielbevenius/work/quantum/qiskit-aer/src/simulators/density_matrix/densitymatrix_state_chunk.hpp:1037:25: warning: comparison of integer expressi     ons of different signedness: ‘AER::int_t’ {aka ‘long int’} and ‘const size_t’ {aka ‘const long unsigned int’} [-Wsign-compare]
+1250  1037 |     for (int_t i = 0; i < VDIM; ++i) {                                  
+1251       |                       ~~^~~~~~   
+```
+The index (i) can be changed to uint_t as VDIM is also unsigned.
+
+
+```console
+/home/danielbevenius/work/quantum/qiskit-aer/src/simulators/density_matrix/densitymatrix_state_chunk.hpp:584:6:   required from here
+/home/danielbevenius/work/quantum/qiskit-aer/src/simulators/density_matrix/densitymatrix_state_chunk.hpp:1014:22: warning: comparison of integer expressions of different signedness: ‘AER::int_t’ {aka ‘long int’} and ‘AER::uint_t’ {aka ‘long unsigned int’} [-Wsign-compare]
+ 1014 |   for(iChunk=1;iChunk<BaseState::num_local_chunks_;iChunk++){           
+      |                ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~   
+```
+
+
+```console
+
+```
+
+### Testing
+```console
+env CTEST_OUTPUT_ON_FAILURE=1 make test
+```
+
+
+### MPI
+```console
+$ sudo yum install openmpi-devel.i686
+$ export PATH=/usr/lib64/openmpi/bin:$PATH
+```
+Without setting the PATH I got the following error when configuring:
+```console
+-- Could NOT find MPI_C (missing: MPI_C_LIB_NAMES MPI_C_HEADER_DIR MPI_C_WORKS) 
+-- Could NOT find MPI_CXX (missing: MPI_CXX_LIB_NAMES MPI_CXX_HEADER_DIR MPI_CXX_WORKS) 
+CMake Error at /usr/local/lib64/python3.7/site-packages/cmake/data/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake:165 (message):
+  Could NOT find MPI (missing: MPI_C_FOUND MPI_CXX_FOUND)
+
+      Reason given by package: MPI component 'Fortran' was requested, but language Fortran is not enabled.  
+
+Call Stack (most recent call first):
+  /usr/local/lib64/python3.7/site-packages/cmake/data/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake:458 (_FPHSA_FAILURE_MESSAGE)
+  /usr/local/lib64/python3.7/site-packages/cmake/data/share/cmake-3.18/Modules/FindMPI.cmake:1721 (find_package_handle_standard_args)
+  CMakeLists.txt:304 (find_package)
+
+
+-- Configuring incomplete, errors occurred!
+```
+Now we should be able to configure using `AER_MPI`:
+```console
+$ mkdir build && cd build
+$ cmake .. -DBUILD_TESTS=True -DAER_MPI=True
+```
