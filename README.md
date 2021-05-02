@@ -140,6 +140,15 @@ meaning that |α|² + |β|² = 1.
 Why the 1/√2?  
 Take a look at the section [nomalize](#normalization)
 
+When we only have real numbers we are dealing with points on a unit circle. If
+we add complex numbers we then are dealing with a unit sphere (the Bloch sphere,
+more on this later). How can we visualize this, like it is pretty easy to
+visualize the unit circle. I'm not sure if this is correct but the way I'm
+thinking about it now is that if the value of the x-axis is a complex value
+that gives us access, or ability, to specify not only a position on a single
+line (if we think of the unit circle being a plane that is in the middle of the
+sphere) but. 
+
 Measurement:
 ```
       (0 1) |1> ^
@@ -272,7 +281,11 @@ q[1] X q[0] = |      |   = |0|
               ⌊  ⌊1⌋ ⌋
 
 ```
-This is a method of combining vectors. So a tensor b is:
+This is a method of combining vectors and is how multiple qubits are represented.
+Notice that the binary number of the value/label in the ket can be uses as an
+index to know where the one will be. 
+
+So a tensor b is:
 ```
 X = tensor product (I've yet to find this in digraph)
 
@@ -385,12 +398,23 @@ Two qubits α₀₀|00> + k
 
 
 ### Multiple qubits
+Multiple qubits are represented by their tensor product:
+```
+x = tensor product
+
+       ⌈1⌉   ⌈1⌉   1 * ⌈1⌉    ⌈1⌉
+|00> = ⌊0⌋ x ⌊0⌋ =     ⌊0⌋  = |0|
+                              |0|
+                  0 * ⌈1⌉     ⌊0⌋
+                      ⌊0⌋
+
+```
 When we have multiple qubits we have:
 ```
 |Ψ> = a|00> + b|01> + c|10 + d|11>
 ```
-The coefficients (a, b, c, d) are the magnitues and the sum of these squared must
-be 1.
+The coefficients (a, b, c, d) are the magnitudes and the sum of these squared
+must be 1.
 
 ### Spin
 So, a particle has a spin in that it can spin like the earth but in any direction.
@@ -1348,16 +1372,12 @@ When the hadamard gate is applied to the |0> state has its own symbol which is
 
 #### Toffoli Gate (CCNOT)
 Two control qubits and one target qubit. If both of the target qubits are 1 then
-the target qubit wil be flipped (the NOT gate). 
-
-
-
-
+the target qubit will be flipped (the NOT gate). 
 
 Constant-0
 ```
-f(x) = 0    0 -> 0     (1 1  (1  = (1*1 + 0*1  = (1     (1 1  (0   = (0*1 + 1*1  = (1
-            1 -> 1      0 0)  0)    1*0 + 0*0)    0)     0 0)  1)     0*0 + 0*1)    0)
+f(x) = 0    0 -> 0     ⌈1 1⌉⌈1⌉  = (1*1 + 0*1  = (1     (1 1  (0   = (0*1 + 1*1  = (1
+            1 -> 1     ⌊0 0⌋⌊0⌋    1*0 + 0*0)    0)     0 0)  1)     0*0 + 0*1)    0)
 ```
 Is not reversable. If we know the outcome and the operation we still can't know
 the input value, it would be either 0 or 1.
@@ -1380,6 +1400,12 @@ This is a gate that operator on a pair of bits, one which is the control bit
 and the other the target bit. If the control bit is 1 then the target bit is
 flipped. And if the control bit is 0 then the target bit is left unchanged.
 The control bit is never updated.
+```
+00 ---> 00             Control bit is 0 so nothing changes
+01 ---> 01             Control bit is 0 so nothing changes
+10 ---> 11             Control bit is 1 so flip the target bit
+11 ---> 10             Control bit is 1 so flip the target bit
+```
 
 ```
 condition/control matrix:
@@ -1387,6 +1413,26 @@ C = ⌈1 0 0 0⌉
     |0 1 0 0|
     |0 0 0 1|
     ⌊0 0 1 0⌋
+
+    ⌈1 0 0 0⌉⌈1⌉   ⌈1⌉
+    |0 1 0 0||0| = |0|
+    |0 0 0 1||0|   |0|
+    ⌊0 0 1 0⌋⌊0⌋   ⌊0⌋
+
+    ⌈1 0 0 0⌉⌈0⌉   ⌈0⌉
+    |0 1 0 0||1| = |1|
+    |0 0 0 1||0|   |0|
+    ⌊0 0 1 0⌋⌊0⌋   ⌊0⌋
+
+    ⌈1 0 0 0⌉⌈0⌉   ⌈0⌉
+    |0 1 0 0||0| = |0|
+    |0 0 0 1||1|   |0|
+    ⌊0 0 1 0⌋⌊0⌋   ⌊1⌋
+
+    ⌈1 0 0 0⌉⌈0⌉   ⌈0⌉
+    |0 1 0 0||0| = |0|
+    |0 0 0 1||0|   |1|
+    ⌊0 0 1 0⌋⌊1⌋   ⌊0⌋
 ```
 Notice that the lower left corner is:
 ```
@@ -1395,8 +1441,17 @@ Notice that the lower left corner is:
 ```
 And that this is the X operator (swap/exchange). The rest of the matrix is
 for the control operation.
-```
 
+We can visualize this as:
+```
+q[0] --------*---------- q[0]       control qubit
+             |
+q[1] -------(+)--------- q[1]       target qubit
+```
+But recall that that state is really the tensor product and the CNOT gate is
+just matrix multiplication (the operation).
+
+```
         ⌈1 0 0 0⌉ ⌈0⌉   ⌈0⌉
 C|10> = |0 1 0 0| |0| = |0| = |11>
         |0 0 0 1| |1|   |0|
@@ -1416,10 +1471,9 @@ measure q[0] -> c[0];
 ```
 This can be visualized as:
 ```
-a -----------*---------- a              control
+a -----------*---------- a              control qubit
              |
 b ----------(+)---------- b (+) a       target qubit
-
 ```
 
 A qubit is represented by (a b) where a and b are complex numbers and
@@ -1477,6 +1531,9 @@ This is alright as long as we use real number, if we use complex numbers then
 we will also have an extra z dimension and this becomes a sphere.
 If complex number were used then you would have to visualize a sphere.
 
+The CNOT gate is simliar to the NAND gate in classical computers which can be
+used to build all other gates.
+
 ### Physical single qubit gates (u1, u2, and u3)
 
 ```
@@ -1532,7 +1589,7 @@ Lets say we have two particles which can be in one of two states:
 particle₁ = |u₁> or |u₂>
 particle₂ = |v₁> or |v₂>
 ```
-Now, if we want to describe the quantum state the whole system, both of the
+Now, if we want to describe the quantum state of the whole system, both of the
 particles. Note that the particles are not interacting.
 So, particle one could be in |u₁> and particle two |v₁>. This can be described
 using the tensor product of these two states:
@@ -1540,8 +1597,6 @@ using the tensor product of these two states:
 X = tensor product
 |u₁> X |v₁>
 ```
-
-
 If the product state of two qubits cannot be factored they are said to be entangled.
 What does that mean?  
 We want to take a vector and factor out the products of it.
@@ -1554,7 +1609,7 @@ x in this case is the tensor product operator. Should be an x with a circle arou
                  ⌊x₁y₁⌋
 ```
 Working backwards, notice that we "should" be able to factor the product state 
-into tensor product multiplications but this is not possible, there is no 
+into tensor product multiplications but this is not always possible, there is no 
 solution for these values:
 ```
                          a * c should be 1/√2, but c is 0 in this case
@@ -1569,18 +1624,18 @@ solution for these values:
  ⌊√2⌋
 
 ```
-So it is not possible to separete the qubit that make up this product state, they
+So it is not possible to separate the qubit that make up this product state, they
 have no individual value, the value only makes sense together.
 ```
 (1/√2)² + 0   = 0.5
 0² + (1/√2)²  = 0.5
               = 1.0
 ```
-So this super state has a 50% of collapsing to 0 and 50% of collapsing to 1. So
-both qubits take part in the determining the outcome of 0 or 1. So if we measured
-one of these qubits and we get |0> we know the other must also be |0>, likewise if
-we measure one and get |1> we know that the other must also be |1>. 
-Measureing one qubit instantly collapses the other.
+So this super state has a 50% of collapsing to |00> and 50% of collapsing to |11>. 
+So both qubits take part in the determining the outcome of |00> or |11>. So if
+we measured one of these qubits and we get |0> we know the other must also be
+|0>, likewise if we measure one and get |1> we know that the other must also be
+|1>. Measureing one qubit instantly collapses the other.
 
 Remember that there is a physical qubits in there somewhere which are in this
 state together. So in a quantum computer these qubits would be realized as hardware
@@ -1637,8 +1692,7 @@ spits either a 0 or 1.
 Regarding this probability, I was wondering how we can compute using it, I mean
 there is no guarantee that we find a value in a particular state even though the
 probability is high. Right, but if you have many particles then you can use
-the probability. Hmm, so is a single qubit implemented using multiple particles 
-then or how does that work?
+the probability. 
 
 Measurement.
 We have learnt that measuring the state will collapse the wave function and this
@@ -3148,10 +3202,10 @@ If we push all the water to the right we have the |1> state:
 ```
 Now, if we have the zero state and drill a hole in the dividor the water will
 start to leak out and this would be used to drive some sort of motor/turbine. This
-is where energy is leaving the system which is erasing information and an irriverable
+is where energy is leaving the system which is erasing information and is irriverable
 process. Writing information, putting the system into different state is reversable
 as long as we know the previous state. We can go from the unknown state to |0>
-to unknown and back to |0>. 
+to unknown and back again to |0>. 
 
 A computer that is reverable and does not erase information does not use any 
 energy.  
