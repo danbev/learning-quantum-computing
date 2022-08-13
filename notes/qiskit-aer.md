@@ -1,5 +1,72 @@
 ### qiskit-aer
 
+### Building
+```console
+$ cd qiskit-aer
+$ conda create -y -n QiskitDevEnv python=3
+$ conda activate QiskitDevEnv
+```
+This environment can be deactivated using:
+```console
+$ conda deactivate
+```
+Install all the dependencies:
+```console
+(QiskitDevEnv) $ pip install -r requirements-dev.txt 
+```
+
+We can also build a standalone version:
+```console
+$ mkdir out
+$ cd out
+$ cmake..
+...
+-- Conan executing: /home/danielbevenius/.local/bin/conan install . -s build_type=Release -s compiler=gcc -s compiler.version=11 -s compiler.libcxx=libstdc++11 -e=CONAN_CMAKE_PROGRAM=/home/danielbevenius/.local/lib/python3.10/site-packages/cmake/data/bin/cmake -g=cmake --build=missing
+ERROR: Invalid setting '11' is not a valid 'settings.compiler.version' value.
+Possible values are ['4.1', '4.4', '4.5', '4.6', '4.7', '4.8', '4.9', '5', '5.1', '5.2', '5.3', '5.4', '5.5', '6', '6.1', '6.2', '6.3', '6.4', '6.5', '7', '7.1', '7.2', '7.3', '7.4', '7.5', '8', '8.1', '8.2', '8.3', '8.4', '9', '9.1', '9.2', '9.3', '10', '10.1']
+Read "http://docs.conan.io/en/latest/faq/troubleshooting.html#error-invalid-setting"
+```
+I updated Conan but still ran into this issue, but this was due to a stale
+setting.xml in `~/.conan/setting.yml`. Removing this file allowed the
+configuration of cmake to succeed:
+```console
+$ rm ~/.conan/settings.yml
+```
+After that I ran into the following issue:
+```console
+CONAN_CMAKE_PROGRAM=/home/danielbevenius/.local/lib/python3.10/site-packages/cmake/data/bin/cmake
+spdlog/1.9.2: Not found in local cache, looking in remotes...
+spdlog/1.9.2: Trying with 'conan-center'...
+spdlog/1.9.2: WARN: Remote https://conan.bintray.com is deprecated and will be shut down soon.
+spdlog/1.9.2: WARN: Please use the new 'conancenter' default remote.
+spdlog/1.9.2: WARN: Add it to your remotes with: conan remote add -i 0 conancenter https://center.conan.io
+ERROR: HTTPSConnectionPool(host='conan.bintray.com', port=443): Max retries exceeded with url: /v1/ping (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:997)')))
+
+Unable to connect to conan-center=https://conan.bintray.com
+1. Make sure the remote is reachable or,
+2. Disable it by using conan remote disable,
+Then try again.
+CMake Error at cmake/conan.cmake:402 (message):
+  Conan install failed='1'
+Call Stack (most recent call first):
+  cmake/conan.cmake:497 (conan_cmake_install)
+  cmake/conan_utils.cmake:71 (conan_cmake_run)
+  cmake/dependency_utils.cmake:20 (setup_conan)
+  CMakeLists.txt:145 (setup_dependencies)
+```
+This was caused by a stale url in `remotes.json`:
+```console
+$ vi ~/.conan/remotes.json 
+```
+Updating the `url` to `https://center.conan.io` fixed this issue:
+```json
+   "url": "https://center.conan.io",
+```
+
+Then we can build using:
+```console
+$ cmake --build . --config Release -- -j4
+```
 
 ### Building with c++ tests
 ```console
@@ -134,7 +201,7 @@ Notice this line:
   ...
   nq = blockedQubits.size();
 ```
-Now this will to an implict cast and if the size if larger than 2147483647
+Now this will do an implict cast, and if the size if larger than 2147483647
 nq will become a negative value. This value will later be used to check the
 j value which is an unsigned value:
 ```c++
@@ -145,9 +212,9 @@ j value which is an unsigned value:
             }                                                                        
           }         
 ```
-So lets say that the size for some reason is 2147483648 which would be
--2147483648 and j=0, in this case the loop will not be entered which I don't
-think is the intention.
+So lets say that the `blockedQubits.size()` for some reason is 2147483648 which
+would be -2147483648 and j=0, in this case the loop will not be entered which I
+don't think is the intention.
 
 Take this example:
 ```c
