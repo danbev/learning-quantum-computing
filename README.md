@@ -142,12 +142,7 @@ Take a look at the section [nomalize](#normalization)
 
 When we only have real numbers we are dealing with points on a unit circle. If
 we add complex numbers we then are dealing with a unit sphere (the Bloch sphere,
-more on this later). How can we visualize this, like it is pretty easy to
-visualize the unit circle. I'm not sure if this is correct but the way I'm
-thinking about it now is that if the value of the x-axis is a complex value
-that gives us access, or ability, to specify not only a position on a single
-line (if we think of the unit circle being a plane that is in the middle of the
-sphere) but. 
+more on this later).
 
 Measurement:
 ```
