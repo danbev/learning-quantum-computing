@@ -220,8 +220,8 @@ When we measure:
 This was touched upon above but this section is added to go through a complete
 example.
 A complex vector space is a set of vectors, each being a one dimensional array
-of a fixed length and with complex numbers as entries. And as we have see
-this set describes the state of the quantum system.
+of fixed length and with complex numbers as entries. And as we have seen this
+set describes the state of the quantum system.
 
 Example:
 ```
@@ -230,8 +230,8 @@ Example:
   |4.2-8.1i|
   ⌊  -3i   ⌋
 ```
-A set C⁴ which has addition, inverse operations, and zero such that addition
-is assosiative and commutative, form what is called an Abelian group after
+A set `C⁴` which has addition, inverse operations, and zero such that addition
+is assosiative and commutative, form what is called an `Abelian group` after
 the Norweigen Niels Henrik Abel (1802-1829)
 
 Now, if we in addition to the above properties of an Abelian group also allow
@@ -309,7 +309,9 @@ q[1] X q[0] = |      |   = |0|
 ```
 This is a method of combining vectors and is how multiple qubits are represented.
 Notice that the binary number of the value/label in the ket can be uses as an
-index to know where the one will be. 
+index to know where the one will be. For example, `|11>` is the decimal value
+of 3, so this means that the `1` will be in the third position (starting from
+zero) as in `0001`.
 
 So a tensor b is:
 ```
