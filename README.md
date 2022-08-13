@@ -24,10 +24,10 @@ The bra part is `<0|` = `|0>⁺` which is the complex congugate:
 ```
 |0> ket ⌈1⌉⁺ (complex congugate) ->  [1* 0*]
         ⌊0⌋
-
-Lets take a look at something that used a complex number to see the complex
+```
+Lets take a look at something that uses a complex number to see the complex
 congugate part a little clearer:
-
+```
 <b| = |b>⁺ = ⌈b1⌉⁺ = (b1* b2*)           b  = c + di
              ⌊b2⌋                        b* = c - di
 
