@@ -144,7 +144,7 @@ When we only have real numbers we are dealing with points on a unit circle. If
 we add complex numbers we then are dealing with a unit sphere (the Bloch sphere,
 more on this later).
 
-Measurement:
+### Measurement
 ```
       (0 1) |1> ^
                 |π/2-θ / |Ψ> = cos(Θ)|0> + sin(θ)|1> = (cos(Θ) sin(Θ))
@@ -215,6 +215,37 @@ When we measure:
 |0> with probability cos(Θ)²
 |1> with probability sin(Θ)²
 ```
+
+### Complex Vector Spaces
+This was touched upon above but this section is added to go through a complete
+example.
+A complex vector space is a set of vectors, each being a one dimensional array
+of a fixed length and with complex numbers as entries. And as we have see
+this set describes the state of the quantum system.
+
+Example:
+```
+  ⌈  6-4i  ⌉
+  |  7+3i  |
+  |4.2-8.1i|
+  ⌊  -3i   ⌋
+```
+A set C⁴ which has addition, inverse operations, and zero such that addition
+is assosiative and commutative, form what is called an Abelian group after
+the Norweigen Niels Henrik Abel (1802-1829)
+
+Now, if we in addition to the above properties of an Abelian group also allow
+scalar multiplication that has the following properties:
+```
+c, c₁, c₂ ∈ C
+V, W ∈ C⁴
+
+1) 1 * V = V
+2) c₁ * (c₂ * V) = (c₁ * c₂) * V
+3) c * (V + W) = (c * V) + (x * W)
+4) (c₁ + c₂) * V = (c₁ * V) + (c₂ * V)
+```
+If the group has these properies it is called a `complex vector space`.
 
 ### Postulates
 ```
@@ -911,9 +942,9 @@ is a 45 degree angle and a lenght of 1:
             +------|-->
                    0.707106
 ```
-I think that normalizing makes it easier to to calculations later as we have
+I think that normalizing makes it easier to do calculations later as we have
 a length of 1 and we don't have to account for different lengths or the vector
-(r, magnitude), we can just use the x,y values of the sin/cosine.
+(r, magnitude), we can just use the x,y values of the sine/cosine.
 
 A qubit can be in the state of Ψ₁, or Ψ₂, or a combination of both.
 
