@@ -444,13 +444,6 @@ When we have multiple qubits we have:
 The coefficients (a, b, c, d) are the magnitudes and the sum of these squared
 must be 1.
 
-### Spin
-So, a particle has a spin in that it can spin like the earth but in any direction.
-How can this be represented with a matrix?  
-The answer is to use complex numbers. This is the point of the Bloch sphere I
-think, to have a visual representation of the spin. If we did not have complex number
-we would only be able to rotate in a two dimentional plane.
-
 ### Magnitude 
 If we have a normal vector (3 4) then we can calculate the length using:
 ```
@@ -1848,36 +1841,6 @@ U† = ⌈a^* b^*⌉
 ⌈a^* b^*⌉ ⌈a c⌉ = ⌈1 0⌉    
 ⌊c^* d^*⌋ ⌊b d⌋   ⌊0 1⌋
 ```
-
-#### Spin
-The observables in an electron are the up/down spin and the right left spin.
-```
-|ψ> = a₁|up> + a₂|down>
-
-|ψ> = √1/4|up> + √3/4|down>
-```
-Being up/down I think refers to how the electromagnetic field behaves around
-the particle. The concrete example above still means that the probability is either
-up or down, not that we would ever measure it as 3/4 down or 1/4 up.
-With just the up/down we can calculate the probability for left/right.
-Convert up/down to left/right:
-```
-|ψ> = a₁|up> + a₂|down>
-|ψ> = a₁|left> + a₂|right>
-The coefficients stay the same.
-
-|ψ> = √1/4|up> + √3/4|down>
-|ψ> = √1/4|up> + √3/4|down>
-```
-A particle that is either up/down should not be pointing either left or right. 
-Think of a bar magnet in this case to visualize this. So in that case left/right
-are equally probable 50/50.
-```
-|up>   = √1/2|right> + √1/2|left>
-|down> = √1/2|right> - √1/2|left>
-```
-The electrons don't actually spin but are magnetic. It was first though that the
-particle were spinning around their own axis but this turned out to be wrong.
 
 #### De Broglie Hypothesis
 "Matter is a wave as well as a particle" and this forumla gives as a way to 
